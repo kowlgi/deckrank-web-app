@@ -1,0 +1,11 @@
+{
+  "name": "rozinah-stack-ranks",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.12.3",
+    "jade": "1.9.1",
+    "mongojs": "0.18.1",
+    "serve-favicon": "2.2.0"
+  }
+}
