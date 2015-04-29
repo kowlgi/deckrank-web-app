@@ -6,6 +6,8 @@
     "express": "4.12.3",
     "jade": "1.9.1",
     "mongojs": "0.18.1",
-    "serve-favicon": "2.2.0"
+    "serve-favicon": "2.2.0",
+    "body-parser": "1.12.3",
+    "mongoose": "^4.0.2"
   }
 }

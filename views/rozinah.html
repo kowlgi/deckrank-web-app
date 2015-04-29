@@ -17,24 +17,24 @@
       <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
       rozinah! collaborative stackranks
     </h2>
-    <form role="form">
+    <form role="form" method="post" action="/create">
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" placeholder="give this stackrank a title ...">
+        <input type="text" class="form-control" id="title" name="title" placeholder="give this stackrank a title ...">
         <label for="options">Options</label>
         <div class="table-responsive">
         <table class="table" id="extra_options">
         <thead>
         <tr>
           <td>
-            <input type="text" class="form-control" id="opt1" placeholder="option 1 ...">
+            <input type="text" class="form-control" name="option1" id="opt1" placeholder="option 1 ...">
           </td>
           <td>
           </td>
         </tr>
         <tr>
           <td>
-            <input type="text" id="opt2" class="form-control" placeholder="option 2 ...">
+            <input type="text" id="opt2" name="option2" class="form-control" placeholder="option 2 ...">
           </td>
           <td>
             <a href="#" id="add_another" ><span class="glyphicon glyphicon-plus"></span></a>
@@ -43,7 +43,7 @@
         </tr>
       </table>
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" value="submit" class="btn btn-default">Submit</button>
     </div>
   </form>
 
@@ -63,8 +63,8 @@
       return '\
         <tr> \
           <td> \
-            <input type="text" id="opt' + i + '" class="form-control" placeholder="option ' + i
-            + ' ..."> \
+            <input type="text" id="opt' + i + '" class="form-control"  name="option' + i
+            + '" placeholder="option ' + i + ' ..."> \
           </td> \
           <td> \
             <a href="#" id="add_another" ><span class="glyphicon glyphicon-plus"></span></a> \
