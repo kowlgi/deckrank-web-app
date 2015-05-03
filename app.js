@@ -18,6 +18,9 @@ app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+// css, js and other public assets are under the public folder
+app.use(express.static(__dirname +'/public'));
+console.log(__dirname +'/public');
 
 // Routes
 app.get('/', routes.index);
