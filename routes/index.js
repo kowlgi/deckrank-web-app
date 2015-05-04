@@ -27,6 +27,7 @@ function getOptionsArray(d) {
       }
     }
   }
+  console.log(options);
   return options;
 };
 

@@ -1,3 +1,48 @@
-include rozinah.html
+doctype html
+head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title(rozinah: collaborative stackranks)
+    link(rel="stylesheet",
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+body
+    div(class="container-fluid")
+        h2
+            span(class="glyphicon glyphicon-cutlery", aria-hidden="true")
+            rozinah! collaborative stackranks for the masses
+        form(role="form", method="post", action="/create")
+            div(class="form-group")
+                label(for="title")
+                    Title
+                input(type="text", class="form-control", id="title",
+                    name="title", placeholder="give this stackrank a title ...")
+                label(for="options")
+                    Options
+                div(class="table-responsive")
+                    table(class="table", id="extra_options")
+                        thead
+                        tr
+                            td
+                                input(type="text", class="form-control",
+                                    name="option1", id="opt1",
+                                    placeholder="option 1 ...")
+                            td
+                        tr
+                            td
+                                input(type="text", id="opt2", name="option2",
+                                    class="form-control",
+                                    placeholder="option 2 ...")
+                            td
+                                a(href="#", id="add_another2")
+                                    span(class="glyphicon glyphicon-plus")
+                                a(href="#", id="remove2")
+                                    span(class="glyphicon glyphicon-minus invisible")
+                button(type="submit", value="submit", class="btn btn-default")
+                    | Submit
+
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+    script(src="js/rozinah.js")
+
 include footer.jade
-// include rozinah_broken_remove.html
