@@ -21,12 +21,15 @@ app.use(bodyParser.urlencoded({
 // css, js and other public assets are under the public folder
 app.use(express.static(__dirname +'/public'));
 app.use('/rank', express.static(__dirname +'/public'));
+app.disable('etag');
 
 // Routes
 app.get('/', routes.index);
 app.post('/create', routes.create);
 app.get('/showall', routes.showall);
 app.get('/rank/:id', routes.rank);
+app.post('/vote/:id', routes.vote);
+app.get('/donevoting', routes.donevoting);
 app.use(function(req, res) { res.render('404', {url:req.url}); });
 
 http.createServer(app).listen(app.get('port'), function() {

@@ -1,4 +1,9 @@
-var remove_handler =  function() {
+function createStackrank(what) {
+    httpRequest.open('GET', 'http://localhost:3000/create', true);
+    httpRequest.send(null);
+}
+
+var minusHandler =  function() {
     var index = this.id.match(/\d+/)[0];
     var prev_index = index - 1;
 
@@ -16,7 +21,7 @@ var remove_handler =  function() {
     parent.removeChild(element);
 };
 
-var handler = function() {
+var plusHandler = function() {
     var glyph = $(this).children('.glyphicon-plus').addClass('hidden');
     var extraOptionsDiv = $('#extra_options');
     // count the number of input fields prefixed with a new paragraph inside tag 'extra_options'
@@ -36,12 +41,13 @@ var handler = function() {
     };
 
     $(returnOption(i)).appendTo(extraOptionsDiv);
-    $("#add_another"+ i ).click(handler);
-    $("#remove" + i  ).click(remove_handler);
+    $("#add_another"+ i ).click(plusHandler);
+    $("#remove" + i  ).click(minusHandler);
 }
 
-$("#add_another2").click(handler);
+$("#add_another2").click(plusHandler);
 var COUNT = 2;
 
+// set sortable elements in rank/:id to default state
 $( "#sortable" ).sortable();
 $( "#sortable" ).disableSelection();

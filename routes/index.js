@@ -48,11 +48,22 @@ exports.rank = function(req, res, next) {
   StackRank.findById(req.params.id, function(err, stackrank) {
       if(stackrank && stackrank.options) {
             res.render('rank', {
-                options: stackrank.options
+                options: stackrank.options,
+                id : stackrank._id
             });
       }
       else {
           res.render('404', {url:req.url});
       }
   });
+};
+
+exports.vote = function(req, res, next) {
+    vote = getOptionsArray(req.body);
+    // FUTURE: append vote to corresponding document
+    res.redirect('/donevoting');
+};
+
+exports.donevoting = function(req, res, next) {
+    res.render('donevoting');
 };
