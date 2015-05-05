@@ -20,8 +20,7 @@ var handler = function() {
     var glyph = $(this).children('.glyphicon-plus').addClass('hidden');
     var extraOptionsDiv = $('#extra_options');
     // count the number of input fields prefixed with a new paragraph inside tag 'extra_options'
-    var i = COUNT+1;
-    COUNT = COUNT + 1;
+    var i = ++COUNT;
     function returnOption(i) {
       return '\
         <tr class="trhideclass' + i + '"> \
