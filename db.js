@@ -2,7 +2,7 @@ var mongoose = require( 'mongoose' );
 var Schema   = mongoose.Schema;
 var StackRank = new Schema({
   title:      String,
-  options:    String,
+  options:    [String],
   created_at: Date
 });
 

@@ -1,5 +1,6 @@
 var mongoose = require( 'mongoose' );
 var StackRank = mongoose.model('StackRank');
+var COUNT = 0;
 
 exports.index = function(req, res, next) {
   res.render('index');
@@ -27,7 +28,6 @@ function getOptionsArray(d) {
       }
     }
   }
-  console.log(options);
   return options;
 };
 
@@ -40,14 +40,19 @@ exports.create = function(req, res, next) {
     if (err) {
       return next(err);
     }
-    res.redirect('/showall');
+    res.redirect('/rank/'+stackrank._id);
   });
 };
 
-exports.showone = function(req, res, next) {
+exports.rank = function(req, res, next) {
   StackRank.findById(req.params.id, function(err, stackrank) {
-    res.render('showone', {
-      stackrank: stackrank,
-    })
+      if(stackrank && stackrank.options) {
+            res.render('rank', {
+                options: stackrank.options
+            });
+      }
+      else {
+          res.render('404', {url:req.url});
+      }
   });
 };

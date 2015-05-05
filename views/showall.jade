@@ -10,7 +10,7 @@ body
     table.table-bordered
       thead
         tr
-          th id
+          th ID
           th Created At
           th Title
           th Options
@@ -18,7 +18,7 @@ body
         each rank in stackranks
           tr
             td
-              a(href='/showone/' + rank._id) Item ID
+              a(href='/rank/' + rank._id)= rank._id
             td
               = rank.created_at
             td

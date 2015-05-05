@@ -42,3 +42,6 @@ var handler = function() {
 
 $("#add_another2").click(handler);
 var COUNT = 2;
+
+$( "#sortable" ).sortable();
+$( "#sortable" ).disableSelection();
