@@ -1,8 +1,3 @@
-function createStackrank(what) {
-    httpRequest.open('GET', 'http://localhost:3000/create', true);
-    httpRequest.send(null);
-}
-
 var minusHandler =  function() {
     var index = this.id.match(/\d+/)[0];
     var prev_index = index - 1;
