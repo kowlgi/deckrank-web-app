@@ -18,10 +18,10 @@ body
                 label(for="options")
                     Options
                 ul(id="sortable")
-                    each option in options
+                    each option, index in options
                         li(class="ui-state-default")
                             = option
-                            input(id="#{option}", name="option", value="#{option}", type="hidden")
+                            input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
                 button(type="submit", value="submit", class="btn btn-default")
                     | Submit
 

@@ -30,6 +30,7 @@ app.get('/showall', routes.showall);
 app.get('/rank/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/donevoting', routes.donevoting);
+app.get('/viewvotes/:id', routes.viewvotes);
 app.use(function(req, res) { res.render('404', {url:req.url}); });
 
 http.createServer(app).listen(app.get('port'), function() {

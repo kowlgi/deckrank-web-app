@@ -14,7 +14,7 @@ body
           th Created At
           th Title
           th Options
-          th numVotes
+          th Votes
       tbody
         each rank in stackranks
           tr
@@ -27,5 +27,5 @@ body
             td
               = rank.options
             td
-              = rank.votes.length
+                a(href='/viewvotes/' + rank._id)= rank.votes.length
 include footer.jade

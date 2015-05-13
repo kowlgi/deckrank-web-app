@@ -59,12 +59,11 @@ exports.rank = function(req, res, next) {
 };
 
 exports.vote = function(req, res, next) {
-    vote = getOptionsArray(req.body);
     StackRank.findById(req.params.id, function(err, stackrank) {
         if (err) {
           return next(err);
         }
-        stackrank.votes.push({'voter': req.body['voter'], 'rankings': getOptionsArray(req.body)});
+        stackrank.votes.push({voter: req.body['voter'], rankings: getOptionsArray(req.body)});
         stackrank.save(function(err, stackrankvotes) {
           if (err) {
             return next(err);
@@ -76,4 +75,22 @@ exports.vote = function(req, res, next) {
 
 exports.donevoting = function(req, res, next) {
     res.render('donevoting');
+};
+
+exports.viewvotes = function(req, res, next) {
+  StackRank.findById(req.params.id, function(err, stackrank) {
+      if (err) {
+        return next(err);
+      }
+
+      if(stackrank.votes) {
+            res.render('viewvotes', {
+                title: stackrank.title,
+                votes: stackrank.votes
+            });
+      }
+      else {
+          res.render('404', {url:req.url});
+      }
+  });
 };
