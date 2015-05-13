@@ -60,8 +60,18 @@ exports.rank = function(req, res, next) {
 
 exports.vote = function(req, res, next) {
     vote = getOptionsArray(req.body);
-    // FUTURE: append vote to corresponding document
-    res.redirect('/donevoting');
+    StackRank.findById(req.params.id, function(err, stackrank) {
+        if (err) {
+          return next(err);
+        }
+        stackrank.votes.push({'voter': req.body['voter'], 'rankings': getOptionsArray(req.body)});
+        stackrank.save(function(err, stackrankvotes) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect('/donevoting');
+        });
+    });
 };
 
 exports.donevoting = function(req, res, next) {

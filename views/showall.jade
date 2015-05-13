@@ -14,6 +14,7 @@ body
           th Created At
           th Title
           th Options
+          th numVotes
       tbody
         each rank in stackranks
           tr
@@ -25,4 +26,6 @@ body
               = rank.title
             td
               = rank.options
+            td
+              = rank.votes.length
 include footer.jade
