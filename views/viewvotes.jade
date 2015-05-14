@@ -2,25 +2,24 @@ doctype html
 head
   title= title
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
-  link(rel="stylesheet", type="text/css", href="css/rozinah.css")
   script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
 body
     div(class="panel panel-default")
-      div(class="panel-heading headline")
-        = title
-      table(class="table")
-          thead
-            tr
-              th Voter
-              th Rankings
-          tbody
-            each vote in votes
-              tr
-                td
-                  = vote.voter
-                td
-                  ol
-                    each val in vote.rankings
-                        li= val
-include footer.jade
+        div(class="panel-heading")
+            = title
+        table(class="table")
+            thead
+                tr
+                    th Voter
+                    th Rankings
+                tbody
+                    each vote in votes
+                        tr
+                            td
+                                = vote.voter
+                            td
+                                ol
+                                    each val in vote.rankings
+                                        li= val
+    include footer.jade

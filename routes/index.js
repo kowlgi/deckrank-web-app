@@ -1,5 +1,6 @@
 var mongoose = require( 'mongoose' );
 var StackRank = mongoose.model('StackRank');
+var Hash = require('../hash');
 var COUNT = 0;
 
 exports.index = function(req, res, next) {
@@ -11,10 +12,10 @@ exports.showall = function(req, res, next) {
     find().
     sort('-created_at').
     exec(function(err, stackranks) {
-      res.render('showall', {
-          title: 'all stackranks in the db',
-          stackranks: stackranks
-      });
+        res.render('showall', {
+            title: 'all stackranks in the db',
+            stackranks: stackranks
+        });
     });
 };
 
@@ -32,7 +33,7 @@ function getOptionsArray(d) {
 };
 
 exports.create = function(req, res, next) {
-  new StackRank({
+ var stackrank = new StackRank({
     title       : req.body.title,
     options     : getOptionsArray(req.body),
     created_at  : Date.now()
@@ -40,26 +41,28 @@ exports.create = function(req, res, next) {
     if (err) {
       return next(err);
     }
-    res.redirect('/rank/'+stackrank._id);
+
+    res.redirect('/rank/' + stackrank.rankid);
   });
+
 };
 
 exports.rank = function(req, res, next) {
-  StackRank.findById(req.params.id, function(err, stackrank) {
+    StackRank.findById(Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
       if(stackrank && stackrank.options) {
             res.render('rank', {
                 options: stackrank.options,
-                id : stackrank._id
+                rankid : stackrank.rankid
             });
       }
       else {
           res.render('404', {url:req.url});
       }
-  });
+    });
 };
 
 exports.vote = function(req, res, next) {
-    StackRank.findById(req.params.id, function(err, stackrank) {
+    StackRank.findById(Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
         if (err) {
           return next(err);
         }
@@ -78,7 +81,7 @@ exports.donevoting = function(req, res, next) {
 };
 
 exports.viewvotes = function(req, res, next) {
-  StackRank.findById(req.params.id, function(err, stackrank) {
+  StackRank.findById(Hash.Voteid.decodeHex(req.params.id), function(err, stackrank) {
       if (err) {
         return next(err);
       }

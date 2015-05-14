@@ -1,31 +1,32 @@
 doctype html
 head
-  title= title
-  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
-  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
+    title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
 body
-    h1(id="title")
-      = title
-    table.table-bordered
-      thead
-        tr
-          th ID
-          th Created At
-          th Title
-          th Options
-          th Votes
-      tbody
-        each rank in stackranks
-          tr
-            td
-              a(href='/rank/' + rank._id)= rank._id
-            td
-              = rank.created_at
-            td
-              = rank.title
-            td
-              = rank.options
-            td
-                a(href='/viewvotes/' + rank._id)= rank.votes.length
-include footer.jade
+    div(class="panel panel-default")
+        div(class="panel-heading")
+            = title
+        table.table-bordered
+            thead
+                tr
+                    th Hash id
+                    th Created At
+                    th Title
+                    th Options
+                    th Votes
+            tbody
+                each rank in stackranks
+                    tr
+                        td
+                            a(href='/rank/' + rank.rankid)= rank.rankid
+                        td
+                            = rank.created_at
+                        td
+                            = rank.title
+                        td
+                            = rank.options
+                        td
+                            a(href='/viewvotes/' + rank.voteid)= rank.votes.length
+    include footer.jade

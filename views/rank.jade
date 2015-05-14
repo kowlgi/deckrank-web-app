@@ -9,7 +9,7 @@ head
         href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
 body
     div(class="container-fluid")
-        form(role="form", method="post", action="/vote/" + id)
+        form(role="form", method="post", action="/vote/" + rankid)
             div(class="form-group")
                 label(for="voter")
                     Your Name:
@@ -28,4 +28,4 @@ body
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
     script(src="//code.jquery.com/ui/1.11.4/jquery-ui.js")
     script(src="js/rozinah.js")
-include footer.jade
+    include footer.jade
