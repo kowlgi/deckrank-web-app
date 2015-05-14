@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({
 // css, js and other public assets are under the public folder
 app.use(express.static(__dirname +'/public'));
 app.use('/rank', express.static(__dirname +'/public'));
+app.use('/viewvotes', express.static(__dirname +'/public'));
 
 app.disable('etag');
 

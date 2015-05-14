@@ -5,14 +5,14 @@ head
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
 body
-    div(class="panel panel-default")
-        div(class="panel-heading")
+    div.container-fluid
+        include header.jade
+        div.panel-heading
             = title
         table.table-bordered
             thead
                 tr
-                    th Hash id
-                    th Created At
+                    th ID
                     th Title
                     th Options
                     th Votes
@@ -22,11 +22,9 @@ body
                         td
                             a(href='/rank/' + rank.rankid)= rank.rankid
                         td
-                            = rank.created_at
-                        td
                             = rank.title
                         td
                             = rank.options
                         td
                             a(href='/viewvotes/' + rank.voteid)= rank.votes.length
-    include footer.jade
+        include footer.jade

@@ -39,7 +39,8 @@ exports.create = function(req, res, next) {
     created_at  : Date.now()
   }).save(function(err, stackrank, count) {
     if (err) {
-      return next(err);
+        console.log(err);
+        return next(err);
     }
 
     res.redirect('/rank/' + stackrank.rankid);

@@ -3,12 +3,12 @@ var Hash     = require('./hash');
 var Schema   = mongoose.Schema;
 var StackRank = new Schema({
   title:      String,
-  options:    [{type: String, required: true}],
+  options:    [{type: String}],
   created_at: Date,
   rankid: String,
   voteid: String,
   votes: [{
-      voter: {type: String, unique: true, required: true},
+      voter: {type: String},
       rankings: [String]
   }]
 });

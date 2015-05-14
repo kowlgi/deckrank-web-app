@@ -6,16 +6,17 @@ head
     title(rozinah: collaborative stackranks)
     link(rel="stylesheet",
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="css/rozinah.css")
 body
-    div(class="container-fluid")
-        h2
-            span(class="glyphicon glyphicon-cutlery", aria-hidden="true") rozinah! collaborative stackranks for the masses
+    div.container-fluid
+        include header.jade
         form(role="form", method="post", action="/create")
             div(class="form-group")
                 label(for="title")
                     Title
                 input(type="text", class="form-control", id="title",
-                    name="title", placeholder="give this stackrank a title ...")
+                    name="title", placeholder="Give this stackrank a title ...",
+                    required="required")
                 label(for="options")
                     Options
                 div(class="table-responsive")
@@ -25,13 +26,13 @@ body
                             td
                                 input(type="text", class="form-control",
                                     name="option1", id="opt1",
-                                    placeholder="option 1 ...")
+                                    placeholder="Option 1 ...")
                             td
                         tr
                             td
                                 input(type="text", id="opt2", name="option2",
                                     class="form-control",
-                                    placeholder="option 2 ...")
+                                    placeholder="Option 2 ...")
                             td
                                 a(href="#", id="add_another2")
                                     span(class="glyphicon glyphicon-plus")
@@ -40,8 +41,8 @@ body
                 button(type="submit", value="submit", class="btn btn-default")
                     | Submit
 
+        include footer.jade
+
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
     script(src="js/rozinah.js")
-
-include footer.jade
