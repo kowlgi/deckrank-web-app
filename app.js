@@ -1,6 +1,5 @@
 // database setup
-require( './db' );
-
+var stackdb = require( './db' );
 var routes  = require( './routes' );
 var http = require('http'),
     express = require('express'),
@@ -9,6 +8,7 @@ var http = require('http'),
     bodyParser = require('body-parser'),
     jade = require('jade');
 var app = express();
+var stdio = require('stdio');
 
 // setup express and the environment
 app.set('port', process.env.PORT || 3000);
@@ -34,6 +34,15 @@ app.post('/vote/:id', routes.vote);
 app.get('/donevoting', routes.donevoting);
 app.get('/viewvotes/:id', routes.viewvotes);
 app.use(function(req, res) { res.render('404', {url:req.url}); });
+
+var ops = stdio.getopt({
+    'reset_db':
+        {key: 'r', args: 1, description: 'Reset stackrank db'},
+});
+
+if (ops.reset_db) {
+    stackdb.StackRankModel.collection.remove();
+}
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express listening on port ' + app.get('port'));

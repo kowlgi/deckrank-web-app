@@ -12,13 +12,11 @@ body
         include header.jade
         form(role="form", method="post", action="/vote/" + rankid)
             div.form-group
-                label(for="voter")
-                    Your Name:
+                label(for="voter") Your Name:
                 input(type="text", class="form-control", id="voter",
                     name="voter", placeholder="Enter your name ...",
                     required="required")
-                label(for="options")
-                    Options
+                label(for="sortable") Options:
                 ul(id="sortable")
                     each option, index in options
                         li(class="ui-state-default")

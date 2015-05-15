@@ -13,7 +13,6 @@ var StackRank = new Schema({
   }]
 });
 
-
 StackRank.pre('save', function(next) {
     // DOCS: https://github.com/ivanakimov/hashids.node.js
     if (!this.rankid)
@@ -25,5 +24,5 @@ StackRank.pre('save', function(next) {
     next();
 });
 
-mongoose.model('StackRank', StackRank);
+exports.StackRankModel = mongoose.model('StackRank', StackRank);
 mongoose.connect( 'mongodb://localhost/stackrank' );
