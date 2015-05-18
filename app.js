@@ -25,7 +25,6 @@ app.use('/viewvotes', express.static(__dirname +'/public'));
 
 app.disable('etag');
 
-
 // Routes
 app.get('/', routes.index);
 app.post('/create', routes.create);
@@ -38,10 +37,17 @@ app.use(function(req, res) { res.render('404', {url:req.url}); });
 var ops = stdio.getopt({
     'reset_db':
         {key: 'r', args: 1, description: 'Reset stackrank db'},
+    'port':
+        {key: 'p', args: 1, description: 'Port to run the app on'},
 });
 
 if (ops.reset_db) {
     stackdb.StackRankModel.collection.remove();
+}
+
+if (ops.port) {
+  app.set('port', ops.port);
+  console.log('Using port: ' + ops.port)
 }
 
 http.createServer(app).listen(app.get('port'), function() {
