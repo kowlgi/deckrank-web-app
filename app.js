@@ -47,7 +47,6 @@ if (ops.reset_db) {
 
 if (ops.port) {
   app.set('port', ops.port);
-  console.log('Using port: ' + ops.port)
 }
 
 http.createServer(app).listen(app.get('port'), function() {

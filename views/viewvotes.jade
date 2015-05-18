@@ -25,19 +25,19 @@ body
                                         each val in vote.rankings
                                             li= val
         // TODO(hnag): This looks terrible; Make it look better
-        h4 if you'd like someone else to vote
+        b if you'd like someone else to vote
           &nbsp;
           a(href='/rank/' + rankid) share this url
-        i
+        pre
           a(href=)
           = host
           /rank/
           = rankid
 
-        h4 if you'd like to share the results page
+        b if you'd like to share the results page
             &nbsp;
             a(href='/viewvotes/' + voteid) share this url
-        i
+        pre
           a(href=)
           = host
           /viewvotes/
