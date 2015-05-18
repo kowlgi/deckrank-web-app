@@ -12,11 +12,13 @@ body
         include header.jade
         form(role="form", method="post", action="/create")
             div(class="form-group")
+                p
                 label(for="title") Title:
                 input(type="text", class="form-control", id="title",
                     name="title", placeholder="Give this stackrank a title ...",
                     required="required")
-                label(for="options") Options:
+                p
+                label(for="options") Give this stack some options
                 div(class="table-responsive")
                     table(class="table", id="extra_options")
                         thead
@@ -24,13 +26,15 @@ body
                             td
                                 input(type="text", class="form-control",
                                     name="option1", id="opt1",
-                                    placeholder="Option 1 ...")
+                                    placeholder="Option 1 ...",
+                                    required="required")
                             td
                         tr
                             td
                                 input(type="text", id="opt2", name="option2",
                                     class="form-control",
-                                    placeholder="Option 2 ...")
+                                    placeholder="Option 2 ...",
+                                    required="required")
                             td
                                 a(href="#", id="add_another2")
                                     span(class="glyphicon glyphicon-plus")

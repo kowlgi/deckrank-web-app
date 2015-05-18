@@ -7,8 +7,9 @@ head
 body
     div.container-fluid
         include header.jade
+        h1
+          = title
         div.panel-heading
-            = title
             table.table
                 thead
                     tr
@@ -23,4 +24,23 @@ body
                                     ol
                                         each val in vote.rankings
                                             li= val
+        h4 if you'd like someone else to vote
+          &nbsp;
+          a(href='/rank/' + rankid) share this url
+        i
+          a(href=)
+          = host
+          /rank/
+          = rankid
+
+        h4 if you'd like to share the results page
+            &nbsp;
+            a(href='/viewvotes/' + voteid) share this url
+        i
+          a(href=)
+          = host
+          /viewvotes/
+          = voteid
+
+
         include footer.jade

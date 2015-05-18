@@ -52,6 +52,7 @@ exports.rank = function(req, res, next) {
     StackRank.findById(Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
       if(stackrank && stackrank.options) {
             res.render('rank', {
+                title  : stackrank.title,
                 options: stackrank.options,
                 rankid : stackrank.rankid
             });
@@ -72,13 +73,9 @@ exports.vote = function(req, res, next) {
           if (err) {
             return next(err);
           }
-          res.redirect('/donevoting');
+          res.redirect('/viewvotes/' + stackrank.voteid);
         });
     });
-};
-
-exports.donevoting = function(req, res, next) {
-    res.render('donevoting');
 };
 
 exports.viewvotes = function(req, res, next) {
@@ -89,8 +86,11 @@ exports.viewvotes = function(req, res, next) {
 
       if(stackrank.votes) {
             res.render('viewvotes', {
-                title: stackrank.title,
-                votes: stackrank.votes
+                title : stackrank.title,
+                votes : stackrank.votes,
+                rankid: stackrank.rankid,
+                voteid: stackrank.voteid,
+                host  : req.headers.host
             });
       }
       else {

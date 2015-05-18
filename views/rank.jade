@@ -10,20 +10,24 @@ head
 body
     div.container-fluid
         include header.jade
+        h1
+          = title
         form(role="form", method="post", action="/vote/" + rankid)
             div.form-group
-                label(for="voter") Your Name:
+                label(for="voter")
                 input(type="text", class="form-control", id="voter",
-                    name="voter", placeholder="Enter your name ...",
+                    name="voter", placeholder="What's your name?",
                     required="required")
-                label(for="sortable") Options:
+                p
+                  label(for="sortable") Drag, reorder the following options and submit
                 ul(id="sortable")
                     each option, index in options
                         li(class="ui-state-default")
                             = option
                             input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
-                button(type="submit", value="submit", class="btn btn-default")
-                    | Submit
+                p
+                  button(type="submit", value="submit", class="btn btn-default")
+                      | Submit
 
         include footer.jade
 
