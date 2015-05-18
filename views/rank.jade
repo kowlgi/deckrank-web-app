@@ -19,7 +19,9 @@ body
                     name="voter", placeholder="What's your name?",
                     required="required")
                 p
-                  label(for="sortable") Drag, reorder the following options and submit
+                i
+                  label(for="sortable") Grab, drag, reorder then submit
+                p
                 ul(id="sortable")
                     each option, index in options
                         li(class="ui-state-default")
