@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname +'/public'));
 app.use('/rank', express.static(__dirname +'/public'));
 app.use('/viewvotes', express.static(__dirname +'/public'));
+app.use('/showall', express.static(__dirname +'/public'));
 
 app.disable('etag');
 

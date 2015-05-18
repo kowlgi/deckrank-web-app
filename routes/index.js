@@ -13,7 +13,7 @@ exports.showall = function(req, res, next) {
     sort('-created_at').
     exec(function(err, stackranks) {
         res.render('showall', {
-            title: 'all stackranks in the db',
+            title: 'All stackranks in the db',
             stackranks: stackranks
         });
     });

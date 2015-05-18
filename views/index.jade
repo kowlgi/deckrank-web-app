@@ -8,42 +8,48 @@ head
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css", href="css/rozinah.css")
 body
+    include header.jade
     div.container-fluid
-        include header.jade
         form(role="form", method="post", action="/create")
-            div(class="form-group")
-                p
-                label(for="title") Title:
-                input(type="text", class="form-control", id="title",
-                    name="title", placeholder="Give this stackrank a title ...",
-                    required="required")
-                p
-                label(for="options") Give this stack some options
-                div(class="table-responsive")
-                    table(class="table", id="extra_options")
-                        thead
-                        tr
-                            td
-                                input(type="text", class="form-control",
-                                    name="option1", id="opt1",
-                                    placeholder="Option 1 ...",
-                                    required="required")
-                            td
-                        tr
-                            td
-                                input(type="text", id="opt2", name="option2",
-                                    class="form-control",
-                                    placeholder="Option 2 ...",
-                                    required="required")
-                            td
-                                a(href="#", id="add_another2")
-                                    span(class="glyphicon glyphicon-plus")
-                                a(href="#", id="remove2")
-                                    span(class="glyphicon glyphicon-minus invisible")
-                button(type="submit", value="submit", class="btn btn-default")
-                    | Submit
-        div(class="linkbox")
-        include footer.jade
+            h1
+                |Create a poll and share
+            div.form-group
+                div.boundingbox
+                    div.lquarter
+                        label.right(for="title") Title:
+                    div.rthreefourths
+                        input(type="text", class="form-control", id="title",
+                            name="title", placeholder="Where do we get lunch today?",
+                            required="required")
+                div.boundingbox
+                    div.lquarter
+                        label.right(for="options") Options:
+                    div.rthreefourths
+                        div(class="table-responsive")
+                            table(class="table", id="extra_options")
+                                thead
+                                tr
+                                    td
+                                        input(type="text", class="form-control",
+                                            name="option1", id="opt1",
+                                            placeholder="House Pizzeria",
+                                            required="required")
+                                    td
+                                tr
+                                    td
+                                        input(type="text", id="opt2", name="option2",
+                                            class="form-control",
+                                            placeholder="Michi Ramen",
+                                            required="required")
+                                    td
+                                        a(href="#", id="add_another2")
+                                            span(class="glyphicon glyphicon-plus")
+                                        a(href="#", id="remove2")
+                                            span(class="glyphicon glyphicon-minus invisible")
+                div.rthreefourths
+                    button(type="submit", value="submit", class="btn btn-default")
+                        | Submit
+    include footer.jade
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")

@@ -25,8 +25,7 @@ var plusHandler = function() {
       return '\
         <tr class="trhideclass' + i + '"> \
           <td> \
-            <input type="text" id="opt' + i + '" name="option'+ i +'" placeholder="Option ' + i
-            + ' ..." class="form-control"> \
+            <input type="text" id="opt' + i + '" name="option'+ i +'" placeholder="" class="form-control"> \
           </td> \
           <td class="glyph_parent"> \
             <a href="#" id="add_another' + i  + '" ><span class="glyphicon glyphicon-plus"></span></a> \

@@ -1,11 +1,102 @@
-#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-#sortable li span { position: absolute; margin-left: -1.3em; }
+@import url("http://fonts.googleapis.com/css?family=Abel|Nunito");
+
+#sortable { list-style-type: none; margin: auto; width: 60%; float: center; }
+#sortable li { margin: 1%; padding: 0.4em; font-size: 1.4em; text-align: center }
+
+
+header {
+    background-color: #D72135;
+    padding: 0.5em;
+    margin: 0em;
+}
+
+body {
+    color: #5F5555;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+}
 
 .btn {
     border-radius: 0px;
+    font-size: 1.5em;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    margin-top: 1em;
 }
 
 .form-control {
     border-radius: 0px;
+}
+
+footer {
+    text-align: center;
+    font-family: 'Abel', sans-serif;
+    margin-top: 3em;
+}
+
+h1 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin: 1em;
+}
+
+label {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 1.2em;
+}
+
+label.right {
+    text-align: left;
+    float: right;
+    padding-right: 1em;
+}
+
+label.center {
+    text-align: center;
+    float: center;
+    width:100%;
+}
+
+input[type="text"] {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    font-size: 1em;
+}
+
+.boundingbox {
+    width: 100%;
+    float:left;
+    margin-top:2em;
+}
+
+.lquarter {
+    width: 25%;
+    float:left;
+}
+
+.rthreefourths {
+    width: 75%;
+    float:right;
+}
+
+.centerbox {
+    text-align: center;
+    margin: auto;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #909;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #909;
 }
