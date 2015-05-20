@@ -1,17 +1,14 @@
 var minusHandler =  function() {
-    var index = this.id.match(/\d+/)[0];
-    var prev_index = index - 1;
+    var row_index = this.parentNode.parentNode.rowIndex;
 
-   // Add glyph-plus to prev 'add_another' element: BELOW LOGIC IS INCORRECT, need to fix it
-   // by counting number of 'add_anotherX' nodes, checking if this is the last one and if so,
-  // removing the 'hidden' class from the previous 'add_another' node.
-   if (index ==   $('#extra_options').find('input').length) {
-       var prev = document.getElementById("add_another" + prev_index);
-       $(prev).children('.glyphicon-plus').removeClass('hidden');
+   // Add glyph-plus to prev 'add_another' element if 'this' is the last row
+   if (row_index + 1 ==   $('#extra_options').find('input').length) {
+       var prev = document.getElementsByClassName("trhideclass")[row_index - 1];
+       $(prev).children('.glyph_parent').children(".add_another").children('.glyphicon-plus').removeClass('hidden');
     }
 
     // Remove current class
-    var element = document.getElementsByClassName("trhideclass" + index)[0];
+    var element = document.getElementsByClassName("trhideclass")[row_index];
     var parent = element.parentNode;
     parent.removeChild(element);
 };
@@ -23,13 +20,13 @@ var plusHandler = function() {
     var i = ++COUNT;
     function returnOption(i) {
       return '\
-        <tr class="trhideclass' + i + '"> \
+        <tr class="trhideclass"> \
           <td> \
             <input type="text" id="opt' + i + '" name="option'+ i +'" placeholder="" class="form-control"> \
           </td> \
           <td class="glyph_parent"> \
-            <a href="#" id="add_another' + i  + '" ><span class="glyphicon glyphicon-plus"></span></a> \
-            <a href="#" id="remove' + i  + '" ><span class="glyphicon glyphicon-minus"></span></a> \
+            <a href="#" id="add_another' + i  + '" class="add_another" ><span class="glyphicon glyphicon-plus"></span></a> \
+            <a href="#" id="remove' + i  + '"><span class="glyphicon glyphicon-minus"></span></a> \
           </td> \
         </tr>';
     };
