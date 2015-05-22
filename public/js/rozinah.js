@@ -1,8 +1,9 @@
 var minusHandler =  function() {
     var row_index = this.parentNode.parentNode.rowIndex;
+    var num_rows = $('#extra_options').find('input').length;
 
    // Add glyph-plus to prev 'add_another' element if 'this' is the last row
-   if (row_index + 1 ==   $('#extra_options').find('input').length) {
+   if (row_index + 1 == num_rows) {
        var prev = document.getElementsByClassName("trhideclass")[row_index - 1];
        $(prev).children('.glyph_parent').children(".add_another").children('.glyphicon-plus').removeClass('hidden');
     }
@@ -11,13 +12,26 @@ var minusHandler =  function() {
     var element = document.getElementsByClassName("trhideclass")[row_index];
     var parent = element.parentNode;
     parent.removeChild(element);
+
+    // Make sure the plus glyph is visible for the last row (we might have
+    // hidden it in the minusHandler() because of the LIMIT TO 10 rule. )
+    var last = document.getElementsByClassName("trhideclass")[num_rows - 2];
+    $(last).children('.glyph_parent').children(".add_another").children('.glyphicon-plus').removeClass('hidden');
 };
 
 var plusHandler = function() {
     var glyph = $(this).children('.glyphicon-plus').addClass('hidden');
     var extraOptionsDiv = $('#extra_options');
-    // count the number of input fields prefixed with a new paragraph inside tag 'extra_options'
+
+    // count the number of input fields prefixed with a new paragraph inside
+    // tag 'extra_options'
     var i = ++COUNT;
+
+    // LIMIT TO 10 rule: Impose a limit of 10 on the number of options as a
+    // poll will get out of hand beyond that.
+    var hide_plus =
+        $('#extra_options').find('input').length == 9 ? true : false;
+
     function returnOption(i) {
       return '\
         <tr class="trhideclass"> \
@@ -32,6 +46,10 @@ var plusHandler = function() {
     };
 
     $(returnOption(i)).appendTo(extraOptionsDiv);
+
+    if(hide_plus) {
+        $("#add_another"+ i ).children('.glyphicon-plus').addClass("hidden");
+    }
     $("#add_another"+ i ).click(plusHandler);
     $("#remove" + i  ).click(minusHandler);
 }

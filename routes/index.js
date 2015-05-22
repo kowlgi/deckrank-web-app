@@ -63,12 +63,50 @@ exports.rank = function(req, res, next) {
     });
 };
 
+var compareRankings = function(a, b) {
+    if(a.average_weight < b.average_weight) {
+        return 1;
+    }
+    else if(a.average_weight > b.average_weight) {
+        return -1;
+    }
+    else {
+        return 0;
+    }
+}
+
 exports.vote = function(req, res, next) {
-    StackRank.findById(Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
+    StackRank.findById(
+            Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
         if (err) {
           return next(err);
         }
-        stackrank.votes.push({voter: req.body['voter'], rankings: getOptionsArray(req.body)});
+
+        var voterrankings = getOptionsArray(req.body);
+
+        stackrank.votes.push({voter: req.body['voter'], rankings: voterrankings});
+
+        if (stackrank.overall.length == 0) {
+            var avg_weight = voterrankings.length;
+            for (i = 0; i < voterrankings.length; i++) {
+                stackrank.overall.push(
+                    {option: voterrankings[i], average_weight: avg_weight--});
+            }
+        }
+        else {
+            var num_voters = stackrank.votes.length;
+            for (i = 0; i < stackrank.overall.length; i++) {
+                var total_weight =
+                    stackrank.overall[i].average_weight * (num_voters - 1);
+                var new_rank = stackrank.overall.length -
+                    voterrankings.indexOf(stackrank.overall[i].option);
+                stackrank.overall[i].average_weight =
+                    (total_weight + new_rank)/num_voters;
+            }
+        }
+        stackrank.overall.sort(compareRankings);
+        console.log(stackrank.overall);
+
         stackrank.save(function(err, stackrankvotes) {
           if (err) {
             return next(err);
@@ -84,10 +122,17 @@ exports.viewvotes = function(req, res, next) {
         return next(err);
       }
 
+      var overall_rankings = [];
+      for (i=0; i < stackrank.overall.length; i++) {
+          overall_rankings.push(stackrank.overall[i].option);
+      }
+
+      stackrank.votes.push({voter:"Overall results", rankings:overall_rankings});
+
       if(stackrank.votes) {
             res.render('viewvotes', {
                 title : stackrank.title,
-                votes : stackrank.votes,
+                votes : stackrank.votes.reverse(),
                 rankid: stackrank.rankid,
                 voteid: stackrank.voteid,
                 host  : req.headers.host

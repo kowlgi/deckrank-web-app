@@ -7,10 +7,13 @@ head
     link(rel="stylesheet",
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css", href="css/rozinah.css")
+    include mixpanel.jade
 body
     include header.jade
+    script(type="text/javascript").
+        mixpanel.track("Page load");
     div.container-fluid
-        form(role="form", method="post", action="/create")
+        form(role="form", id="createdeckrank", method="post", action="/create")
             h1
                 |Create a poll and share
             div.form-group

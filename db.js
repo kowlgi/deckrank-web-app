@@ -10,6 +10,10 @@ var StackRank = new Schema({
   votes: [{
       voter: {type: String},
       rankings: [String]
+  }],
+  overall: [{
+      option: {type: String},
+      average_weight: {type: Number}
   }]
 });
 

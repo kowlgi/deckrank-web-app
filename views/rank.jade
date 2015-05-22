@@ -9,12 +9,13 @@ head
     link(rel="stylesheet", type="text/css",
         href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
     link(rel="stylesheet", type="text/css", href="css/rozinah.css")
+    include mixpanel.jade
 body
     include header.jade
     div.container-fluid
         h1
           = title
-        form(role="form", method="post", action="/vote/" + rankid)
+        form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
             div.form-group
                 div.boundingbox
                     div.lquarter
