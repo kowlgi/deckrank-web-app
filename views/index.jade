@@ -13,45 +13,51 @@ body
     script(type="text/javascript").
         mixpanel.track("Page load");
     div.container-fluid
-        form(role="form", id="createdeckrank", method="post", action="/create")
-            h1
-                |Create a poll and share
+      div.form-group
+        h2
+          |Create a poll and share
+          p(class="text-info small") No signup required. 100% free
+      form(role="form", id="createdeckrank", method="post", action="/create")
+          div.form-group
+            label(for="title") Question
+            input(type="text", class="form-control", id="title",
+                  name="title", placeholder="Where do we get lunch today?",
+                  required="required")
+          div.form-group 
+            label(for="options") Options
+            div(class="table-responsive")
+              table(class="table", id="extra_options")
+                  thead
+                  tr.trhideclass
+                      td
+                          input(type="text", class="form-control",
+                              name="option1", id="opt1",
+                              placeholder="House Pizzeria",
+                              required="required")
+                      td
+                  tr.trhideclass
+                      td
+                          input(type="text", id="opt2", name="option2",
+                              class="form-control",
+                              placeholder="Michi Ramen",
+                              required="required")
+                      td.glyph_parent
+                          a(href="#", id="add_another2", class="add_another")
+                              span(class="glyphicon glyphicon-plus")
+                          a(href="#", id="remove2")
+                              span(class="glyphicon glyphicon-minus invisible")
             div.form-group
-                div.boundingbox
-                    div.lquarter
-                        label.right(for="title") Title:
-                    div.rthreefourths
-                        input(type="text", class="form-control", id="title",
-                            name="title", placeholder="Where do we get lunch today?",
-                            required="required")
-                div.boundingbox
-                    div.lquarter
-                        label.right(for="options") Options:
-                    div.rthreefourths
-                        div(class="table-responsive")
-                            table(class="table", id="extra_options")
-                                thead
-                                tr.trhideclass
-                                    td
-                                        input(type="text", class="form-control",
-                                            name="option1", id="opt1",
-                                            placeholder="House Pizzeria",
-                                            required="required")
-                                    td
-                                tr.trhideclass
-                                    td
-                                        input(type="text", id="opt2", name="option2",
-                                            class="form-control",
-                                            placeholder="Michi Ramen",
-                                            required="required")
-                                    td.glyph_parent
-                                        a(href="#", id="add_another2", class="add_another")
-                                            span(class="glyphicon glyphicon-plus")
-                                        a(href="#", id="remove2")
-                                            span(class="glyphicon glyphicon-minus invisible")
-                div.rthreefourths
-                    button(type="submit", value="submit", class="btn btn-default")
-                        | Submit
+              label(for="email") Your email
+              input(type="email", id="email", name="email", required="required",
+                    class="form-control", autocomplete="on")
+              p(class="text-info small")
+                | So we can send you an email with the link. No spam
+              // Should we also tell users that voters won't be able to see their email? 
+            //div.form-group
+              label(for="Description") Description
+              textarea(class="form-control" rows="2" placeholder="Add a description so people that you share the poll have some context about your poll")
+          button(type="submit", value="submit", class="btn btn-default")
+            | Create Your Poll
     include footer.jade
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
