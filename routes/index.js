@@ -54,9 +54,10 @@ exports.rank = function(req, res, next) {
     StackRank.findById(Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
       if(stackrank && stackrank.options) {
             res.render('rank', {
-                title  : stackrank.title,
-                options: stackrank.options,
-                rankid : stackrank.rankid
+                title       : stackrank.title,
+                description : stackrank.description,
+                options     : stackrank.options,
+                rankid      : stackrank.rankid
             });
       }
       else {
@@ -86,7 +87,10 @@ exports.vote = function(req, res, next) {
 
         var voterrankings = getOptionsArray(req.body);
 
-        stackrank.votes.push({voter: req.body['voter'], rankings: voterrankings});
+        stackrank.votes.push({
+          voter: req.body['voter'],
+          email: req.body['email'],
+          rankings: voterrankings});
 
         if (stackrank.overall.length == 0) {
             var avg_weight = voterrankings.length;

@@ -11,6 +11,7 @@ var StackRank = new Schema({
   description: String,
   votes: [{
       voter: {type: String},
+      email: {type: String},
       rankings: [String]
   }],
   overall: [{
