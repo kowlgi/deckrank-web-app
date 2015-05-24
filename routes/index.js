@@ -133,12 +133,11 @@ exports.viewvotes = function(req, res, next) {
           overall_rankings.push(stackrank.overall[i].option);
       }
 
-      stackrank.votes.push({voter:"Overall results", rankings:overall_rankings});
-
       if(stackrank.votes) {
             res.render('viewvotes', {
                 title       : stackrank.title,
                 description : stackrank.description,
+                summary     : overall_rankings,
                 total_votes : stackrank.overall.length,
                 votes       : stackrank.votes.reverse(),
                 rankid      : stackrank.rankid,

@@ -10,11 +10,24 @@ body
       div.form-group
         h2
           = title
-          p(class="text-info small") 
+          p(class="text-muted small") 
             = description
           p(class="text-primary")
             = total_votes
-            |  votes are in
+            |  votes are in.
+        h3
+          // TODO(hnag): Center align the elements ...
+          div(class="table-responsive table-bordered")
+            table(class="table" id="leaderboard")
+              thead
+                tr
+                  th
+                    | The winning option is
+              tbody
+                each val in summary
+                  tr(class="success")
+                    td
+                      = val
         div.form-group
           div(class="table-responsive")
             table(class="table" id="viewvotes")
