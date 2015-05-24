@@ -45,3 +45,14 @@ input[type="text"] {
     font-weight: 300;
     font-size: 1em;
 }
+
+.alert {
+  background-color: #c2e4e7;
+  display: inline-block;
+  word-break: break-all;
+  line-height: 180%;
+}
+
+.alert::before {
+  content: "";
+}

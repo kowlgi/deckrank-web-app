@@ -45,7 +45,7 @@ exports.create = function(req, res, next) {
         return next(err);
     }
 
-    res.redirect('/rank/' + stackrank.rankid);
+    res.redirect('/rank/' + stackrank.rankid + '?email=1');
   });
 
 };
@@ -57,7 +57,9 @@ exports.rank = function(req, res, next) {
                 title       : stackrank.title,
                 description : stackrank.description,
                 options     : stackrank.options,
-                rankid      : stackrank.rankid
+                email       : req.query.email,
+                rankid      : stackrank.rankid,
+                voteid      : stackrank.voteid
             });
       }
       else {
