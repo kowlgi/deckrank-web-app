@@ -1,10 +1,8 @@
-div(class="alert")
-  strong
-    if email
+if email
+  div(class="alert")
+    strong
       |To have your friends vote share the link below or foward them the email we've sent you
-    else
-      |To have your friends vote share the link below
-    div
-      a(href='/rank/' + rankid) Share the poll
-    div
-      a(href='/viewvotes/' + voteid) Share the results
+      div
+        a(href='/rank/' + rankid) Share the poll
+      div
+        a(href='/viewvotes/' + voteid) Share the results

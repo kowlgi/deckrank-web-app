@@ -113,8 +113,6 @@ exports.vote = function(req, res, next) {
             }
         }
         stackrank.overall.sort(compareRankings);
-        console.log(stackrank.overall);
-
         stackrank.save(function(err, stackrankvotes) {
           if (err) {
             return next(err);
