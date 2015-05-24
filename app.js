@@ -9,6 +9,7 @@ var http = require('http'),
     jade = require('jade');
 var app = express();
 var stdio = require('stdio');
+var mailgun;
 
 // setup express and the environment
 app.set('port', process.env.PORT || 3000);
@@ -23,7 +24,6 @@ app.use(express.static(__dirname +'/public'));
 app.use('/rank', express.static(__dirname +'/public'));
 app.use('/viewvotes', express.static(__dirname +'/public'));
 app.use('/showall', express.static(__dirname +'/public'));
-
 app.disable('etag');
 
 // Routes
@@ -42,6 +42,8 @@ var ops = stdio.getopt({
         {key: 'r', args: 1, description: 'Reset stackrank db'},
     'port':
         {key: 'p', args: 1, description: 'Port to run the app on'},
+    'mailgun_api':
+        {key: 'm', args: 1, description: 'The mailgun API key'}
 });
 
 if (ops.reset_db) {
@@ -50,6 +52,26 @@ if (ops.reset_db) {
 
 if (ops.port) {
   app.set('port', ops.port);
+}
+if (ops.mailgun_api) {
+  console.log('Successfully setup mail');
+  var api_key = ops.mailgun_api;
+  var domain = 'mg.deckrank.co';
+  mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+  var data = {
+    from: 'deckrank.co <postmaster@mg.deckrank.co>',
+    to: 'hareesh.nagarajan@gmail.com',
+    subject: 'Hello',
+    text: 'Testing some Mailgun awesomness!'
+  };
+  /*
+  // Uncomment to send email ...
+  mailgun.messages().send(data, function (error, body) {
+    console.log(body);
+  });
+  */
+} else {
+  console.log('Running without mail support');
 }
 
 http.createServer(app).listen(app.get('port'), function() {
