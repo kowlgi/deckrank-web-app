@@ -18,16 +18,7 @@ body
           = title
           p(class="text-muted small") 
             = description
-        div(class="alert")
-          strong
-            if email
-              |To have your friends vote share the link below or foward them the email we've sent you
-            else
-              |To have your friends vote share the link below
-            div
-              a(href='/rank/' + rankid) Share the poll
-            div
-              a(href='/viewvotes/' + voteid) Share the results
+        include sharebox.jade
       form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
         div.form-group
           label(for="voter") Your name

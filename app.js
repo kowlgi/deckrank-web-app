@@ -33,7 +33,9 @@ app.get('/showall', routes.showall);
 app.get('/rank/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/viewvotes/:id', routes.viewvotes);
-app.use(function(req, res) { res.render('404', {url:req.url}); });
+app.use(function(req, res) {
+  res.redirect('/');
+});
 
 var ops = stdio.getopt({
     'reset_db':

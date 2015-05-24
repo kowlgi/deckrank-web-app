@@ -15,9 +15,10 @@ body
           p(class="text-primary")
             = total_votes
             |  votes are in
+        include sharebox.jade
         h3
           // TODO(hnag): Center align the elements ...
-          div(class="table-responsive table-bordered")
+          div(class="table-responsive")
             table(class="table" id="leaderboard")
               thead
                 tr
