@@ -137,11 +137,13 @@ exports.viewvotes = function(req, res, next) {
 
       if(stackrank.votes) {
             res.render('viewvotes', {
-                title : stackrank.title,
-                votes : stackrank.votes.reverse(),
-                rankid: stackrank.rankid,
-                voteid: stackrank.voteid,
-                host  : req.headers.host
+                title       : stackrank.title,
+                description : stackrank.description,
+                total_votes : stackrank.overall.length,
+                votes       : stackrank.votes.reverse(),
+                rankid      : stackrank.rankid,
+                voteid      : stackrank.voteid,
+                host        : req.headers.host
             });
       }
       else {
