@@ -3,7 +3,6 @@
 #sortable { list-style-type: none; margin: auto; width: 60%; float: center; }
 #sortable li { margin: 1%; padding: 0.4em; font-size: 1.4em; text-align: center }
 
-
 header {
     background-color: #D72135;
     padding: 0.5em;
@@ -35,54 +34,14 @@ footer {
     margin-top: 3em;
 }
 
-h1 {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 400;
-    text-align: center;
-    margin: 1em;
-}
-
 label {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     font-size: 1.2em;
 }
 
-label.right {
-    text-align: left;
-    float: right;
-    padding-right: 1em;
-}
-
-label.center {
-    text-align: center;
-    float: center;
-    width:100%;
-}
-
 input[type="text"] {
     font-family: 'Nunito', sans-serif;
     font-weight: 300;
     font-size: 1em;
-}
-
-.boundingbox {
-    width: 100%;
-    float:left;
-    margin-top:2em;
-}
-
-.lquarter {
-    width: 25%;
-    float:left;
-}
-
-.rthreefourths {
-    width: 75%;
-    float:right;
-}
-
-.centerbox {
-    text-align: center;
-    margin: auto;
 }
