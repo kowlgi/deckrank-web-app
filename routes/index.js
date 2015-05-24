@@ -138,7 +138,7 @@ exports.viewvotes = function(req, res, next) {
                 title       : stackrank.title,
                 description : stackrank.description,
                 summary     : overall_rankings,
-                total_votes : stackrank.overall.length,
+                total_votes : stackrank.votes.length,
                 votes       : stackrank.votes.reverse(),
                 rankid      : stackrank.rankid,
                 voteid      : stackrank.voteid,
