@@ -14,6 +14,8 @@ body
                 tr
                     th ID
                     th Title
+                    th Email
+                    th Description
                     th Options
                     th Votes
             tbody
@@ -23,6 +25,10 @@ body
                             a(href='/rank/' + rank.rankid)= rank.rankid
                         td
                             = rank.title
+                        td
+                            = rank.email
+                        td
+                            = rank.description
                         td
                             = rank.options
                         td

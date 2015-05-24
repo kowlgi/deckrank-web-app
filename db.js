@@ -7,6 +7,8 @@ var StackRank = new Schema({
   created_at: Date,
   rankid: String,
   voteid: String,
+  email: String,
+  description: String,
   votes: [{
       voter: {type: String},
       rankings: [String]

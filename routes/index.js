@@ -35,6 +35,8 @@ function getOptionsArray(d) {
 exports.create = function(req, res, next) {
  var stackrank = new StackRank({
     title       : req.body.title,
+    email       : req.body.email,
+    description : req.body.description,
     options     : getOptionsArray(req.body),
     created_at  : Date.now()
   }).save(function(err, stackrank, count) {
