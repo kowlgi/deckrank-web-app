@@ -10,8 +10,6 @@ head
     include mixpanel.jade
 body
     include header.jade
-    script(type="text/javascript").
-        mixpanel.track("Page load");
     div.container-fluid
       div.form-group
         h2
@@ -23,7 +21,7 @@ body
             input(type="text", class="form-control", id="title",
                   name="title", placeholder="Where do we get lunch today?",
                   required="required")
-          div.form-group 
+          div.form-group
             label(for="options") Options
             div(class="table-responsive")
               table(class="table", id="extra_options")
@@ -42,6 +40,7 @@ body
                     td.glyph_parent
                         a(href="#", id="add_another2", class="add_another")
                             span(class="glyphicon glyphicon-plus")
+                        = "\n"
                         a(href="#", id="remove2")
                             span(class="glyphicon glyphicon-minus invisible")
             div.form-group
@@ -50,11 +49,10 @@ body
                     class="form-control", autocomplete="on")
               p(class="text-info small")
                 | So we can send you an email with a link to the poll. No spam
-              // TODO(hnag): Should we also tell users that voters won't be able to see their email? 
+              // Should we also tell users that voters won't be able to see their email?
             div.form-group
               label(for="Description") Description
-              textarea(class="form-control" id="description", name="description", rows="2", 
-              placeholder="Add a description so when you share the poll your friends have context")
+              textarea(class="form-control" id="description", name="description", rows="2", placeholder="Add a description so people that you share the poll have some context about your poll")
           button(type="submit", value="submit", class="btn btn-default")
             | Create Your Poll
     include footer.jade
