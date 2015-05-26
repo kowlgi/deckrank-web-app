@@ -133,6 +133,18 @@ exports.vote = function(req, res, next) {
             return next(err);
           }
           res.redirect('/viewvotes/' + stackrank.voteid);
+          // Create the mail object if it doesn't exist
+          if (!mg) {
+            console.log('Creating the mailgun object for the first time')
+            mg = Mail.mailgun(App.api_key, App.email_domain);
+          }
+          var subject = 'You voted on a poll!';
+          var body = 'You voted on a poll!  ' + stackrank.title
+            + '\nDescription: ' + stackrank.description
+            + '\n\nShare the poll with your friends (or simply forward them this email): '
+            + 'http://deckrank.co/rank/' + stackrank.rankid
+            + '\n\nView the results: http://deckrank.co/viewvotes/' + stackrank.voteid;
+          Mail.sendEmail(mg, stackrank.email, subject, body);
         });
     });
 };
