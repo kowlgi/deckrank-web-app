@@ -38,32 +38,59 @@ app.use(function(req, res) {
 });
 
 var ops = stdio.getopt({
-    'reset_db':
-        {key: 'r', args: 1, description: 'Reset stackrank db'},
     'port':
         {key: 'p', args: 1, description: 'Port to run the app on'},
     'mailgun_api':
         {key: 'm', args: 1, description: 'The mailgun API key'},
     'email_domain':
-        {key: 'e', args: 1, description: 'The deckrank domain'}
-
+        {key: 'e', args: 1, description: 'The deckrank email domain'},
+    'db':
+        {key: 'd', args: 1, description: 'The stackrank db' /*, mandatory: true */},
+    'reset_db':
+        {key: 'r', args: 1, description: 'Reset stackrank db'},
+    'rank_id_salt':
+        {key: 's', args: 1, description: 'The salt for encoding/decoding rank ID'/*, mandatory: true */},
+    'vote_id_salt':
+        {key: 'v', args: 1, description: 'The salt for encoding/decoding viewvotes ID'/*, mandatory: true */},
+    'mixpanel_tracking_code':
+        {key: 't', args: 1, description: 'The tracking code for logging events to mixpanel'}
 });
+
+var api_key = 0;
+var email_domain = 0;
+var db = "";
+var rank_id_salt = 0;
+var vote_id_salt = 0;
+var mixpanel_tracking_code = 0;
+
+if (ops.port) {
+    app.set('port', ops.port);
+}
+
+if (ops.mailgun_api && ops.email_domain) {
+    api_key = ops.mailgun_api;
+    email_domain = ops.email_domain;
+};
+
+if (ops.db) {
+    db_name = ops.db;
+}
 
 if (ops.reset_db) {
     stackdb.StackRankModel.collection.remove();
 }
 
-if (ops.port) {
-  app.set('port', ops.port);
+if (ops.rank_id_salt) {
+    rank_id_salt = ops.rank_id_salt;
 }
 
-var api_key = 0;
-var email_domain = 0;
+if (ops.vote_id_salt) {
+    vote_id_salt = ops.vote_id_salt;
+}
 
-if (ops.mailgun_api && ops.email_domain) {
-  api_key = ops.mailgun_api;
-  email_domain = ops.email_domain;
-};
+if (ops.mixpanel_tracking_code) {
+    mixpanel_tracking_code = ops.mixpanel_tracking_code;
+}
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express listening on port ' + app.get('port'));
@@ -71,3 +98,7 @@ http.createServer(app).listen(app.get('port'), function() {
 
 exports.api_key = api_key;
 exports.email_domain = email_domain;
+exports.db_name = db;
+exports.rank_id_salt = rank_id_salt;
+exports.vote_id_salt = vote_id_salt;
+exports.mixpanel_tracking_code = mixpanel_tracking_code;

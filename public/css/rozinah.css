@@ -4,7 +4,7 @@
 #sortable li { margin: 1%; padding: 0.4em; font-size: 1.4em; text-align: center }
 
 header {
-    background-color: #D72135;
+    background-color: #ED0C27;
     padding: 0.5em;
     margin: 0em;
 }
@@ -21,7 +21,9 @@ body {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     margin-top: 1em;
-    color: #5F5555;
+    color: #FFFFFF;
+    background-color: #ED0C27;
+;
 }
 
 .form-control {

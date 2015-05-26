@@ -22,7 +22,6 @@ var minusHandler =  function() {
     var elem = $(last).children('.glyph_parent').children(".add_another");
     elem.children('.glyphicon-plus').removeClass('invisible');
     elem.removeClass('disableClick');
-    elem.focus();
 };
 
 var plusHandler = function() {
@@ -62,7 +61,6 @@ var plusHandler = function() {
     }
     elem.click(plusHandler);
     $("#remove" + i  ).click(minusHandler);
-    $("#opt" + i ).focus();
 }
 
 $("#add_another2").click(plusHandler);
