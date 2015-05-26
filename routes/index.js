@@ -1,6 +1,11 @@
 var mongoose = require( 'mongoose' );
 var StackRank = mongoose.model('StackRank');
 var Hash = require('../hash');
+var App = require('../app');
+var Mail = require('../mail');
+
+// Global variable for the email object. We'd like to initialize it once
+var mg = 0;
 var COUNT = 0;
 
 exports.index = function(req, res, next) {
@@ -33,7 +38,7 @@ function getOptionsArray(d) {
 };
 
 exports.create = function(req, res, next) {
- var stackrank = new StackRank({
+  var stackrank = new StackRank({
     title       : req.body.title,
     email       : req.body.email,
     description : req.body.description,
@@ -41,13 +46,22 @@ exports.create = function(req, res, next) {
     created_at  : Date.now()
   }).save(function(err, stackrank, count) {
     if (err) {
-        console.log(err);
-        return next(err);
+      console.log(err);
+      return next(err);
     }
-
     res.redirect('/rank/' + stackrank.rankid + '?email=1');
+    // Create the mail object
+    if (!mg) {
+      console.log('Creating the mailgun object for the first time')
+      mg = Mail.mailgun(App.api_key, App.email_domain);
+    }
+    var subject = 'New deckrank: ' + stackrank.title;
+    var body = 'You created a new deck!\n\nTitle: ' + stackrank.title
+      + '\n\n Description: ' + stackrank.description
+      + '\n\n Share the poll: http://deckrank.co/rank/' + stackrank.rankid
+      + '\n\n View the results: http://deckrank.co/viewvotes/' + stackrank.voteid;
+    Mail.sendEmail(mg, stackrank.email, subject, body);
   });
-
 };
 
 exports.rank = function(req, res, next) {
