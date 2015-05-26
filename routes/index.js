@@ -138,10 +138,10 @@ exports.vote = function(req, res, next) {
             console.log('Creating the mailgun object for the first time')
             mg = Mail.mailgun(App.api_key, App.email_domain);
           }
-          var subject = 'You voted on a poll!';
-          var body = 'You voted on a poll!  ' + stackrank.title
+          var subject = 'Thanks for voting on a deckrank poll';
+          var body = 'You voted on: ' + stackrank.title
             + '\nDescription: ' + stackrank.description
-            + '\n\nShare the poll with your friends (or simply forward them this email): '
+            + '\n\nShare the poll with your friends if you would like them to vote (or simply forward them this email): '
             + 'http://deckrank.co/rank/' + stackrank.rankid
             + '\n\nView the results: http://deckrank.co/viewvotes/' + stackrank.voteid;
           Mail.sendEmail(mg, stackrank.email, subject, body);
