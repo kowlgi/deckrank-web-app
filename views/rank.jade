@@ -16,7 +16,7 @@ body
       div.form-group
         h2
           = title
-          p(class="text-muted small") 
+          p(class="text-muted small")
             = description
         include sharebox.jade
       form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
@@ -25,7 +25,7 @@ body
           input(type="text", class="form-control", id="voter",
                 name="voter", placeholder="Enter your name", required="required")
           p(class="text-info small")
-            | Just so the creator of the poll knows who voted
+            | So the creator of the poll knows who voted
         div.form-group
           label(for="sortable") Grab, drag, reorder and then submit
           ul(id="sortable")
