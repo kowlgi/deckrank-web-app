@@ -50,16 +50,17 @@ exports.create = function(req, res, next) {
       return next(err);
     }
     res.redirect('/rank/' + stackrank.rankid + '?email=1');
-    // Create the mail object
+    // Create the mail object if it doesn't exist
     if (!mg) {
       console.log('Creating the mailgun object for the first time')
       mg = Mail.mailgun(App.api_key, App.email_domain);
     }
-    var subject = 'New deckrank: ' + stackrank.title;
-    var body = 'You created a new deck!\n\nTitle: ' + stackrank.title
-      + '\n\n Description: ' + stackrank.description
-      + '\n\n Share the poll: http://deckrank.co/rank/' + stackrank.rankid
-      + '\n\n View the results: http://deckrank.co/viewvotes/' + stackrank.voteid;
+    var subject = 'You created a new poll: ' + stackrank.title;
+    var body = 'You created a new poll: ' + stackrank.title
+      + '\nDescription: ' + stackrank.description
+      + '\n\nShare the poll with your friends (or simply forward them this email): '
+      + 'http://deckrank.co/rank/' + stackrank.rankid
+      + '\n\nView the results: http://deckrank.co/viewvotes/' + stackrank.voteid;
     Mail.sendEmail(mg, stackrank.email, subject, body);
   });
 };
