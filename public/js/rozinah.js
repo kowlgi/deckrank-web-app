@@ -1,3 +1,10 @@
+/*!
+ * rozinah.js
+ *
+ * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ */
+
 var minusHandler =  function() {
     var row_index = this.parentNode.parentNode.rowIndex;
     var num_rows = $('#extra_options').find('input').length;

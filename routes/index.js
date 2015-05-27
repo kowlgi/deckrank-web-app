@@ -162,7 +162,6 @@ exports.viewvotes = function(req, res, next) {
           total += stackrank.overall[i].average_weight;
       }
 
-      var normalized_scores = [];
       for (i=0; i < stackrank.overall.length; i++) {
           var score = Math.round(stackrank.overall[i].average_weight * 100/total);
           overall_rankings[i].score = score;
@@ -173,7 +172,6 @@ exports.viewvotes = function(req, res, next) {
                 title       : stackrank.title,
                 description : stackrank.description,
                 summary     : overall_rankings,
-                score       : normalized_scores,
                 total_votes : stackrank.votes.length,
                 votes       : stackrank.votes.reverse(),
                 rankid      : stackrank.rankid,
