@@ -11,6 +11,7 @@
     "mongoose": "^4.0.2",
     "hashids": "~1.0.1",
     "stdio": "~0.2.7",
-    "mailgun-js": "0.6.9"
+    "mailgun-js": "0.6.9",
+    "mailcomposer": "0.2.12"
   }
 }

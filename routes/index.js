@@ -3,6 +3,9 @@ var StackRank = mongoose.model('StackRank');
 var Hash = require('../hash');
 var App = require('../app');
 var Mail = require('../mail');
+var MailUtils = require('../mail_utils');
+var jade = require('jade');
+var fs = require('fs');
 
 // Global variable for the email object. We'd like to initialize it once
 var mg = 0;
@@ -14,6 +17,30 @@ exports.index = function(req, res, next) {
 
 exports.extra = function(req, res, next) {
   res.render('extra');
+};
+
+exports.sendmail = function(req, res, next) {
+  var to = req.params.mail;
+  var options = {
+    title: 'which restaurant should we go to for lunch?',
+    voteid: 'test',
+    rankid: 'test',
+    description: 'dave is leaving the team. where do we go for lunch?',
+  };
+  res.render('email_template', options);
+  if (to.indexOf("@") == -1) {
+    console.log('Returning early as this does not look like an email address: ' + to);
+    return;
+  }
+  // Create the mail object if it doesn't exist
+  if (!mg) {
+    console.log('Creating the mailgun object for the first time')
+    mg = Mail.mailgun(App.api_key, App.email_domain);
+  }
+  var subject = MailUtils.createSubject(options['title']);
+  var body_text =  MailUtils.createBodyText(options['title'], options['description'], '1', '2');
+  var body_html = jade.renderFile('views/email_template.jade', options);
+  Mail.sendHtmlEmail(mg, to, subject, body_html, body_html);
 };
 
 exports.showall = function(req, res, next) {
@@ -53,19 +80,18 @@ exports.create = function(req, res, next) {
       console.log(err);
       return next(err);
     }
+    // And redirect the user to home...
     res.redirect('/rank/' + stackrank.rankid + '?email=1');
     // Create the mail object if it doesn't exist
     if (!mg) {
       console.log('Creating the mailgun object for the first time')
       mg = Mail.mailgun(App.api_key, App.email_domain);
     }
-    var subject = 'You created a new poll: ' + stackrank.title;
-    var body = 'You created a new poll: ' + stackrank.title
-      + '\nDescription: ' + stackrank.description
-      + '\n\nShare the poll with your friends (or simply forward them this email): '
-      + 'http://deckrank.co/rank/' + stackrank.rankid
-      + '\n\nView the results: http://deckrank.co/viewvotes/' + stackrank.voteid;
-    Mail.sendEmail(mg, stackrank.email, subject, body);
+    var subject = MailUtils.createSubject(stackrank.title);
+    var body_text =  MailUtils.createBodyText(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
+    jade.render('email_template', stackrank);
+    var body_html = jade.renderFile('views/email_template.jade', stackrank);
+    Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
   });
 };
 
@@ -137,18 +163,17 @@ exports.vote = function(req, res, next) {
             return next(err);
           }
           res.redirect('/viewvotes/' + stackrank.voteid);
+
           // Create the mail object if it doesn't exist
           if (!mg) {
             console.log('Creating the mailgun object for the first time')
             mg = Mail.mailgun(App.api_key, App.email_domain);
           }
-          var subject = 'Thanks for voting on a deckrank poll';
-          var body = 'You voted on: ' + stackrank.title
-            + '\nDescription: ' + stackrank.description
-            + '\n\nShare the poll with your friends if you would like them to vote (or simply forward them this email): '
-            + 'http://deckrank.co/rank/' + stackrank.rankid
-            + '\n\nView the results: http://deckrank.co/viewvotes/' + stackrank.voteid;
-          Mail.sendEmail(mg, stackrank.email, subject, body);
+          var subject = MailUtils.thanksForVoting();
+          var body_text =  MailUtils.createBodyTextVoter(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
+          jade.render('email_template_voter', stackrank);
+          var body_html = jade.renderFile('views/email_template.jade', stackrank);
+          Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
         });
     });
 };

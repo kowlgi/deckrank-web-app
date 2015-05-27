@@ -30,6 +30,11 @@ app.disable('etag');
 app.get('/', routes.index);
 app.get('/extra', routes.extra);
 app.post('/create', routes.create);
+// A handler to send email functionality. If you specify an invalid email address without the '@'
+// then the handler will not attempt to send an email.
+app.get('/sendmail/:mail', routes.sendmail);
+// TODO(hnag): This handler should be turned off in production or the email address from the
+// description must be taken off
 app.get('/showall', routes.showall);
 app.get('/rank/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
