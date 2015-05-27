@@ -78,13 +78,7 @@ input[type="text"] {
 
 .alert {
   background-color: #c2e4e7;
-  display: inline-block;
-  word-break: break-all;
   line-height: 180%;
-}
-
-.alert::before {
-  content: "";
 }
 
 .disableClick{
