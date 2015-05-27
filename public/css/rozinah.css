@@ -3,10 +3,24 @@
 #sortable { list-style-type: none; margin: auto; width: 60%; float: center; }
 #sortable li { margin: 1%; padding: 0.4em; font-size: 1.4em; text-align: center }
 
-header {
+.navbar-default {
     background-color: #ED0C27;
-    padding: 0.5em;
-    margin: 0em;
+    color: #FFFFFF;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+}
+
+.navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus,.navbar-default .navbar-brand{
+    color: #FFFFFF;
+    font-size: 2em;
+}
+
+.navbar-brand>img {
+    display: inline;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #FFFFFF;
 }
 
 body {

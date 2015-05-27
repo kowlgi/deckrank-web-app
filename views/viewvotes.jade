@@ -23,12 +23,13 @@ body
               thead
                 tr
                   th
-                    | The most favored options are ...
+                    | The rankings are:
               tbody
-                each val in summary
+                each val, index in summary
                   tr(class="success")
                     td
-                      = val
+                      - var rank = index + 1
+                      = rank + '. ' + val.option + ' (' + val.score + '%)'
         div.form-group
           div(class="table-responsive")
             table(class="table" id="viewvotes")

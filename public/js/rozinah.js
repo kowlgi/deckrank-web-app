@@ -66,6 +66,11 @@ var plusHandler = function() {
 $("#add_another2").click(plusHandler);
 var COUNT = 2;
 
+$('.nav li').click(function(){
+    $('.nav li').removeClass('active');
+    $(this).addClass('active');
+});
+
 // set sortable elements in rank/:id to default state
 $( "#sortable" ).sortable();
 $( "#sortable" ).disableSelection();

@@ -156,8 +156,16 @@ exports.viewvotes = function(req, res, next) {
       }
 
       var overall_rankings = [];
+      var total = 0;
       for (i=0; i < stackrank.overall.length; i++) {
-          overall_rankings.push(stackrank.overall[i].option);
+          overall_rankings.push({'option':stackrank.overall[i].option, 'score': 0});
+          total += stackrank.overall[i].average_weight;
+      }
+
+      var normalized_scores = [];
+      for (i=0; i < stackrank.overall.length; i++) {
+          var score = Math.round(stackrank.overall[i].average_weight * 100/total);
+          overall_rankings[i].score = score;
       }
 
       if(stackrank.votes) {
@@ -165,6 +173,7 @@ exports.viewvotes = function(req, res, next) {
                 title       : stackrank.title,
                 description : stackrank.description,
                 summary     : overall_rankings,
+                score       : normalized_scores,
                 total_votes : stackrank.votes.length,
                 votes       : stackrank.votes.reverse(),
                 rankid      : stackrank.rankid,
