@@ -172,7 +172,7 @@ exports.vote = function(req, res, next) {
           var subject = MailUtils.thanksForVoting();
           var body_text =  MailUtils.createBodyTextVoter(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
           jade.render('email_template_voter', stackrank);
-          var body_html = jade.renderFile('views/email_template.jade', stackrank);
+          var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
           Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
         });
     });
