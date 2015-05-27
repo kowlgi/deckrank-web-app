@@ -28,12 +28,14 @@ app.disable('etag');
 
 // Routes
 app.get('/', routes.index);
+app.get('/extra', routes.extra);
 app.post('/create', routes.create);
 app.get('/showall', routes.showall);
 app.get('/rank/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/viewvotes/:id', routes.viewvotes);
 app.use(function(req, res) {
+  console.log('Unable to find URI ' + req.url + ' redirecting back home');
   res.redirect('/');
 });
 

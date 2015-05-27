@@ -12,6 +12,10 @@ exports.index = function(req, res, next) {
   res.render('index');
 };
 
+exports.extra = function(req, res, next) {
+  res.render('extra');
+};
+
 exports.showall = function(req, res, next) {
   StackRank.
     find().
