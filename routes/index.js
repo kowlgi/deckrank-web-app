@@ -109,6 +109,7 @@ exports.rank = function(req, res, next) {
       }
       else {
           res.render('404', {url:req.url});
+          return;
       }
     });
 };
@@ -129,7 +130,8 @@ exports.vote = function(req, res, next) {
     StackRank.findById(
             Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
         if (err) {
-          return next(err);
+            res.render('404', {url:req.url});
+            return;
         }
 
         var voterrankings = getOptionsArray(req.body);
@@ -159,21 +161,24 @@ exports.vote = function(req, res, next) {
         }
         stackrank.overall.sort(compareRankings);
         stackrank.save(function(err, stackrankvotes) {
-          if (err) {
-            return next(err);
-          }
-          res.redirect('/viewvotes/' + stackrank.voteid);
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/viewvotes/' + stackrank.voteid);
 
-          // Create the mail object if it doesn't exist
-          if (!mg) {
-            console.log('Creating the mailgun object for the first time')
-            mg = Mail.mailgun(App.api_key, App.email_domain);
-          }
-          var subject = MailUtils.thanksForVoting();
-          var body_text =  MailUtils.createBodyTextVoter(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
-          jade.render('email_template_voter', stackrank);
-          var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
-          Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
+            // Create the mail object if it doesn't exist
+            if (!mg) {
+                console.log('Creating the mailgun object for the first time')
+                mg = Mail.mailgun(App.api_key, App.email_domain);
+            }
+
+            if (req.body['email']) {
+                var subject = MailUtils.thanksForVoting();
+                var body_text =  MailUtils.createBodyTextVoter(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
+                jade.render('email_template_voter', stackrank);
+                var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
+                Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
+            }
         });
     });
 };
@@ -181,11 +186,13 @@ exports.vote = function(req, res, next) {
 exports.viewvotes = function(req, res, next) {
   StackRank.findById(Hash.Voteid.decodeHex(req.params.id), function(err, stackrank) {
       if (err) {
-        return next(err);
+        res.render('404', {url:req.url});
+        return;
       }
 
       var overall_rankings = [];
       var total = 0;
+
       for (i=0; i < stackrank.overall.length; i++) {
           overall_rankings.push({'option':stackrank.overall[i].option, 'score': 0});
           total += stackrank.overall[i].average_weight;
@@ -210,6 +217,7 @@ exports.viewvotes = function(req, res, next) {
       }
       else {
           res.render('404', {url:req.url});
+          return;
       }
   });
 };

@@ -41,6 +41,7 @@ body {
     color: #5F5555;
     font-family: 'Nunito', sans-serif;
     font-weight: 300;
+    word-wrap: break-word;
 }
 
 .btn {
@@ -51,7 +52,6 @@ body {
     margin-top: 1em;
     color: #FFFFFF;
     background-color: #ED0C27;
-;
 }
 
 .form-control {
@@ -83,4 +83,8 @@ input[type="text"] {
 
 .disableClick{
     pointer-events: none;
+}
+
+.table-responsive>.table>tbody>tr>td {
+    white-space: normal;
 }
