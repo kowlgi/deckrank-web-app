@@ -1,6 +1,11 @@
+/*!
+ * index.js
+ *
+ * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
+ */
+
 var mongoose = require( 'mongoose' );
 var StackRank = mongoose.model('StackRank');
-var Hash = require('../hash');
 var App = require('../app');
 var Mail = require('../mail');
 var MailUtils = require('../mail_utils');
@@ -9,14 +14,13 @@ var fs = require('fs');
 
 // Global variable for the email object. We'd like to initialize it once
 var mg = 0;
-var COUNT = 0;
 
 exports.index = function(req, res, next) {
-  res.render('index');
+  res.render('index', {mixpanel_tracking_code : App.mixpanel_tracking_code});
 };
 
 exports.extra = function(req, res, next) {
-  res.render('extra');
+  res.render('extra', {mixpanel_tracking_code : App.mixpanel_tracking_code});
 };
 
 exports.sendmail = function(req, res, next) {
@@ -46,11 +50,11 @@ exports.sendmail = function(req, res, next) {
 exports.showall = function(req, res, next) {
   StackRank.
     find().
-    sort('-created_at').
     exec(function(err, stackranks) {
         res.render('showall', {
-            title: 'All stackranks in the db',
-            stackranks: stackranks
+            title                  : 'All stackranks in the db',
+            stackranks             : stackranks,
+            mixpanel_tracking_code : App.mixpanel_tracking_code
         });
     });
 };
@@ -73,38 +77,39 @@ exports.create = function(req, res, next) {
     title       : req.body.title,
     email       : req.body.email,
     description : req.body.description,
-    options     : getOptionsArray(req.body),
-    created_at  : Date.now()
-  }).save(function(err, stackrank, count) {
-    if (err) {
-      console.log(err);
-      return next(err);
-    }
-    // And redirect the user to home...
-    res.redirect('/rank/' + stackrank.rankid + '?email=1');
-    // Create the mail object if it doesn't exist
-    if (!mg) {
-      console.log('Creating the mailgun object for the first time')
-      mg = Mail.mailgun(App.api_key, App.email_domain);
-    }
-    var subject = MailUtils.createSubject(stackrank.title);
-    var body_text =  MailUtils.createBodyText(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
-    jade.render('email_template', stackrank);
-    var body_html = jade.renderFile('views/email_template.jade', stackrank);
-    Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
-  });
+    options     : getOptionsArray(req.body)
+  }).save(function(err, stackrank) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
+
+        // And redirect the user to home...
+        res.redirect('/rank/' + stackrank.rankid + '?email=1');
+        // Create the mail object if it doesn't exist
+        if (!mg) {
+            console.log('Creating the mailgun object for the first time')
+            mg = Mail.mailgun(App.api_key, App.email_domain);
+        }
+        var subject = MailUtils.createSubject(stackrank.title);
+        var body_text =  MailUtils.createBodyText(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
+        jade.render('email_template', stackrank);
+        var body_html = jade.renderFile('views/email_template.jade', stackrank);
+        Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
+    });
 };
 
 exports.rank = function(req, res, next) {
-    StackRank.findById(Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
+    StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
       if(stackrank && stackrank.options) {
             res.render('rank', {
-                title       : stackrank.title,
-                description : stackrank.description,
-                options     : stackrank.options,
-                email       : req.query.email,
-                rankid      : stackrank.rankid,
-                voteid      : stackrank.voteid
+                title                  : stackrank.title,
+                description            : stackrank.description,
+                options                : stackrank.options,
+                email                  : req.query.email,
+                rankid                 : stackrank.rankid,
+                voteid                 : stackrank.voteid,
+                mixpanel_tracking_code : App.mixpanel_tracking_code
             });
       }
       else {
@@ -115,10 +120,10 @@ exports.rank = function(req, res, next) {
 };
 
 var compareRankings = function(a, b) {
-    if(a.average_weight < b.average_weight) {
+    if(a.score < b.score) {
         return 1;
     }
-    else if(a.average_weight > b.average_weight) {
+    else if(a.score > b.score) {
         return -1;
     }
     else {
@@ -127,8 +132,7 @@ var compareRankings = function(a, b) {
 }
 
 exports.vote = function(req, res, next) {
-    StackRank.findById(
-            Hash.Rankid.decodeHex(req.params.id), function(err, stackrank) {
+    StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
         if (err) {
             res.render('404', {url:req.url});
             return;
@@ -142,21 +146,17 @@ exports.vote = function(req, res, next) {
           rankings: voterrankings});
 
         if (stackrank.overall.length == 0) {
-            var avg_weight = voterrankings.length;
+            var initial_rank = voterrankings.length;
             for (i = 0; i < voterrankings.length; i++) {
                 stackrank.overall.push(
-                    {option: voterrankings[i], average_weight: avg_weight--});
+                    {option: voterrankings[i], score: initial_rank--});
             }
         }
         else {
-            var num_voters = stackrank.votes.length;
             for (i = 0; i < stackrank.overall.length; i++) {
-                var total_weight =
-                    stackrank.overall[i].average_weight * (num_voters - 1);
-                var new_rank = stackrank.overall.length -
+                var new_score = stackrank.overall.length -
                     voterrankings.indexOf(stackrank.overall[i].option);
-                stackrank.overall[i].average_weight =
-                    (total_weight + new_rank)/num_voters;
+                stackrank.overall[i].score += new_score;
             }
         }
         stackrank.overall.sort(compareRankings);
@@ -172,19 +172,21 @@ exports.vote = function(req, res, next) {
                 mg = Mail.mailgun(App.api_key, App.email_domain);
             }
 
+            // we send an email only when there's an 'email' key in the request
+            // header
             if (req.body['email']) {
                 var subject = MailUtils.thanksForVoting();
                 var body_text =  MailUtils.createBodyTextVoter(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
                 jade.render('email_template_voter', stackrank);
                 var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
-                Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
+                Mail.sendHtmlEmail(mg, req.body['email'], subject, body_html, body_html);
             }
         });
     });
 };
 
 exports.viewvotes = function(req, res, next) {
-  StackRank.findById(Hash.Voteid.decodeHex(req.params.id), function(err, stackrank) {
+  StackRank.findOne({voteid : req.params.id}, function(err, stackrank) {
       if (err) {
         res.render('404', {url:req.url});
         return;
@@ -195,24 +197,25 @@ exports.viewvotes = function(req, res, next) {
 
       for (i=0; i < stackrank.overall.length; i++) {
           overall_rankings.push({'option':stackrank.overall[i].option, 'score': 0});
-          total += stackrank.overall[i].average_weight;
+          total += stackrank.overall[i].score;
       }
 
       for (i=0; i < stackrank.overall.length; i++) {
-          var score = Math.round(stackrank.overall[i].average_weight * 100/total);
+          var score = Math.round(stackrank.overall[i].score * 100/total);
           overall_rankings[i].score = score;
       }
 
       if(stackrank.votes) {
             res.render('viewvotes', {
-                title       : stackrank.title,
-                description : stackrank.description,
-                summary     : overall_rankings,
-                total_votes : stackrank.votes.length,
-                votes       : stackrank.votes.reverse(),
-                rankid      : stackrank.rankid,
-                voteid      : stackrank.voteid,
-                host        : req.headers.host
+                title                  : stackrank.title,
+                description            : stackrank.description,
+                summary                : overall_rankings,
+                total_votes            : stackrank.votes.length,
+                votes                  : stackrank.votes.reverse(),
+                rankid                 : stackrank.rankid,
+                voteid                 : stackrank.voteid,
+                host                   : req.headers.host,
+                mixpanel_tracking_code : App.mixpanel_tracking_code
             });
       }
       else {

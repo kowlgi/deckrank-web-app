@@ -1,3 +1,9 @@
+/*!
+ * mail_uitls.js
+ *
+ * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
+ */
+
 function createSubject(title) {
   return 'You created a new poll: ' + title;
 };

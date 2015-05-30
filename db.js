@@ -1,35 +1,50 @@
+/*!
+ * db.js
+ *
+ * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
+ */
+
 var mongoose = require( 'mongoose' );
-var Hash     = require('./hash');
+var Shortid = require('shortid');
+
 var Schema   = mongoose.Schema;
-var StackRank = new Schema({
-  title:      String,
-  options:    [{type: String}],
-  created_at: Date,
-  rankid: String,
-  voteid: String,
-  email: String,
-  description: String,
-  votes: [{
-      voter: {type: String},
-      email: {type: String},
-      rankings: [String]
-  }],
-  overall: [{
-      option: {type: String},
-      average_weight: {type: Number}
-  }]
-});
 
-StackRank.pre('save', function(next) {
-    // DOCS: https://github.com/ivanakimov/hashids.node.js
-    if (!this.rankid)
-        this.rankid = Hash.Rankid.encodeHex(this.id);
+var model = {};
+var RankID = {};
+var VoteID = {};
+exports.init = function(db_name) {
+    var StackRank = new Schema({
+        title:      String,
+        options:    [{type: String}],
+        rankid: String,
+        voteid: String,
+        email: String,
+        description: String,
+        votes: [{
+            voter: {type: String},
+            email: {type: String},
+            rankings: [String]
+        }],
+        overall: [{
+            option: {type: String},
+            score: {type: Number}
+        }]
+    });
 
-    if (!this.voteid)
-        this.voteid = Hash.Voteid.encodeHex(this.id);
+    model = mongoose.model('StackRank', StackRank);
+    mongoose.connect( 'mongodb://localhost/' + db_name );
 
-    next();
-});
+    StackRank.pre('save', function(next) {
+        // https://github.com/dylang/shortid/issues/36
+        if (!this.rankid) this.rankid = Shortid.generate();
+        if (!this.voteid) this.voteid = Shortid.generate();
 
-exports.StackRankModel = mongoose.model('StackRank', StackRank);
-mongoose.connect( 'mongodb://localhost/stackrank' );
+        next();
+    });
+
+    return exports;
+};
+
+exports.resetdb = function() {
+    model.collection.remove();
+};

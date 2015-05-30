@@ -1,3 +1,9 @@
+/*!
+ * mail.js
+ *
+ * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
+ */
+
 var MailComposer = require("mailcomposer").MailComposer;
 
 // Pass a valid mg
@@ -19,19 +25,16 @@ function sendHtmlEmail(mg, to, subject, body_html, body_text) {
 
     mg.messages().sendMime(dataToSend, function (sendError, body) {
       if (sendError) {
-        console.log(sendError);
         return;
       }
     });
   });
-  console.log('Mail has been sent');
 };
 
 var mailgun = function(api_key, email_domain) {
   mailgun = require('mailgun-js')({
     apiKey: api_key, domain: email_domain
     });
-  console.log('Mail has been initialized');
   return mailgun;
 };
 

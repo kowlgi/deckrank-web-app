@@ -2,7 +2,6 @@
  * rozinah.js
  *
  * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
- * Dual licensed under the MIT or GPL Version 2 licenses.
  */
 
 var minusHandler =  function() {
