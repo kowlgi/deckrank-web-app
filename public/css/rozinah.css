@@ -43,7 +43,7 @@
     border-color: #FFFFFF;
 }
 
-body {
+body, .legend {
     color: #5F5555;
     font-family: 'Nunito', sans-serif;
     font-weight: 300;
@@ -95,6 +95,13 @@ input[type="text"] {
     white-space: normal;
 }
 
-.contactbox {
-    background-color:#f4c8c8;
+fieldset {
+    background-color: rgba(237, 12, 39, 0.04);
+}
+
+.thank-you{
+    color: #ED0C27;
+    font-size: 1.2em;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
 }

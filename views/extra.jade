@@ -15,7 +15,7 @@ body
         h3 Frequently Asked Questions
             h4 What is deckrank?
             |It's a simple tool that lets you quickly create a poll,
-            |get multiple people to vote and see the ranking of options.
+            |get multiple people to vote and see the poll results.
             br
             br
             h4 In what situations will I need deckrank?
@@ -26,8 +26,8 @@ body
                 li Create a poll with different options for meeting time
                 li Create another poll with restaurant options
                 li Get my friends to vote on the above polls
-            |Voila! Now, my friends and I will be able to see the resulting ranking of
-            |options. In a deckrank-less universe, this would've turned into a
+            |Voila! Now, my friends and I will be able to see the poll results.
+            |In a deckrank-less universe, this would've turned into a
             |chaotic chain of emails.
             br
             br
@@ -43,22 +43,25 @@ body
             |) and friends.
       div.form-group(id="contact")
         h3 Contact
-        form(role="form", id="contactform", method="post", action="/contact")
-            div.form-group.col-md-7
-              label(for="title") Your email
-              input(type="text", class="form-control", id="title",
-                    name="title", placeholder="Your email...",
-                    required="required", maxlength="40")
-            div.form-group.col-md-7
-              label(for="Description") Feedback
-              textarea(class="form-control" id="description", name="description",
-                rows="1",
-                placeholder="Your message...",
-                required="required",
-                maxlength="140")
-            div.form-group.col-md-7
-                button(type="submit", value="submit", class="btn btn-default")
-                  |Send Feedback
+        form(role="form", id="contactform", method="post", action="/feedback")
+            fieldset
+                div.form-group.col-md-7
+                  label(for="title") Your email
+                  input(type="email", id="email", name="email", required="required",
+                  class="form-control", autocomplete="on", maxlength="40")
+                div.form-group.col-md-7
+                  label(for="Description") Feedback
+                  textarea(class="form-control" id="description", name="description",
+                    rows="3",
+                    placeholder="Your message...",
+                    required="required",
+                    maxlength="140", )
+                div.form-group.col-md-7
+                    button(type="submit", value="submit", class="btn btn-default")
+                      |Send Feedback
+                    p.thank-you
+                        if feedback_done
+                            |&nbsp;Thanks for feedback! We'll get back to you.
     include footer.jade
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")

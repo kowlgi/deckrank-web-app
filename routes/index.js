@@ -20,7 +20,7 @@ exports.index = function(req, res, next) {
 };
 
 exports.extra = function(req, res, next) {
-  res.render('extra', {mixpanel_tracking_code : App.mixpanel_tracking_code});
+  res.render('extra', {mixpanel_tracking_code : App.mixpanel_tracking_code, feedback_done:req.query.feedback});
 };
 
 exports.sendmail = function(req, res, next) {
@@ -97,6 +97,11 @@ exports.create = function(req, res, next) {
         var body_html = jade.renderFile('views/email_template.jade', stackrank);
         Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
     });
+};
+
+exports.feedback = function(req, res, next) {
+    // TODO: send an email to person sending feedback and bcc deckrank@gmail.com.
+    res.redirect('/extra?feedback=1');
 };
 
 exports.rank = function(req, res, next) {

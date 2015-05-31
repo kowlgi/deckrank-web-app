@@ -60,6 +60,7 @@ app.post('/create', routes.create);
 // A handler to send email functionality. If you specify an invalid email address without the '@'
 // then the handler will not attempt to send an email.
 app.get('/sendmail/:mail', routes.sendmail);
+app.post('/feedback', routes.feedback);
 
 if(ops.activate_showall_url) {
     app.get('/showall', routes.showall);
