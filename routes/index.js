@@ -77,7 +77,7 @@ exports.create = function(req, res, next) {
 };
 
 exports.feedback = function(req, res, next) {
-    // TODO: send an email to person sending feedback and bcc deckrank@gmail.com.
+    // TODO: send an email to person sending feedback.
     res.redirect('/extra?feedback=1');
 
     // Create the mail object if it doesn't exist
