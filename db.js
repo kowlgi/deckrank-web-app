@@ -44,7 +44,3 @@ exports.init = function(db_name) {
 
     return exports;
 };
-
-exports.resetdb = function() {
-    model.collection.remove();
-};

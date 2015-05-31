@@ -12,9 +12,9 @@ body
           = title
           p(class="text-muted small")
             = description
+          - var announcement = (total_votes == 1)?" vote is in":" votes are in"
           p(class="text-primary")
-            = total_votes
-            |  votes are in
+            = total_votes + announcement
         h3
           // TODO(hnag): Center align the elements ...
           div(class="table-responsive")

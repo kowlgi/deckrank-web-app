@@ -94,3 +94,7 @@ input[type="text"] {
 .table-responsive>.table>tbody>tr>td {
     white-space: normal;
 }
+
+.contactbox {
+    background-color:#f4c8c8;
+}

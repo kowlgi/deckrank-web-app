@@ -31,8 +31,6 @@ var stdio = require('stdio');
 var ops = stdio.getopt({
     'db':
         {key: 'd', args: 1, description: 'The deckrank db name', mandatory: true},
-    'reset_db':
-        {key: 'r', args: 0, description: 'Reset the deckrank db. THIS WILL WIPE THE ENTIRE DB'},
     'mailgun_api':
         {key: 'm', args: 1, description: 'The mailgun API key. Invalid API = no email notifications'},
     'activate_showall_url':
@@ -51,13 +49,9 @@ if (ops.db) {
 }
 
 // database setup
-var stackdb = require( './db' ).init(db_name);
+require( './db' ).init(db_name);
 var routes  = require( './routes' );
 var mail = require('./mail');
-
-if (ops.reset_db) {
-    stackdb.resetdb();
-}
 
 // Routes
 app.get('/', routes.index);

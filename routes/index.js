@@ -146,10 +146,10 @@ exports.vote = function(req, res, next) {
           rankings: voterrankings});
 
         if (stackrank.overall.length == 0) {
-            var initial_rank = voterrankings.length;
+            var rank = voterrankings.length;
             for (i = 0; i < voterrankings.length; i++) {
                 stackrank.overall.push(
-                    {option: voterrankings[i], score: initial_rank--});
+                    {option: voterrankings[i], score: rank--});
             }
         }
         else {
