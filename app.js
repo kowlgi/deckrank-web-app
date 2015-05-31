@@ -30,15 +30,17 @@ app.disable('etag');
 var stdio = require('stdio');
 var ops = stdio.getopt({
     'db':
-        {key: 'd', args: 1, description: 'The stackrank db', mandatory: true},
+        {key: 'd', args: 1, description: 'The deckrank db name', mandatory: true},
     'reset_db':
-        {key: 'r', args: 0, description: 'Reset stackrank db. THIS WILL WIPE THE ENTIRE DB.'},
+        {key: 'r', args: 0, description: 'Reset the deckrank db. THIS WILL WIPE THE ENTIRE DB'},
     'mailgun_api':
-        {key: 'm', args: 1, description: 'The mailgun API key. Invalid API = no email notifications.'},
+        {key: 'm', args: 1, description: 'The mailgun API key. Invalid API = no email notifications'},
+    'activate_showall_url':
+        {key: 's', args: 0, description: 'Make the showall url active. DO NOT USE THIS IN PRODUCTION'},
     'email_domain':
-        {key: 'e', args: 1, description: 'The deckrank email domain. Invalid domain = no email notifications.'},
+        {key: 'e', args: 1, description: 'The deckrank email domain. Invalid domain = no email notifications'},
     'mixpanel_tracking_code':
-        {key: 't', args: 1, description: 'The tracking code for logging events to mixpanel. Invalid code = no mixpanel tracking.'},
+        {key: 't', args: 1, description: 'The tracking code for logging events to mixpanel. Invalid code = no mixpanel tracking'},
     'port':
         {key: 'p', args: 1, description: 'Port to run the app on'}
 });
@@ -64,9 +66,11 @@ app.post('/create', routes.create);
 // A handler to send email functionality. If you specify an invalid email address without the '@'
 // then the handler will not attempt to send an email.
 app.get('/sendmail/:mail', routes.sendmail);
-// TODO(hnag): This handler should be turned off in production or the email address from the
-// description must be taken off
-app.get('/showall', routes.showall);
+
+if(ops.activate_showall_url) {
+    app.get('/showall', routes.showall);
+}
+
 app.get('/rank/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/viewvotes/:id', routes.viewvotes);

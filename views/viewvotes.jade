@@ -1,6 +1,6 @@
 doctype html
 head
-    title= title
+    title Results: #{title}
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
     link(rel="stylesheet", type="text/css", href="css/rozinah.css")
@@ -15,7 +15,6 @@ body
           p(class="text-primary")
             = total_votes
             |  votes are in
-        include sharebox.jade
         h3
           // TODO(hnag): Center align the elements ...
           div(class="table-responsive")
@@ -30,6 +29,7 @@ body
                     td
                       - var rank = index + 1
                       = rank + '. ' + val.option + ' (' + val.score + '%)'
+        include viewvotes_sharebox.jade
         div.form-group
           div(class="table-responsive")
             table(class="table" id="viewvotes")

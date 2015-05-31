@@ -3,7 +3,7 @@ head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    title(rozinah: collaborative stackranks)
+    title Vote: #{title}
     link(rel="stylesheet",
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css",
@@ -18,7 +18,7 @@ body
           = title
           p(class="text-muted small")
             = description
-        include sharebox.jade
+        include rank_sharebox.jade
       form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
         div.form-group
           label(for="voter") Your name
