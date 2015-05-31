@@ -57,18 +57,13 @@ var mail = require('./mail');
 app.get('/', routes.index);
 app.get('/extra', routes.extra);
 app.post('/create', routes.create);
-// A handler to send email functionality. If you specify an invalid email address without the '@'
-// then the handler will not attempt to send an email.
-app.get('/sendmail/:mail', routes.sendmail);
 app.post('/feedback', routes.feedback);
-
-if(ops.activate_showall_url) {
-    app.get('/showall', routes.showall);
-}
-
 app.get('/rank/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/viewvotes/:id', routes.viewvotes);
+if(ops.activate_showall_url) {
+    app.get('/showall', routes.showall);
+}
 app.use(function(req, res) {
     console.log('Unable to find URI ' + req.url + ' redirecting back home');
     res.redirect('/');

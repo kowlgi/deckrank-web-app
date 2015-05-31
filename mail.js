@@ -7,11 +7,12 @@
 var MailComposer = require("mailcomposer").MailComposer;
 
 // Pass a valid mg
-function sendHtmlEmail(mg, to, subject, body_html, body_text) {
+function sendHtmlEmail(mg, to, bcc, subject, body_html, body_text) {
   var mailcomposer = new MailComposer();
   mailcomposer.setMessageOption({
-    from: 'no-reply@mg.deckrank.co',
+    from: 'deckrank.co <no-reply@mg.deckrank.co>',
     to: to,
+    bcc: bcc,
     subject: subject,
     body: body_text,
     html: body_html
@@ -38,18 +39,5 @@ var mailgun = function(api_key, email_domain) {
   return mailgun;
 };
 
-function sendEmail(mg, to, subject, body) {
-  var data = {
-    from: 'deckrank.co <no-reply@mg.deckrank.co>',
-    to: to,
-    subject: subject,
-    text: body
-  }
-  mg.messages().send(data, function(error, body) {
-    console.log(body);
-  });
-};
-
 exports.mailgun = mailgun;
-exports.sendEmail = sendEmail;
 exports.sendHtmlEmail = sendHtmlEmail;

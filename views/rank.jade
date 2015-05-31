@@ -25,7 +25,7 @@ body
                 label(for="voter") Your name
                 input(type="text", class="form-control", id="voter",
                     name="voter", placeholder="Enter your name",
-                    required="required", maxlength="40")
+                    required="required", maxlength="50")
                 - var voter_mini_label = email ? "So others know what you voted for":"So the creator of the poll knows who voted";
                 p(class="text-info small") #{voter_mini_label}
             div.form-group.col-sm-7
@@ -39,7 +39,7 @@ body
                 div.form-group.col-sm-7
                   label(for="email") Your email
                   input(type="email", id="email", name="email", required="required",
-                        class="form-control", autocomplete="on", maxlength="40")
+                        class="form-control", autocomplete="on", maxlength="50")
                   p(class="text-info small")
                     | We'll send you an email with a link to the results. No spam
             div.form-group.col-sm-7

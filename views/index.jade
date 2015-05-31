@@ -28,7 +28,7 @@ body
                 textarea(class="form-control" id="description", name="description",
                          rows="1",
                          placeholder="E.g. Rank lunch options in order of preference",
-                         maxlength="140")
+                         maxlength="200")
               div.form-group.col-sm-7
                 label(for="options") Options
                 div(class="table-responsive")
@@ -39,7 +39,7 @@ body
                               input(type="text", class="form-control",
                                   name="option1", id="opt1",
                                   placeholder="E.g. House Pizzeria",
-                                  required="required", maxlength="40")
+                                  required="required", maxlength="50")
                           td
                       tr.trhideclass
                         td
@@ -47,7 +47,7 @@ body
                                 class="form-control",
                                 placeholder="E.g. Some other delish place",
                                 required="required",
-                                maxlength="40")
+                                maxlength="50")
                         td.glyph_parent
                             a(href="#", id="add_another2", class="add_another")
                                 span(class="glyphicon glyphicon-plus")
@@ -57,7 +57,7 @@ body
               div.form-group.col-sm-7
                   label(for="email") Your email
                   input(type="email", id="email", name="email", required="required",
-                        class="form-control", autocomplete="on", maxlength="40")
+                        class="form-control", autocomplete="on", maxlength="50")
                   p(class="text-info small")
                     | We'll send you an email with a link to the poll. No spam
               div.form-group.col-sm-7

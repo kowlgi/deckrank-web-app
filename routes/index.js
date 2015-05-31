@@ -8,75 +8,53 @@ var mongoose = require( 'mongoose' );
 var StackRank = mongoose.model('StackRank');
 var App = require('../app');
 var Mail = require('../mail');
-var MailUtils = require('../mail_utils');
 var jade = require('jade');
 var fs = require('fs');
+var MAX_INPUT_LENGTH = 50;
+var MAX_DESCRIPTION_LENGTH = 200;
 
 // Global variable for the email object. We'd like to initialize it once
 var mg = 0;
 
 exports.index = function(req, res, next) {
-  res.render('index', {mixpanel_tracking_code : App.mixpanel_tracking_code});
+    res.render('index', {mixpanel_tracking_code : App.mixpanel_tracking_code});
 };
 
 exports.extra = function(req, res, next) {
-  res.render('extra', {mixpanel_tracking_code : App.mixpanel_tracking_code, feedback_done:req.query.feedback});
-};
-
-exports.sendmail = function(req, res, next) {
-  var to = req.params.mail;
-  var options = {
-    title: 'which restaurant should we go to for lunch?',
-    voteid: 'test',
-    rankid: 'test',
-    description: 'dave is leaving the team. where do we go for lunch?',
-  };
-  res.render('email_template', options);
-  if (to.indexOf("@") == -1) {
-    console.log('Returning early as this does not look like an email address: ' + to);
-    return;
-  }
-  // Create the mail object if it doesn't exist
-  if (!mg) {
-    console.log('Creating the mailgun object for the first time')
-    mg = Mail.mailgun(App.api_key, App.email_domain);
-  }
-  var subject = MailUtils.createSubject(options['title']);
-  var body_text =  MailUtils.createBodyText(options['title'], options['description'], '1', '2');
-  var body_html = jade.renderFile('views/email_template.jade', options);
-  Mail.sendHtmlEmail(mg, to, subject, body_html, body_html);
+    res.render('extra', {mixpanel_tracking_code : App.mixpanel_tracking_code,
+        feedback_done:req.query.feedback});
 };
 
 exports.showall = function(req, res, next) {
-  StackRank.
-    find().
-    exec(function(err, stackranks) {
-        res.render('showall', {
-            title                  : 'All stackranks in the db',
-            stackranks             : stackranks,
-            mixpanel_tracking_code : App.mixpanel_tracking_code
+    StackRank.
+        find().
+        exec(function(err, stackranks) {
+            res.render('showall', {
+                title                  : 'All stackranks in the db',
+                stackranks             : stackranks,
+                mixpanel_tracking_code : App.mixpanel_tracking_code
+            });
         });
-    });
 };
 
 // Helper to extract options from the form and return an array
 function getOptionsArray(d) {
-  var options = [];
-  for (var key in d) {
-    if (key.indexOf('option') > -1) {
-      if (d[key]) {
-        options.push(d[key]);
-      }
+    var options = [];
+    for (var key in d) {
+        if (key.indexOf('option') > -1) {
+            if (d[key]) {
+            options.push(d[key].substring(0, MAX_INPUT_LENGTH));
+            }
+        }
     }
-  }
-  return options;
+    return options;
 };
 
 exports.create = function(req, res, next) {
   var stackrank = new StackRank({
-    title       : req.body.title,
-    email       : req.body.email,
-    description : req.body.description,
+    title       : req.body.title.substring(0, MAX_INPUT_LENGTH),
+    email       : req.body.email.substring(0, MAX_INPUT_LENGTH),
+    description : req.body.description.substring(0, MAX_DESCRIPTION_LENGTH),
     options     : getOptionsArray(req.body)
   }).save(function(err, stackrank) {
         if (err) {
@@ -86,22 +64,32 @@ exports.create = function(req, res, next) {
 
         // And redirect the user to home...
         res.redirect('/rank/' + stackrank.rankid + '?email=1');
+
         // Create the mail object if it doesn't exist
         if (!mg) {
             console.log('Creating the mailgun object for the first time')
             mg = Mail.mailgun(App.api_key, App.email_domain);
         }
-        var subject = MailUtils.createSubject(stackrank.title);
-        var body_text =  MailUtils.createBodyText(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
-        jade.render('email_template', stackrank);
+        var subject = "You created a new poll: " + stackrank.title;
         var body_html = jade.renderFile('views/email_template.jade', stackrank);
-        Mail.sendHtmlEmail(mg, stackrank.email, subject, body_html, body_html);
+        Mail.sendHtmlEmail(mg, stackrank.email, "", subject, body_html, body_html);
     });
 };
 
 exports.feedback = function(req, res, next) {
     // TODO: send an email to person sending feedback and bcc deckrank@gmail.com.
     res.redirect('/extra?feedback=1');
+
+    // Create the mail object if it doesn't exist
+    if (!mg) {
+        console.log('Creating the mailgun object for the first time')
+        mg = Mail.mailgun(App.api_key, App.email_domain);
+    }
+    var subject = "Thanks for your feedback";
+    var body_html = jade.renderFile('views/email_feedback_template.jade',
+        {description: req.body.description.substring(0, MAX_DESCRIPTION_LENGTH)});
+    Mail.sendHtmlEmail(mg, req.body.email.substring(0, MAX_INPUT_LENGTH),
+        "deckrank@gmail.com", subject, body_html, body_html);
 };
 
 exports.rank = function(req, res, next) {
@@ -146,8 +134,8 @@ exports.vote = function(req, res, next) {
         var voterrankings = getOptionsArray(req.body);
 
         stackrank.votes.push({
-          voter: req.body['voter'],
-          email: req.body['email'],
+          voter: req.body['voter'].substring(0, MAX_INPUT_LENGTH),
+          email: req.body['email'].substring(0, MAX_INPUT_LENGTH),
           rankings: voterrankings});
 
         if (stackrank.overall.length == 0) {
@@ -180,11 +168,11 @@ exports.vote = function(req, res, next) {
             // we send an email only when there's an 'email' key in the request
             // header
             if (req.body['email']) {
-                var subject = MailUtils.thanksForVoting();
-                var body_text =  MailUtils.createBodyTextVoter(stackrank.title, stackrank.description, stackrank.rankid, stackrank.voteid);
-                jade.render('email_template_voter', stackrank);
+                var subject = "Thanks for voting on a deckrank poll";
                 var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
-                Mail.sendHtmlEmail(mg, req.body['email'], subject, body_html, body_html);
+                Mail.sendHtmlEmail(mg,
+                    req.body['email'].substring(0, MAX_INPUT_LENGTH),
+                    "", subject, body_html, body_html);
             }
         });
     });
@@ -219,7 +207,6 @@ exports.viewvotes = function(req, res, next) {
                 votes                  : stackrank.votes.reverse(),
                 rankid                 : stackrank.rankid,
                 voteid                 : stackrank.voteid,
-                host                   : req.headers.host,
                 mixpanel_tracking_code : App.mixpanel_tracking_code
             });
       }
