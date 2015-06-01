@@ -6,13 +6,9 @@
 
 var mongoose = require( 'mongoose' );
 var Shortid = require('shortid');
-
 var Schema   = mongoose.Schema;
 
-var model = {};
-var RankID = {};
-var VoteID = {};
-exports.init = function(db_name) {
+exports.init = function(stackrank_db_name, feedback_db_name) {
     var StackRank = new Schema({
         title:      String,
         options:    [{type: String}],
@@ -31,9 +27,13 @@ exports.init = function(db_name) {
         }]
     });
 
-    model = mongoose.model('StackRank', StackRank);
-    mongoose.connect( 'mongodb://localhost/' + db_name );
+    var Feedback = new Schema({
+        email: String,
+        message: String
+    });
 
+    mongoose.model('StackRank', StackRank);
+    mongoose.connect( 'mongodb://localhost/' + stackrank_db_name );
     StackRank.pre('save', function(next) {
         // https://github.com/dylang/shortid/issues/36
         if (!this.rankid) this.rankid = Shortid.generate();

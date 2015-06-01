@@ -1,5 +1,5 @@
 {
-  "name": "rozinah-stack-ranks",
+  "name": "deckrank",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -14,5 +14,11 @@
     "serve-favicon": "2.2.0",
     "shortid": "^2.2.2",
     "stdio": "~0.2.7"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1"
   }
 }
