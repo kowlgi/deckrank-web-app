@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                 mangle: true,
                 compress: true
             },
-            src: 'public/build/rozinah.min.js',
+            src: 'public/js/rozinah.js',
             dest: 'public/build/rozinah.min.js'
         }
     },
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             banner: '/*! rozinah.min.css <%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         build: {
-            src: 'css/rozinah.css',
+            src: 'public/css/rozinah.css',
             dest: 'public/build/rozinah.min.css'
         }
     }
