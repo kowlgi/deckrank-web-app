@@ -20,7 +20,7 @@ body
               p(class="text-muted small")
                 = description
             include rank_sharebox.jade
-          form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
+          form(role="form", id="votedeckrank", class="ws-validate", method="post", action="/vote/" + rankid)
             div.form-group.col-sm-7
                 label(for="voter") Your name
                 input(type="text", class="form-control", id="voter",
@@ -50,4 +50,5 @@ body
     script(src="//code.jquery.com/ui/1.11.4/jquery-ui.js")
     script(src="js/jquery.ui.touch-punch.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+    script(src="js/js-webshim/minified/polyfiller.js")
     script(src="build/rozinah.min.js")

@@ -72,10 +72,14 @@ var plusHandler = function() {
 $("#add_another2").click(plusHandler);
 var COUNT = 2;
 
+// to highlight menu item you've clicked on the navigation bar
 $('.nav li').click(function(){
     $('.nav li').removeClass('active');
     $(this).addClass('active');
 });
+
+<!-- Webshims polyfill -->
+jQuery.webshims.polyfill('forms');
 
 // set sortable elements in rank/:id to default state
 $( "#sortable" ).sortable();
