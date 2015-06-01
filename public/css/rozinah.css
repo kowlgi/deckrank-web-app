@@ -10,7 +10,7 @@
 #sortable li { margin: 1%; padding: 0.4em; font-size: 1.4em; text-align: center }
 
 .navbar-default {
-    background-color: #52C719;
+    background-color: #ED0C27;
     color: #FFFFFF;
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
@@ -57,7 +57,7 @@ body, .legend {
     font-weight: 400;
     margin-top: 1em;
     color: #FFFFFF;
-    background-color: #52C719;
+    background-color: #ED0C27;
 }
 
 .form-control {
@@ -96,11 +96,11 @@ input[type="text"] {
 }
 
 fieldset {
-    background-color: rgba(82, 199, 25, 0.04);
+    background-color: #FFFAFA;
 }
 
 .extra_sections{
-  color: #419D14;
+  color: #0000FF;
 }
 
 .answer{
