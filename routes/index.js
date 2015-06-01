@@ -63,7 +63,7 @@ exports.create = function(req, res, next) {
         }
 
         // And redirect the user to home...
-        res.redirect('/rank/' + stackrank.rankid + '?email=1');
+        res.redirect('/r/' + stackrank.rankid + '?email=1');
 
         // Create the mail object if it doesn't exist
         if (!mg) {
@@ -156,7 +156,7 @@ exports.vote = function(req, res, next) {
             if (err) {
                 return next(err);
             }
-            res.redirect('/viewvotes/' + stackrank.voteid);
+            res.redirect('/v/' + stackrank.voteid);
 
             // Create the mail object if it doesn't exist
             if (!mg) {

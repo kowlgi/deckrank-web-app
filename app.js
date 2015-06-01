@@ -22,8 +22,8 @@ app.use(bodyParser.urlencoded({
 
 // css, js and other public assets are under the public folder
 app.use(express.static(__dirname +'/public'));
-app.use('/rank', express.static(__dirname +'/public'));
-app.use('/viewvotes', express.static(__dirname +'/public'));
+app.use('/r', express.static(__dirname +'/public'));
+app.use('/v', express.static(__dirname +'/public'));
 app.use('/showall', express.static(__dirname +'/public'));
 app.disable('etag');
 
@@ -58,9 +58,9 @@ app.get('/', routes.index);
 app.get('/extra', routes.extra);
 app.post('/create', routes.create);
 app.post('/feedback', routes.feedback);
-app.get('/rank/:id', routes.rank);
+app.get('/r/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
-app.get('/viewvotes/:id', routes.viewvotes);
+app.get('/v/:id', routes.viewvotes);
 if(ops.activate_showall_url) {
     app.get('/showall', routes.showall);
 }

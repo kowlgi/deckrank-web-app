@@ -81,6 +81,6 @@ $('.nav li').click(function(){
 <!-- Webshims polyfill -->
 jQuery.webshims.polyfill('forms');
 
-// set sortable elements in rank/:id to default state
+// set sortable elements in r/:id to default state
 $( "#sortable" ).sortable();
 $( "#sortable" ).disableSelection();
