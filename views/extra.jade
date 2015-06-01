@@ -12,37 +12,67 @@ body
     include header.jade
     div.container-fluid
       div.form-group(id="faq")
-        h3 Frequently Asked Questions
-            h4 What is deckrank?
-            |It's a simple tool that lets you quickly create a poll,
-            |get multiple people to vote and see the poll results.
-            br
-            br
-            h4 In what situations will I need deckrank?
-            |Here's an example.
-            |I want to have lunch with a group of friends.
-            |To help coordinate, I do the following:
-            ol
-                li Create a poll with different options for meeting time
-                li Create another poll with restaurant options
-                li Get my friends to vote on the above polls
-            |Voila! Now, my friends and I will be able to see the poll results.
-            |In a deckrank-less universe, this would've turned into a
-            |chaotic chain of emails.
-            br
-            br
-            h4 I kind of get the idea, could you show me some polls so I can explain it to my grandmother?
-            |Sure thing, check out&nbsp
+        h3(class="extra_sections") Frequently Asked Questions
+          h4 What is deckrank?
+          p(class="answer")
+            |Deckrank is a platform to let you create a poll quickly and effortlessly. 
+            |You don't need to sign up.
+            |Once you create a poll we generate a unique link for the poll.
+            |You then share this link with others using a medium of your choice.
+            |Both you and the people who vote can see the results.
+          h4 Why deckrank?
+          p(class="answer")
+            |Let's say you want to have lunch with a largish group of friends. 
+            |You could start an email or create a message on a social network and trigger a chain of updates.
+            |That's a perfectly reasonable option. But if you'd like to be
+            |different and save you and your friends some time then you could
+            |consider using deckrank.
+            |Here's how.
+            ol(class="answer")
+                li Create a poll with restaurant options
+                li Share the link to the poll with your friends using email, text, facebook messenger or with any social networking product that you love
+                li Get your friends to vote on the poll
+                li View the results page
+                li Once you decide that all votes are in make reservations at the most popular restaurant. nom, nom, nom!
+          h4 Do you have to vote to see the see the results?
+          p(class="answer")
+            |No. People can see the results only if you share the link to the results with them. The results of every poll have a unique link. This link is different
+            |from the link to the poll where you vote. You can share the link to the results
+            |to anyone you choose just like you can share the link to have them vote.
+          h4 Can voters see the results before they cast their vote?
+          p(class="answer")
+            |No. The link to the results are only made available once a vote has been cast.
+          h4 Do you need to sign up to either vote or create a new poll?
+          p(class="answer")
+            |No.
+          h4 Why do you need my email address?
+          p(class="answer")          
+            |We want you to have a great product experience. Creating a
+            |poll on your phone and losing the link because you forgot to share it
+            |isn't fun!  We only ask or your email address so we can send you
+            |the link to the poll. Remember we are a "no sign up" service.  If
+            |you lose the link to your poll the results of your poll are lost
+            |forever and we don't want to see that happen. Second, we'll never
+            |spam you or sell your information to anyone. You never have to worry
+            |about that. Third, if you want to unsubscribe from our updates
+            |simply hit the unsubscribe link in the email we've sent you. You'll
+            |never hear from us again.
+          h4 Can I modify a poll I've created?
+          p(class="answer")
+            |No. All polls are final. Go ahead and create a new poll instead. Then share the link with others.
+          h4 Do you have any example polls?
+          p(class="answer")
+            |Check out&nbsp
             a(href="https://www.twitter.com/deckrank") @deckrank
-            |&nbspon Twitter.
+            |&nbspon Twitter for some examples.
       div.form-group(id="about")
-        h3 About
-        p
-            |deckrank is authored by Sunil Kowlgi (
+        h3(class="extra_sections") About
+        p(class="answer")
+            |deckrank is authored by Sunil Kowlgi in Austin, TX (
             a(href="https://www.twitter.com/kowlgi") @kowlgi
             |) and friends.
       div.form-group(id="contact")
-        h3 Contact
+        h3(class="extra_sections") Contact
         form(role="form", id="contactform", method="post", action="/feedback")
             fieldset
                 div.form-group.col-md-7

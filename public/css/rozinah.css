@@ -99,6 +99,15 @@ fieldset {
     background-color: rgba(237, 12, 39, 0.04);
 }
 
+.extra_sections{
+  color: #0000FF;
+}
+
+.answer{
+  color: #A9A9A9;
+  font-weight: 400;
+}
+
 .thank-you{
     color: #ED0C27;
     font-size: 1.2em;
