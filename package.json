@@ -21,15 +21,4 @@
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-contrib-uglify": "^0.9.1"
   },
-  "description": "![mock1.png](https://bitbucket.org/repo/g98rGk/images/2276868843-mock1.png)",
-  "main": "Gruntfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://hnag@bitbucket.org/alteredstateoftheunion/rozinah-altereddev.git"
-  },
-  "author": "",
-  "license": "ISC"
 }
