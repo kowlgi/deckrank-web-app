@@ -88,7 +88,7 @@ exports.feedback = function(req, res, next) {
     var body_html = jade.renderFile('views/email_feedback_template.jade',
         {description: req.body.description.substring(0, MAX_DESCRIPTION_LENGTH)});
     Mail.sendHtmlEmail(mg, req.body.email.substring(0, MAX_INPUT_LENGTH),
-        "deckrank@gmail.com", subject, body_html, body_html);
+        "sunil.srinivasan@gmail.com, hareesh.nagarajan@gmail.com, deckrank@gmail.com", subject, body_html, body_html);
 };
 
 exports.rank = function(req, res, next) {

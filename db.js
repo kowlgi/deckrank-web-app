@@ -8,7 +8,7 @@ var mongoose = require( 'mongoose' );
 var Shortid = require('shortid');
 var Schema   = mongoose.Schema;
 
-exports.init = function(stackrank_db_name, feedback_db_name) {
+exports.init = function(stackrank_db_name) {
     var StackRank = new Schema({
         title:      String,
         options:    [{type: String}],
@@ -25,11 +25,6 @@ exports.init = function(stackrank_db_name, feedback_db_name) {
             option: {type: String},
             score: {type: Number}
         }]
-    });
-
-    var Feedback = new Schema({
-        email: String,
-        message: String
     });
 
     mongoose.model('StackRank', StackRank);
