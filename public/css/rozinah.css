@@ -10,7 +10,7 @@
 #sortable li { margin: 1%; padding: 0.4em; font-size: 1.4em; text-align: center }
 
 .navbar-default {
-    background-color: #ED0C27;
+    background-color: #52C719;
     color: #FFFFFF;
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
@@ -57,7 +57,7 @@ body, .legend {
     font-weight: 400;
     margin-top: 1em;
     color: #FFFFFF;
-    background-color: #ED0C27;
+    background-color: #52C719;
 }
 
 .form-control {
@@ -96,7 +96,7 @@ input[type="text"] {
 }
 
 fieldset {
-    background-color: rgba(237, 12, 39, 0.04);
+    background-color: rgba(82, 199, 25, 0.04);
 }
 
 .extra_sections{
@@ -104,12 +104,12 @@ fieldset {
 }
 
 .answer{
-  color: #A9A9A9;
+  color: #339B00;
   font-weight: 400;
 }
 
 .thank-you{
-    color: #ED0C27;
+    color: #52C719;
     font-size: 1.2em;
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
