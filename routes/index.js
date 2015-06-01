@@ -134,7 +134,7 @@ exports.vote = function(req, res, next) {
 
         stackrank.votes.push({
           voter: req.body['voter'].substring(0, MAX_INPUT_LENGTH),
-          email: req.body['email'].substring(0, MAX_INPUT_LENGTH),
+          email: req.body['email'] ? req.body['email'].substring(0, MAX_INPUT_LENGTH) : stackrank.email,
           rankings: voterrankings});
 
         if (stackrank.overall.length == 0) {
