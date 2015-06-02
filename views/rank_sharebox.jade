@@ -1,6 +1,6 @@
 div(class="alert")
     strong
-        |To have others vote, share this link :
-        a(id="votelink", href='/r/' + rankid) &nbspdeckrank.co&#47;r&#47;#{rankid}
+        |Share this link so others can vote&nbsp;
+        a(id="votelink", href='/r/' + rankid) deckrank.co&#47;r&#47;#{rankid}
 script.
     mixpanel.track_links("#votelink", "Clicked vote link"
