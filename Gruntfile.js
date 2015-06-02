@@ -8,12 +8,13 @@ module.exports = function(grunt) {
             banner: '/*! rozinah.min.js <%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         build: {
-            options: {
-                mangle: true,
-                compress: true
-            },
-            src: 'public/js/rozinah.js',
-            dest: 'public/build/rozinah.min.js'
+            files: [{
+                expand: true,
+                src: ['*.js', '!*.min.js'],
+                dest: 'public/build',
+                cwd: 'public/js',
+                ext: '.min.js'
+            }]
         }
     },
     cssmin: {

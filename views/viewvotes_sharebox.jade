@@ -3,7 +3,14 @@ div(class="alert")
         |To have others vote or see results, share the links below:
     p
         |Share the poll:
-        a(href='/r/' + rankid) &nbspdeckrank.co&#47;r&#47;#{rankid}
+        a(id="votelink", href='/r/' + rankid) &nbspdeckrank.co&#47;r&#47;#{rankid}
     p
         |Share the results:
-        a(href='/v/' + voteid) &nbspdeckrank.co&#47;v&#47;#{voteid}
+        a(id="resultslink", href='/v/' + voteid) &nbspdeckrank.co&#47;v&#47;#{voteid}
+script.
+    mixpanel.track_links("#votelink", "Clicked vote link", {
+        "referrer": document.referrer
+    });
+    mixpanel.track_links("#resultslink", "Clicked results link", {
+        "referrer": document.referrer
+    });

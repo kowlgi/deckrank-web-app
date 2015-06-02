@@ -1,4 +1,7 @@
 #header
+include mixpanel.jade
+script(src="build/docCookies.min.js")
+script(src="build/setup.min.js")
 nav(class="navbar navbar-default")
     div.container-fluid
         div.navbar-header
@@ -11,10 +14,14 @@ nav(class="navbar navbar-default")
                 img(alt="Deckrank brand", src="images/deckrank.png")
                 span deckrank
         div(class="collapse navbar-collapse", id="bs-example-navbar-collapse-1")
-            ul(class="nav navbar-nav")
+            ul(class="nav navbar-nav", id="headernav")
                 li
                     a(href="/extra#faq") FAQ
                 li
                     a(href="/extra#about") About
                 li
                     a(href="/extra#contact") Contact
+script.
+    mixpanel.track_links("#headernav li a", "Clicked main menu option", {
+        "referrer": document.referrer
+    });

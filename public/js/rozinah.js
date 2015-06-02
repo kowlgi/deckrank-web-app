@@ -3,7 +3,6 @@
  *
  * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
  */
-
 var minusHandler =  function() {
     var row_index = this.parentNode.parentNode.rowIndex;
     var num_rows = $('#extra_options').find('input').length;
