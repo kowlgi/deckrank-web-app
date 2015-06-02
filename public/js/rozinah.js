@@ -77,11 +77,12 @@ $('.nav li').click(function(){
     $(this).addClass('active');
 });
 
-<!-- Webshims polyfill -->
+// cross-browser form validation: for instance, Safari doesn't recognize the
+// required property and we have to enforece that somehow
 jQuery.webshims.polyfill('forms');
 
-var date = new Date();
-mixpanel.register_once({'First deckrank use date': date.toDateString()});
+var d = new Date();
+mixpanel.register_once({'First deckrank use date': d.toDateString()});
 mixpanel.register_once({'First deckrank page visited': window.location.href});
 
 // set sortable elements in r/:id to default state
