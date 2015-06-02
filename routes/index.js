@@ -55,7 +55,8 @@ exports.create = function(req, res, next) {
     title       : req.body.title.substring(0, MAX_INPUT_LENGTH),
     email       : req.body.email.substring(0, MAX_INPUT_LENGTH),
     description : req.body.description.substring(0, MAX_DESCRIPTION_LENGTH),
-    options     : getOptionsArray(req.body)
+    options     : getOptionsArray(req.body),
+    created_on  : Date.now()
   }).save(function(err, stackrank) {
         if (err) {
             console.log(err);
@@ -133,9 +134,10 @@ exports.vote = function(req, res, next) {
         var voterrankings = getOptionsArray(req.body);
 
         stackrank.votes.push({
-          voter: req.body['voter'].substring(0, MAX_INPUT_LENGTH),
-          email: req.body['email'] ? req.body['email'].substring(0, MAX_INPUT_LENGTH) : stackrank.email,
-          rankings: voterrankings});
+          voter      : req.body['voter'].substring(0, MAX_INPUT_LENGTH),
+          email      : req.body['email'] ? req.body['email'].substring(0, MAX_INPUT_LENGTH) : stackrank.email,
+          created_on : Date.now(),
+          rankings   : voterrankings});
 
         if (stackrank.overall.length == 0) {
             var rank = voterrankings.length;
