@@ -55,7 +55,7 @@ exports.create = function(req, res, next) {
     title       : req.body.title.substring(0, MAX_INPUT_LENGTH),
     email       : req.body.email.substring(0, MAX_INPUT_LENGTH),
     description : req.body.description.substring(0, MAX_DESCRIPTION_LENGTH),
-    options     : getOptionsArray(req.body),
+    options     : getOptionsArray(req.body).splice(0,10),
     created_on  : Date.now()
   }).save(function(err, stackrank) {
         if (err) {
