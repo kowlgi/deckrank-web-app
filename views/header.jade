@@ -10,7 +10,7 @@ nav(class="navbar navbar-default")
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a.navbar-brand(href="/")
+            a.navbar-brand(id="homebutton", href="/")
                 img(alt="Deckrank brand", src="images/deckrank.png")
                 span deckrank
         div(class="collapse navbar-collapse", id="bs-example-navbar-collapse-1")
@@ -22,6 +22,5 @@ nav(class="navbar navbar-default")
                 li
                     a(href="/extra#contact") Contact
 script.
-    mixpanel.track_links("#headernav li a", "Clicked main menu option", {
-        "referrer": document.referrer
-    });
+    mixpanel.track_links("#headernav li a", "Clicked main menu option");
+    mixpanel.track_links("#homebutton", "Clicked home button");

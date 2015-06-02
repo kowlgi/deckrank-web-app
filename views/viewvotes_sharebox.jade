@@ -8,9 +8,6 @@ div(class="alert")
         |Share the results:
         a(id="resultslink", href='/v/' + voteid) &nbspdeckrank.co&#47;v&#47;#{voteid}
 script.
-    mixpanel.track_links("#votelink", "Clicked vote link", {
-        "referrer": document.referrer
-    });
-    mixpanel.track_links("#resultslink", "Clicked results link", {
-        "referrer": document.referrer
-    });
+    mixpanel.track_links("#votelink", "Clicked vote link");
+
+    mixpanel.track_links("#resultslink", "Clicked results link");

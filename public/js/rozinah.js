@@ -80,6 +80,10 @@ $('.nav li').click(function(){
 <!-- Webshims polyfill -->
 jQuery.webshims.polyfill('forms');
 
+var date = new Date();
+mixpanel.register_once({'First deckrank use date': date.toDateString()});
+mixpanel.register_once({'First deckrank page visited': window.location.href});
+
 // set sortable elements in r/:id to default state
 $( "#sortable" ).sortable();
 $( "#sortable" ).disableSelection();
