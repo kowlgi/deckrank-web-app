@@ -169,7 +169,7 @@ exports.vote = function(req, res, next) {
             // we send an email only when there's an 'email' key in the request
             // header
             if (req.body['email']) {
-                var subject = "Thanks for voting on a deckrank poll";
+                var subject = "Thanks for voting on: " + stackrank.title;
                 var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
                 Mail.sendHtmlEmail(mg,
                     req.body['email'].substring(0, MAX_INPUT_LENGTH),
