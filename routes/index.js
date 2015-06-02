@@ -12,7 +12,6 @@ var jade = require('jade');
 var fs = require('fs');
 var MAX_INPUT_LENGTH = 50;
 var MAX_DESCRIPTION_LENGTH = 200;
-var http = require('request');
 
 // Global variable for the email object. We'd like to initialize it once
 var mg = 0;
