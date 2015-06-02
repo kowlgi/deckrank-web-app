@@ -10,20 +10,23 @@ var Schema   = mongoose.Schema;
 
 exports.init = function(stackrank_db_name) {
     var StackRank = new Schema({
-        title:      String,
-        options:    [{type: String}],
-        rankid: String,
-        voteid: String,
-        email: String,
-        description: String,
+        title          : String,
+        options        : [String],
+        created_on     : Date,
+        poll_type      : String, 
+        rankid         : String,
+        voteid         : String,
+        email          : String,
+        description    : String,
         votes: [{
-            voter: {type: String},
-            email: {type: String},
-            rankings: [String]
+            voter      : String,
+            email      : String,
+            created_on : Date,
+            rankings   : [String]
         }],
         overall: [{
-            option: {type: String},
-            score: {type: Number}
+            option     : String,
+            score      : Number
         }]
     });
 
