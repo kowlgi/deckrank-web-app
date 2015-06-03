@@ -118,3 +118,15 @@ fieldset {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
 }
+
+.text-primary {
+    color: #ED0C27;
+}
+
+th {
+    font-weight: normal;
+}
+
+.table>tbody>tr.success>td {
+    background-color: snow;
+}
