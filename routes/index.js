@@ -10,7 +10,7 @@ var App = require('../app');
 var Mail = require('../mail');
 var jade = require('jade');
 var fs = require('fs');
-var MAX_INPUT_LENGTH = 50;
+var MAX_INPUT_LENGTH = 100;
 var MAX_DESCRIPTION_LENGTH = 200;
 
 // Global variable for the email object. We'd like to initialize it once
