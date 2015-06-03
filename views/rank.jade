@@ -25,7 +25,7 @@ body
                 input(type="text", class="form-control", id="voter",
                     name="voter", placeholder="Enter your name",
                     required="required", maxlength="50")
-                - var voter_mini_label = email ? "So others know what you voted for":"So the creator of the poll knows who voted";
+                - var voter_mini_label = "So others know what you voted for";
                 p(class="text-info small") #{voter_mini_label}
             div.form-group.col-sm-7
               label(for="sortable") Grab, drag, reorder and then submit

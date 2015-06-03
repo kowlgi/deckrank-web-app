@@ -2,8 +2,5 @@ div(class="alert")
     strong
         |Share this link so others can vote&nbsp;
         a(id="votelink", href='/r/' + rankid) deckrank.co&#47;r&#47;#{rankid}
-        br
-        |Note that on the results page for this poll your name and rankings will be displayed,
-        |but your email won't be displayed.
 script.
     mixpanel.track_links("#votelink", "Clicked vote link");
