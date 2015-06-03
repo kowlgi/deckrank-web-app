@@ -140,7 +140,7 @@ exports.vote = function(req, res, next) {
           rankings   : voterrankings});
 
         if (stackrank.overall.length == 0) {
-            var rank = voterrankings.length;
+            var rank = voterrankings.length - 1;
             for (i = 0; i < voterrankings.length; i++) {
                 stackrank.overall.push(
                     {option: voterrankings[i], score: rank--});
@@ -149,7 +149,7 @@ exports.vote = function(req, res, next) {
         else {
             for (i = 0; i < stackrank.overall.length; i++) {
                 var new_score = stackrank.overall.length -
-                    voterrankings.indexOf(stackrank.overall[i].option);
+                    voterrankings.indexOf(stackrank.overall[i].option) - 1;
                 stackrank.overall[i].score += new_score;
             }
         }
