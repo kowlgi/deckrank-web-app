@@ -11,7 +11,8 @@ body
     include header.jade
     div.container-fluid
       div.form-group(id="faq")
-        h3(class="extra_sections") Frequently Asked Questions
+          h3(class="extra_sections")
+              b Frequently Asked Questions
           div
           h4 What is deckrank?
           p(class="answer")
@@ -66,13 +67,15 @@ body
             a(href="https://www.twitter.com/deckrank") @deckrank
             |&nbsp;for some examples.
       div.form-group(id="about")
-        h3(class="extra_sections") About
+        h3(class="extra_sections")
+            b About
         p(class="answer")
             |deckrank is authored by Sunil Kowlgi (
             a(href="https://www.twitter.com/kowlgi") @kowlgi
             |) in Austin, TX  and friends.
       div.form-group(id="contact")
-        h3(class="extra_sections") Contact
+        h3(class="extra_sections")
+            b Contact
         form(role="form", id="contactform", class="ws-validate", method="post", action="/feedback")
             fieldset
                 div.form-group.col-md-7
