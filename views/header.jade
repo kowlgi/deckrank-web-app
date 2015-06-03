@@ -16,13 +16,13 @@ nav(class="navbar navbar-default")
         div(class="collapse navbar-collapse", id="bs-example-navbar-collapse-1")
             ul(class="nav navbar-nav", id="headernav")
                 li
-                    a(id="faq", href="/extra#faq") FAQ
+                    a(id="faqlink", href="/extra#faq") FAQ
                 li
-                    a(id="about",href="/extra#about") About
+                    a(id="aboutlink",href="/extra#about") About
                 li
-                    a(id="contact",href="/extra#contact") Contact
+                    a(id="contactlink",href="/extra#contact") Contact
 script.
-    mixpanel.track_links("#faq", "Clicked FAQ");
-    mixpanel.track_links("#about", "Clicked About");
-    mixpanel.track_links("#contact", "Clicked Contact");
+    mixpanel.track_links("#faqlink", "Clicked FAQ");
+    mixpanel.track_links("#aboutlink", "Clicked About");
+    mixpanel.track_links("#contactlink", "Clicked Contact");
     mixpanel.track_links("#homebutton", "Clicked home button");
