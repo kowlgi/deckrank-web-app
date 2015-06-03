@@ -12,6 +12,10 @@
 .table>tbody>tr>td {
     vertical-align: middle;
 }
+
+.glyphicon {
+    font-size: 1.5em;
+}
 .navbar-default {
     background-color: #ED0C27;
     color: #FFFFFF;
