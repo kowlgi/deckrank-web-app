@@ -13,6 +13,10 @@ var fs = require('fs');
 var MAX_INPUT_LENGTH = 100;
 var MAX_DESCRIPTION_LENGTH = 200;
 
+// Some random voter names
+var names = [ "A fan", "Gilfoyle", "The hero", "Erlich Bachman", "The great one",
+              "Mrs. Anonymous", "Anonymouse", "They call me X", "Call me Mr. T"];
+
 // Global variable for the email object. We'd like to initialize it once
 var mg = 0;
 
@@ -40,6 +44,10 @@ exports.showall = function(req, res, next) {
 function isEmpty(str) {
     return (!str || 0 === str.length);
 }
+
+function getRandomVoterName() {
+  return names[Math.floor(Math.random() * names.length)];
+};
 
 // Helper to extract options from the form and return an array
 function getOptionsArray(d) {
@@ -142,8 +150,13 @@ exports.vote = function(req, res, next) {
 
         var voterrankings = getOptionsArray(req.body);
         var email_ = req.body['email'] ? req.body['email'].substring(0, MAX_INPUT_LENGTH) : stackrank.email;
+        var voter_ = req.body['voter'].substring(0, MAX_INPUT_LENGTH);
+        if (isEmpty(voter_)) {
+          voter_ = getRandomVoterName();
+        }
+
         stackrank.votes.push({
-          voter      : req.body['voter'].substring(0, MAX_INPUT_LENGTH),
+          voter      : voter_,
           email      : email_,
           created_on : Date.now(),
           rankings   : voterrankings});

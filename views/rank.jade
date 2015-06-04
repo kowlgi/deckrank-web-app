@@ -23,19 +23,19 @@ body
               include rank_sharebox.jade
           form(role="form", id="votedeckrank", class="ws-validate", method="post", action="/vote/" + rankid)
             div.form-group.col-sm-7
-                label(for="voter") Your name
-                input(type="text", class="form-control", id="voter",
-                    name="voter", placeholder="Enter your name",
-                    required="required", maxlength="100")
-                - var voter_mini_label = "So others know who you are";
-                p(class="text-info small") #{voter_mini_label}
-            div.form-group.col-sm-7
               label(for="sortable") Grab, drag, reorder and then submit
               ul(id="sortable")
                   each option, index in options
                       li.ui-state-default
                           = option
                           input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
+            div.form-group.col-sm-7
+                label(for="voter") Your name
+                input(type="text", class="form-control", id="voter",
+                    name="voter", placeholder="Enter your name",
+                    maxlength="100")
+                - var voter_mini_label = "Optional. So others know who you are";
+                p(class="text-info small") #{voter_mini_label}
             if !email
                 div.form-group.col-sm-7
                   label(for="email") Your email
