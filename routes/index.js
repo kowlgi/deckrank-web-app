@@ -37,6 +37,10 @@ exports.showall = function(req, res, next) {
         });
 };
 
+function isEmpty(str) {
+    return (!str || 0 === str.length);
+}
+
 // Helper to extract options from the form and return an array
 function getOptionsArray(d) {
     var options = [];
@@ -51,9 +55,10 @@ function getOptionsArray(d) {
 };
 
 exports.create = function(req, res, next) {
+  var email_ = req.body.email.substring(0, MAX_INPUT_LENGTH);
   var stackrank = new StackRank({
     title       : req.body.title.substring(0, MAX_INPUT_LENGTH),
-    email       : req.body.email.substring(0, MAX_INPUT_LENGTH),
+    email       : email_,
     description : req.body.description.substring(0, MAX_DESCRIPTION_LENGTH),
     options     : getOptionsArray(req.body).splice(0,10),
     created_on  : Date.now()
@@ -65,7 +70,10 @@ exports.create = function(req, res, next) {
 
         // And redirect the user to home...
         res.redirect('/r/' + stackrank.rankid + '?email=1');
-
+        if (isEmpty(email_)) {
+          console.log('No email was specified in create. Returning ...');
+          return;
+        }
         // Create the mail object if it doesn't exist
         if (!mg) {
             console.log('Creating the mailgun object for the first time')
@@ -126,16 +134,17 @@ var compareRankings = function(a, b) {
 
 exports.vote = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
+        console.log('Inside vote for id: ' + req.params.id);
         if (err) {
             res.render('404', {url:req.url});
             return;
         }
 
         var voterrankings = getOptionsArray(req.body);
-
+        var email_ = req.body['email'] ? req.body['email'].substring(0, MAX_INPUT_LENGTH) : stackrank.email;
         stackrank.votes.push({
           voter      : req.body['voter'].substring(0, MAX_INPUT_LENGTH),
-          email      : req.body['email'] ? req.body['email'].substring(0, MAX_INPUT_LENGTH) : stackrank.email,
+          email      : email_,
           created_on : Date.now(),
           rankings   : voterrankings});
 
@@ -160,6 +169,11 @@ exports.vote = function(req, res, next) {
             }
             res.redirect('/v/' + stackrank.voteid);
 
+            if (isEmpty(email_)) {
+              console.log('No email was specified in vote. Returning ...');
+              return;
+            }
+
             // Create the mail object if it doesn't exist
             if (!mg) {
                 console.log('Creating the mailgun object for the first time')
@@ -181,6 +195,7 @@ exports.vote = function(req, res, next) {
 
 exports.viewvotes = function(req, res, next) {
   StackRank.findOne({voteid : req.params.id}, function(err, stackrank) {
+      console.log('Inside viewvotes for id: ' + req.params.id);
       if (err) {
         res.render('404', {url:req.url});
         return;
