@@ -34,7 +34,9 @@ body
                     p
                         div.howheader 3. View
                         |The results will update instantly as people submit their
-                        |vote
+                        |vote.
+                        a(id="learnmore", href="/extra#scoring")
+                            |Learn more
                     img.how(src="http://i.imgur.com/EoUwfV3.jpg")
         div.row
             div.col-sm-4
@@ -44,4 +46,5 @@ body
                           | Okay, I get it. Let's begin
     script.
         mixpanel.track_forms("#howtocreate", "Get started");
+        mixpanel.track_links("#learnmore", "Learn more");
     include footer.jade
