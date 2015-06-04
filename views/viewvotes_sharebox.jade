@@ -1,12 +1,10 @@
 div(class="alert")
     strong
-        |To have others vote or view the results share the links below
-    p
-        |Share the poll&nbsp;
-        a(id="votelink", href='/r/' + rankid) deckrank.co&#47;r&#47;#{rankid}
-    p
-        |Share the results&nbsp;
-        a(id="resultslink", href='/v/' + voteid) deckrank.co&#47;v&#47;#{voteid}
+      |Share the poll &nbsp;
+      a(id="votelink", href='/r/' + rankid) deckrank.co&#47;r&#47;#{rankid}
+      br
+      |Share the results &nbsp;
+      a(id="resultslink", href='/v/' + voteid) deckrank.co&#47;v&#47;#{voteid}
 script.
     mixpanel.track_links("#votelink", "Clicked vote link");
     mixpanel.track_links("#resultslink", "Clicked results link");

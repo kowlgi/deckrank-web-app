@@ -18,7 +18,9 @@ body
               = title
               p(class="text-muted small")
                 = description
-            include rank_sharebox.jade
+          if email
+            div.form-group.col-sm-7
+              include rank_sharebox.jade
           form(role="form", id="votedeckrank", class="ws-validate", method="post", action="/vote/" + rankid)
             div.form-group.col-sm-7
                 label(for="voter") Your name
