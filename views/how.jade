@@ -1,0 +1,46 @@
+doctype html
+head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Vote: deckrank.co: how to run a poll
+    link(rel="stylesheet",
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css",
+        href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
+    link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
+body
+    include header.jade
+    div.container-fluid
+        div.row
+            div.col-sm-12
+                h1.howtitle
+                    |Three quick and easy steps to run a ranking poll
+        fieldset
+            div.row
+                div.col-sm-4
+                    p
+                        div.howheader 1. Create
+                        |Type a question to frame the poll and enter options
+                        |for voters to rank
+                    img.how(src="http://i.imgur.com/ntItXId.jpg")
+                div.col-sm-4
+                    p
+                        div.howheader 2. Rank
+                        |Share the voting page link and get others to vote
+                    img.how(src="http://i.imgur.com/Qd3HMJ1.jpg")
+                div.col-sm-4
+                    p
+                        div.howheader 3. View
+                        |The results will update instantly as people submit their
+                        |vote
+                    img.how(src="http://i.imgur.com/EoUwfV3.jpg")
+        div.row
+            div.col-sm-4
+                form(role="form", id="howtocreate", method="get", action="/")
+                    div.form-group.col-sm-7
+                        button(type="submit", value="submit", class="btn btn-default")
+                          | Okay, I get it. Let's get started
+    script.
+        mixpanel.track_forms("#howtocreate", "Get started");
+    include footer.jade
