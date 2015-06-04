@@ -21,25 +21,27 @@ body
                 div.col-sm-4
                     p
                         div.howheader 1. Create
-                        |Type a question and enter options for voters to rank
+                        |Type a question and enter options for voters to rank.
+                        |No need to sign up
                     img.how(src="http://i.imgur.com/ntItXId.jpg")
                 div.col-sm-4
                     p
                         div.howheader 2. Rank
-                        |Share the voting page link and get others to vote
+                        |Share the voting page link and get others to vote.
+                        |Voters don't need to sign up either
                     img.how(src="http://i.imgur.com/Qd3HMJ1.jpg")
                 div.col-sm-4
                     p
                         div.howheader 3. View
                         |The results will update instantly as people submit their
-                        |vote
+                        |vote.
                     img.how(src="http://i.imgur.com/EoUwfV3.jpg")
         div.row
             div.col-sm-4
                 form(role="form", id="howtocreate", method="get", action="/")
                     div.form-group.col-sm-7
                         button(type="submit", value="submit", class="btn btn-default")
-                          | Okay, I get it. Let's get started
+                          | Okay, I get it. Let's begin
     script.
         mixpanel.track_forms("#howtocreate", "Get started");
     include footer.jade
