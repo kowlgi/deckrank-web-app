@@ -17,7 +17,9 @@ var MAX_DESCRIPTION_LENGTH = 200;
 
 // Some random voter names
 var names = [ "A fan", "Gilfoyle", "The hero", "Erlich Bachman", "The great one",
-              "Mrs. Anonymous", "Anonymouse", "They call me X", "Call me Mr. T"];
+              "Mrs. Anonymous", "Anonymouse", "They call me X", "Call me Mr. T",
+              "Jazzy Jeff", "A Gilmore Girl", "Captain Jim", "A kitten", "A cat",
+              "The Beast", "A Brown Bear", "RinTinTin the Dino"];
 
 // Global variable for the email object. We'd like to initialize it once
 var mg = 0;

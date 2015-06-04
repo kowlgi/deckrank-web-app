@@ -15,15 +15,15 @@ body
         fieldset
           div.form-group.col-sm-7
             h3
-              |Create a poll and share
-              p(class="text-info small") It's free and no signup required
+              |Create a stackrank poll and share
+              p(class="text-info small") It's free and no signup required. Create. Share The Link. Vote.
           <br>
           form(role="form", id="createdeckrank", class="ws-validate", method="post", action="/create")
               div.form-group.col-sm-7
                 label(for="title") Question
                 textarea(class="form-control", id="title",
                       name="title", placeholder="What's your favorite show on TV today? Rank your favorite shows in order of preference",
-                      required="required", maxlength="256", rows="2")
+                      required="required", maxlength="256", rows="3")
               div.form-group.col-sm-7
                 label(for="options") Options
                 div(class="table-responsive")
