@@ -10,6 +10,8 @@ var App = require('../app');
 var Mail = require('../mail');
 var jade = require('jade');
 var fs = require('fs');
+var MAX_TITLE_LENGTH = 256;
+var EMAIL_TITLE_LENGTH = 60;
 var MAX_INPUT_LENGTH = 100;
 var MAX_DESCRIPTION_LENGTH = 200;
 
@@ -19,6 +21,14 @@ var names = [ "A fan", "Gilfoyle", "The hero", "Erlich Bachman", "The great one"
 
 // Global variable for the email object. We'd like to initialize it once
 var mg = 0;
+
+// TODO(hnag): Buggy. Need to fix
+// Helper to truncate strings at a word boundary
+String.prototype.truncate = function(n, useWordBoundary) {
+  var toLong = this.length > n, s_ = toLong ? this.substr(0, n-1) : this;
+  s_ = useWordBoundary && toLong ? s_.substr(0, s_.lastIndexOf(' ')) : s_;
+  return toLong ? s_ + '...' : s_;
+};
 
 exports.index = function(req, res, next) {
     res.render('index', {mixpanel_tracking_code : App.mixpanel_tracking_code});
@@ -65,9 +75,8 @@ function getOptionsArray(d) {
 exports.create = function(req, res, next) {
   var email_ = req.body.email.substring(0, MAX_INPUT_LENGTH);
   var stackrank = new StackRank({
-    title       : req.body.title.substring(0, MAX_INPUT_LENGTH),
+    title       : req.body.title.substring(0, MAX_TITLE_LENGTH),
     email       : email_,
-    description : req.body.description.substring(0, MAX_DESCRIPTION_LENGTH),
     options     : getOptionsArray(req.body).splice(0,10),
     created_on  : Date.now()
   }).save(function(err, stackrank) {
@@ -82,12 +91,13 @@ exports.create = function(req, res, next) {
           console.log('No email was specified in create. Returning ...');
           return;
         }
+
         // Create the mail object if it doesn't exist
         if (!mg) {
             console.log('Creating the mailgun object for the first time')
             mg = Mail.mailgun(App.api_key, App.email_domain);
         }
-        var subject = "You created a new poll: " + stackrank.title;
+        var subject = "You created a new poll: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
         var body_html = jade.renderFile('views/email_template.jade', stackrank);
         Mail.sendHtmlEmail(mg, stackrank.email, "", subject, body_html, body_html);
     });
@@ -177,6 +187,7 @@ exports.vote = function(req, res, next) {
         }
         stackrank.overall.sort(compareRankings);
         stackrank.save(function(err, stackrankvotes) {
+          console.log('new title is ' + stackrank.title.truncate(EMAIL_TITLE_LENGTH));
             if (err) {
                 return next(err);
             }
@@ -196,7 +207,7 @@ exports.vote = function(req, res, next) {
             // we send an email only when there's an 'email' key in the request
             // header
             if (req.body['email']) {
-                var subject = "Thanks for voting on: " + stackrank.title;
+                var subject = "Thanks for voting on: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
                 var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
                 Mail.sendHtmlEmail(mg,
                     req.body['email'].substring(0, MAX_INPUT_LENGTH),
