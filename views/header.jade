@@ -16,12 +16,15 @@ nav(class="navbar navbar-default")
         div(class="collapse navbar-collapse", id="bs-example-navbar-collapse-1")
             ul(class="nav navbar-nav", id="headernav")
                 li
+                    a(id="howlink", href="/how") How-to
+                li
                     a(id="faqlink", href="/extra#faq") FAQ
                 li
                     a(id="aboutlink",href="/extra#about") About
                 li
                     a(id="contactlink",href="/extra#contact") Contact
 script.
+    mixpanel.track_links("#howlink", "Clicked How");
     mixpanel.track_links("#faqlink", "Clicked FAQ");
     mixpanel.track_links("#aboutlink", "Clicked About");
     mixpanel.track_links("#contactlink", "Clicked Contact");

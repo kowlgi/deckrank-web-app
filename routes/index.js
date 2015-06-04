@@ -41,6 +41,10 @@ exports.extra = function(req, res, next) {
         feedback_done:req.query.feedback});
 };
 
+exports.how = function(req, res, next) {
+    res.render('how');
+};
+
 exports.showall = function(req, res, next) {
     StackRank.
         find().

@@ -61,6 +61,7 @@ app.post('/feedback', routes.feedback);
 app.get('/r/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/v/:id', routes.viewvotes);
+app.get('/how', routes.how);
 if(ops.activate_showall_url) {
     app.get('/showall', routes.showall);
 }
