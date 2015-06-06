@@ -6,8 +6,10 @@
 
 var mongoose = require( 'mongoose' );
 var StackRank = mongoose.model('StackRank');
-var App = require('../app');
-var Mail = require('../mail');
+
+// TODO(hnag): app.js includes index.js and index.js includes app. Fix that.
+var App = require('./app');
+var Mail = require('./mail');
 var jade = require('jade');
 var fs = require('fs');
 var MAX_TITLE_LENGTH = 256;

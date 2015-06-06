@@ -50,7 +50,7 @@ if (ops.db) {
 
 // database setup
 require( './db' ).init(db_name);
-var routes  = require( './routes' );
+var routes  = require( './index' );
 var mail = require('./mail');
 
 // Routes
