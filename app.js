@@ -62,6 +62,7 @@ app.get('/r/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/v/:id', routes.viewvotes);
 app.get('/how', routes.how);
+app.get('/dashboard', routes.dashboard);
 if(ops.activate_showall_url) {
     app.get('/showall', routes.showall);
 }

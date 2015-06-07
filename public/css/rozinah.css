@@ -146,3 +146,8 @@ th {
 .table>tbody>tr.success>td {
     background-color: snow;
 }
+
+.dashboard{
+  color: #A9A9A9;
+  font-size: 36px;
+}

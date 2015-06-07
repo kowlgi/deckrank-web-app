@@ -59,6 +59,25 @@ exports.showall = function(req, res, next) {
         });
 };
 
+exports.dashboard = function(req, res, next) {
+  var num_votes = 0;
+  StackRank.find().exec(
+    function(err, stackrank) {
+      for (var i=0; i < stackrank.length; ++i) {
+        num_votes += stackrank[i].votes.length;
+      }
+  });
+  StackRank.
+      find().
+      exec(function(err, stackranks) {
+          res.render('dashboard', {
+              stackranks: stackranks,
+              vote_count: num_votes
+          });
+      });
+};
+
+
 function isEmpty(str) {
     return (!str || 0 === str.length);
 }
