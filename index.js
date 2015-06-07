@@ -35,16 +35,19 @@ String.prototype.truncate = function(n, useWordBoundary) {
 };
 
 exports.index = function(req, res, next) {
-    res.render('index', {mixpanel_tracking_code : App.mixpanel_tracking_code});
+    res.render('index', {mixpanel_tracking_code : App.mixpanel_tracking_code,
+        google_tracking_code   : App.google_tracking_code});
 };
 
 exports.extra = function(req, res, next) {
     res.render('extra', {mixpanel_tracking_code : App.mixpanel_tracking_code,
-        feedback_done:req.query.feedback});
+        feedback_done:req.query.feedback,
+        google_tracking_code   : App.google_tracking_code});
 };
 
 exports.how = function(req, res, next) {
-    res.render('how');
+    res.render('how', {mixpanel_tracking_code : App.mixpanel_tracking_code,
+        google_tracking_code   : App.google_tracking_code});
 };
 
 exports.showall = function(req, res, next) {
@@ -54,7 +57,8 @@ exports.showall = function(req, res, next) {
             res.render('showall', {
                 title                  : 'All stackranks in the db',
                 stackranks             : stackranks,
-                mixpanel_tracking_code : App.mixpanel_tracking_code
+                mixpanel_tracking_code : App.mixpanel_tracking_code,
+                google_tracking_code   : App.google_tracking_code
             });
         });
 };
@@ -151,7 +155,8 @@ exports.rank = function(req, res, next) {
                 email                  : req.query.email,
                 rankid                 : stackrank.rankid,
                 voteid                 : stackrank.voteid,
-                mixpanel_tracking_code : App.mixpanel_tracking_code
+                mixpanel_tracking_code : App.mixpanel_tracking_code,
+                google_tracking_code   : App.google_tracking_code
             });
       }
       else {
@@ -270,7 +275,8 @@ exports.viewvotes = function(req, res, next) {
                 votes                  : stackrank.votes.reverse(),
                 rankid                 : stackrank.rankid,
                 voteid                 : stackrank.voteid,
-                mixpanel_tracking_code : App.mixpanel_tracking_code
+                mixpanel_tracking_code : App.mixpanel_tracking_code,
+                google_tracking_code   : App.google_tracking_code
             });
       }
       else {
