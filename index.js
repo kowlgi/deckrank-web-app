@@ -66,17 +66,13 @@ exports.dashboard = function(req, res, next) {
       for (var i=0; i < stackrank.length; ++i) {
         num_votes += stackrank[i].votes.length;
       }
-  });
-  StackRank.
-      find().
-      exec(function(err, stackranks) {
-          res.render('dashboard', {
-              stackranks: stackranks,
-              vote_count: num_votes
-          });
-      });
-};
 
+      res.render('dashboard', {
+                  stackranks: stackrank,
+                  vote_count: num_votes
+      });
+  });
+};
 
 function isEmpty(str) {
     return (!str || 0 === str.length);
