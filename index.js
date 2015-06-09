@@ -246,9 +246,13 @@ exports.viewvotes = function(req, res, next) {
           overall_rankings[ii].score += score;
       }
 
-      for (ii = 0; ii < overall_rankings.length; ii++) {
-          overall_rankings[ii].score = Math.round((overall_rankings[ii].score * 100) / total);
+      // normalize scores only if there's at least one vote i.e. total > 0
+      if (total > 0) {
+          for (ii = 0; ii < overall_rankings.length; ii++) {
+              overall_rankings[ii].score = Math.round((overall_rankings[ii].score * 100) / total);
+          }
       }
+
       overall_rankings.sort(compareRankings);
 
       if(stackrank.votes) {
