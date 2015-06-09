@@ -34,7 +34,8 @@ body
                       li.ui-state-default.inner-addon.left-addon
                         a(href="#", class="removeoption")
                             span(class="glyphicon glyphicon-remove")
-                        = option
+                        span
+                            = option
                         input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
             div.form-group.col-sm-7
                 label(for="voter") Your name
