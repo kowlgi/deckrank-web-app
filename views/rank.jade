@@ -24,8 +24,9 @@ body
           form(role="form", id="votedeckrank", class="ws-validate", method="post", action="/vote/" + rankid)
             div.form-group.col-sm-7
               label(for="sortable")
-              |You can remove and reorder options below.&nbsp;
-              button(type="reset", id="resetRankOptions", class="btn-default") Reset
+              |Remove and reorder options below
+              br
+              a(id="resetRankOptions", class="btn-default") Reset
               |&nbsp;to start over
               br
               br
