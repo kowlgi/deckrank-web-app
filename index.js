@@ -240,12 +240,12 @@ exports.viewvotes = function(req, res, next) {
               if (rankings) {
                   var rank = rankings.indexOf(stackrank.options[ii]);
                   score += rank > -1 ? stackrank.options.length - rank : 0;
-                  total += score;
               }
           }
+          total += score;
           overall_rankings[ii].score += score;
       }
-
+      console.log
       for (ii = 0; ii < overall_rankings.length; ii++) {
           overall_rankings[ii].score = Math.round((overall_rankings[ii].score * 100) / total);
       }
