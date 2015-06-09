@@ -8,6 +8,12 @@
 
 #sortable { padding-left: 0px; list-style-type: none; margin: auto; width: 60%; float: center; }
 #sortable li {margin:1%; padding: 0.4em; font-size: 1.4em; text-align: center }
+.removebox {margin-top:2.5%; padding: 0.4em; font-size: 1em; text-align: center}
+
+.resetbutton {
+    margin-top: 3%;
+    color: #5F5555;
+}
 
 .how {
    border:2px solid #ED0C27;

@@ -23,12 +23,19 @@ body
               include rank_sharebox.jade
           form(role="form", id="votedeckrank", class="ws-validate", method="post", action="/vote/" + rankid)
             div.form-group.col-sm-7
-              label(for="sortable") Grab, drag, reorder and then submit
+              label(for="sortable") Remove options if needed. Then grab, drag, reorder and submit
               ul(id="sortable")
                   each option, index in options
-                      li.ui-state-default
-                          = option
-                          input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
+                      div.row
+                          li.ui-state-default.col-xs-6
+                              = option
+                              input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
+                          div.col-xs-1.removebox(margin="auto")
+                              a(href="#", class="removeoption")
+                                      span(class="glyphicon glyphicon-remove")
+              div(class="resetbutton")
+                  button(type="reset", id="resetRankOptions", class="btn-default btn-group-sm")
+                      | Reset Options
             div.form-group.col-sm-7
                 label(for="voter") Your name
                 input(type="text", class="form-control", id="voter",

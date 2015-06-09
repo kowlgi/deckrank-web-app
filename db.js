@@ -24,10 +24,6 @@ exports.init = function(stackrank_db_name) {
             created_on : Date,
             rankings   : [String]
         }],
-        overall: [{
-            option     : String,
-            score      : Number
-        }]
     });
 
     mongoose.model('StackRank', StackRank);

@@ -34,6 +34,5 @@ module.exports = function(grunt) {
 
   // Default task(s).
   var target = grunt.option('target') || 'build';
-  grunt.registerTask('default', ['uglify:' + target, 'cssmin']);
-
+  grunt.registerTask('default', ['uglify:' + target, 'cssmin:' + target]);
 };

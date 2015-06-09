@@ -71,6 +71,31 @@ var plusHandler = function() {
 $("#add_another2").click(plusHandler);
 var COUNT = 2;
 
+
+var originalListItems = [];
+var populateListItems = function() {
+    originalListItems = $("#sortable").children();
+}
+
+var removeHandler =  function() {
+    var parent = $(this).parent().parent();
+    parent.detach();
+};
+
+var resetRankOptionsHandler = function() {
+    var sortableList = $("#sortable");
+    for(i = 0; i < originalListItems.length; i++) {
+        originalListItems.detach();
+    }
+
+    for(i = 0; i < originalListItems.length; i++) {
+        originalListItems.appendTo(sortableList);
+    }
+}
+$(".removeoption").click(removeHandler);
+$("#resetRankOptions").click(resetRankOptionsHandler);
+$(document).ready(populateListItems);
+
 // to highlight menu item you've clicked on the navigation bar
 $('.nav li').click(function(){
     $('.nav li').removeClass('active');
