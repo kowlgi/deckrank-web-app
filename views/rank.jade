@@ -30,10 +30,10 @@ body
               ul(id="sortable")
                   each option, index in options
                       div.row
-                          li.ui-state-default.col-sm-6
+                          li.ui-state-default.col-xs-6
                               = option
                               input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
-                          div.col-sm-1.removebox(margin="auto")
+                          div.col-xs-1.removebox(margin="auto")
                               a(href="#", class="removeoption")
                                       span(class="glyphicon glyphicon-remove")
             div.form-group.col-sm-7
