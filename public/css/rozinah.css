@@ -111,6 +111,10 @@ body, .legend {
     background-color: #ED0C27;
 }
 
+.btn-default[disabled] {
+    background-color: #B5B5B5;
+}
+
 .form-control {
     border-radius: 0px;
 }

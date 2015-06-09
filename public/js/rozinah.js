@@ -73,13 +73,19 @@ var COUNT = 2;
 
 
 var originalListItems = [];
+var itemcount = 0;
 var populateListItems = function() {
     originalListItems = $("#sortable").children();
+    itemcount = originalListItems.length;
 }
 
 var removeHandler =  function() {
     var parent = $(this).parent();
     parent.detach();
+    if(--itemcount == 0) {
+        $(".alert").removeClass("hidden");
+        $("#submitvote").prop('disabled', true);
+    }
 };
 
 var resetRankOptionsHandler = function() {
@@ -87,10 +93,14 @@ var resetRankOptionsHandler = function() {
     for(i = 0; i < originalListItems.length; i++) {
         originalListItems.detach();
     }
+    itemcount = 0;
 
     for(i = 0; i < originalListItems.length; i++) {
         originalListItems.appendTo(sortableList);
     }
+    itemcount = originalListItems.length;
+    $(".alert").addClass("hidden");
+    $("#submitvote").prop('disabled', false);
 }
 $(".removeoption").click(removeHandler);
 $("#resetRankOptions").click(resetRankOptionsHandler);
