@@ -17,6 +17,8 @@ nav(class="navbar navbar-default")
         div(class="collapse navbar-collapse", id="bs-example-navbar-collapse-1")
             ul(class="nav navbar-nav", id="headernav")
                 li
+                    a(id="createlink", href="/") Create A Poll
+                li
                     a(id="howlink", href="/how") How It Works
                 li
                     a(id="faqlink", href="/extra#faq") FAQ
@@ -25,6 +27,7 @@ nav(class="navbar navbar-default")
                 li
                     a(id="contactlink",href="/extra#contact") Contact
 script.
+    mixpanel.track_links("#createlink", "Clicked Create");
     mixpanel.track_links("#howlink", "Clicked How");
     mixpanel.track_links("#faqlink", "Clicked FAQ");
     mixpanel.track_links("#aboutlink", "Clicked About");
