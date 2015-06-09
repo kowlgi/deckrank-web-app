@@ -83,23 +83,22 @@ var removeHandler =  function() {
     var parent = $(this).parent();
     parent.detach();
     if(--itemcount == 0) {
-        $(".alert").removeClass("hidden");
+        $(".alert-danger").removeClass("hidden");
         $("#submitvote").prop('disabled', true);
     }
 };
 
 var resetRankOptionsHandler = function() {
-    var sortableList = $("#sortable");
     for(i = 0; i < originalListItems.length; i++) {
         originalListItems.detach();
     }
-    itemcount = 0;
 
+    var sortableList = $("#sortable");
     for(i = 0; i < originalListItems.length; i++) {
         originalListItems.appendTo(sortableList);
     }
     itemcount = originalListItems.length;
-    $(".alert").addClass("hidden");
+    $(".alert-danger").addClass("hidden");
     $("#submitvote").prop('disabled', false);
 }
 $(".removeoption").click(removeHandler);
