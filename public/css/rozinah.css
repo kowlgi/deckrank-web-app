@@ -8,7 +8,6 @@
 
 #sortable { padding-left: 0px; list-style-type: none; margin: auto; width: 60%; float: center; }
 #sortable li {margin:1%; padding: 0.4em; font-size: 1.4em; text-align: center }
-.removebox {margin-top:2.5%; padding: 0.4em; font-size: 1em; text-align: center}
 
 .resetbutton {
     margin-top: 3%;
@@ -41,7 +40,25 @@
 }
 
 .glyphicon-remove {
-    color: #5F5555;
+    color: rgba(94, 86, 86, 0.36);
+    font-size: 1em;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+}
+
+.left-addon .glyphicon{
+    left: 0px;
+}
+
+.left-addon input {
+    padding-left: 30px;
 }
 
 .navbar-default {

@@ -27,15 +27,15 @@ body
               |You can remove and reorder options below.&nbsp;
               button(type="reset", id="resetRankOptions", class="btn-default") Reset
               |&nbsp;to start over
+              br
+              br
               ul(id="sortable")
                   each option, index in options
-                      div.row
-                          li.ui-state-default.col-xs-6
-                              = option
-                              input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
-                          div.col-xs-1.removebox(margin="auto")
-                              a(href="#", class="removeoption")
-                                      span(class="glyphicon glyphicon-remove")
+                      li.ui-state-default.inner-addon.left-addon
+                        a(href="#", class="removeoption")
+                            span(class="glyphicon glyphicon-remove")
+                        = option
+                        input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
             div.form-group.col-sm-7
                 label(for="voter") Your name
                 input(type="text", class="form-control", id="voter",

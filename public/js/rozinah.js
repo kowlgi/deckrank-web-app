@@ -78,7 +78,7 @@ var populateListItems = function() {
 }
 
 var removeHandler =  function() {
-    var parent = $(this).parent().parent();
+    var parent = $(this).parent();
     parent.detach();
 };
 
