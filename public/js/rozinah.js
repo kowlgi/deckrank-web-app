@@ -27,6 +27,7 @@ var minusHandler =  function() {
     var elem = $(last).children('.glyph_parent').children(".add_another");
     elem.children('.glyphicon-plus').removeClass('invisible');
     elem.removeClass('disableClick');
+    return false; 
 };
 
 var plusHandler = function() {
@@ -66,6 +67,7 @@ var plusHandler = function() {
     }
     elem.click(plusHandler);
     $("#remove" + i  ).click(minusHandler);
+    return false;
 }
 
 $("#add_another2").click(plusHandler);
@@ -86,6 +88,7 @@ var removeHandler =  function() {
         $(".alert-danger").removeClass("hidden");
         $("#submitvote").prop('disabled', true);
     }
+    return false;
 };
 
 var resetRankOptionsHandler = function() {
@@ -100,6 +103,7 @@ var resetRankOptionsHandler = function() {
     itemcount = originalListItems.length;
     $(".alert-danger").addClass("hidden");
     $("#submitvote").prop('disabled', false);
+    return false;
 }
 $(".removeoption").click(removeHandler);
 $("#resetRankOptions").click(resetRankOptionsHandler);
@@ -109,6 +113,7 @@ $(document).ready(populateListItems);
 $('.nav li').click(function(){
     $('.nav li').removeClass('active');
     $(this).addClass('active');
+    return false;
 });
 
 // cross-browser form validation: for instance, Safari doesn't recognize the
