@@ -35,11 +35,11 @@ body
               ul(id="sortable")
                   each option, index in options
                     li.ui-state-default.inner-addon.right-addon
-                        a(href="#", class="removeoption")
-                            span(class="glyphicon glyphicon-remove")
                         span
                             = option
                         input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
+                        a(href="#", class="removeoption")
+                            span(class="glyphicon glyphicon-remove-circle")
             div.form-group.col-sm-7
                 label(for="voter") Your name
                 input(type="text", class="form-control", id="voter",
