@@ -39,7 +39,7 @@
 }
 
 .glyphicon-remove {
-    color: rgba(94, 86, 86, 0.36);
+    color: rgba(94, 86, 86, 0.85);
     font-size: 1em;
 }
 
@@ -58,6 +58,14 @@
 
 .left-addon span {
     padding-left: 30px;
+}
+
+.right-addon .glyphicon{
+    right: 0px;
+}
+
+.right-addon span {
+    padding-right: 30px;
 }
 
 .navbar-default {
