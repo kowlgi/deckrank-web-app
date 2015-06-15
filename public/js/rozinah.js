@@ -27,7 +27,7 @@ var minusHandler =  function() {
     var elem = $(last).children('.glyph_parent').children(".add_another");
     elem.children('.glyphicon-plus').removeClass('invisible');
     elem.removeClass('disableClick');
-    return false; 
+    return false;
 };
 
 var plusHandler = function() {
@@ -118,7 +118,12 @@ $('.nav li').click(function(){
 
 // cross-browser form validation: for instance, Safari doesn't recognize the
 // required property and we have to enforece that somehow
-jQuery.webshims.polyfill('forms');
+//jQuery.webshims.polyfill('forms');
+
+$("#createdeckrank").submit(function(event) {
+    alert("test");
+    event.preventDefault();
+});
 
 var d = new Date();
 mixpanel.register_once({'First deckrank use date': d.toDateString()});
