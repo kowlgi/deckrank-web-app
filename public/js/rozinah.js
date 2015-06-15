@@ -121,7 +121,6 @@ $('.nav li').click(function(){
 //jQuery.webshims.polyfill('forms');
 
 $("#createdeckrank").submit(function(event) {
-    alert("test");
     event.preventDefault();
 });
 
