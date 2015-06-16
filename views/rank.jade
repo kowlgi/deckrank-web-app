@@ -21,7 +21,7 @@ body
           if email
             div.form-group.col-sm-7
               include rank_sharebox.jade
-          form(role="form", id="votedeckrank", class="ws-validate", method="post", action="/vote/" + rankid)
+          form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
             div.form-group.col-sm-7
               label(for="sortable")
               |Rank options by reordering them and delete options you don't care about.&nbsp;
@@ -29,17 +29,14 @@ body
               |&nbsp;to start over
               br
               br
-              div(class="alert alert-danger hidden", role="alert")
-                  span(class="glyphicon glyphicon-exclamation-sign", aria-hidden="true")
-                  |&nbsp;Please vote for at least one option
               ul(id="sortable")
                   each option, index in options
                     li.ui-state-default.inner-addon.right-addon
+                        a(href="#", class="removeoption")
+                            span(id="removerankoption#{index}", class="glyphicon glyphicon-remove-circle")
                         span
                             = option
                         input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
-                        a(href="#", class="removeoption")
-                            span(class="glyphicon glyphicon-remove-circle")
             div.form-group.col-sm-7
                 label(for="voter") Your name
                 input(type="text", class="form-control", id="voter",

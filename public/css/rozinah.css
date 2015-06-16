@@ -20,6 +20,10 @@
     color: blue;
 }
 
+.text-danger {
+    color: #ED0C27;
+}
+
 .howheader {
     color: #ED0C27;
     font-size: 2em;
@@ -39,7 +43,7 @@
 }
 
 .glyphicon-remove-circle {
-    color: rgba(94, 86, 86, 0.42);
+    color: rgba(237, 12, 39, 0.47);
     font-size: 0.7em;
 }
 
@@ -125,6 +129,10 @@ body, .legend {
 
 .form-control {
     border-radius: 0px;
+}
+
+.warn-required-input {
+    border: 1px solid #ED0C27;
 }
 
 footer {

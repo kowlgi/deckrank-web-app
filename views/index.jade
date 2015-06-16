@@ -5,7 +5,7 @@ head
     meta(name="viewport", content="width=device-width, initial-scale=1")
     meta(name="description", content="Create a rank-based poll quickly and easily. No sign up required. Mobile friendly.")
     meta(name="google-site-verification", content="lUS3pvtxrKkti02EpWMScj-oWlJfsUTGhMnCYizhhUQ")
-    title deckrank.co: create a poll and share
+    title deckrank.co: Create a poll and share
     link(rel="stylesheet",
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
@@ -18,12 +18,12 @@ body
               |Create a poll and share
               p(class="text-info small") It's free and no signup required.
           <br>
-          form(role="form", id="createdeckrank", class="ws-validate", method="post", action="/create")
+          form(role="form", id="createdeckrank", method="post", action="/create")
               div.form-group.col-sm-7
                 label(for="title") Question
                 textarea(class="form-control", id="title",
                       name="title", placeholder="What's your favorite show on TV today? Rank your favorite shows in order of preference",
-                      required="required", maxlength="256", rows="2")
+                      maxlength="256", rows="2")
               div.form-group.col-sm-7
                 label(for="options") Options
                 div(class="table-responsive")
@@ -34,15 +34,14 @@ body
                               input(type="text", class="form-control",
                                   name="option1", id="opt1",
                                   placeholder="The Game of Thrones",
-                                  required="required", maxlength="100")
+                                  maxlength="100")
                           td
                       tr.trhideclass
                         td
-                          input(type="text", id="opt2", name="option2",
+                            input(type="text", id="opt2", name="option2",
                                 class="form-control",
                                 placeholder="Silicon Valley",
-                                required="required",
-                                maxlength="100")
+                                axlength="100")
                         td.glyph_parent
                             a(href="#", id="add_another2", class="add_another")
                                 span(class="glyphicon glyphicon-plus")
@@ -54,10 +53,12 @@ body
                   input(type="email", id="email", name="email",
                         class="form-control", autocomplete="on", maxlength="100")
                   p(class="text-info small")
-                    | Optional. We'll send you a link to your poll. No spam
+                    | Optional. We'll send you a link to your poll.
               div.form-group.col-sm-7
-                  button(type="submit", value="submit", class="btn btn-default")
-                    | Create A Poll
+                    button(type="submit", id="submitpoll", value="submit", class="btn btn-default")
+                        | Create A Poll
+                    div(class="text-danger small hidden")
+                       | Please fill out fields highlighted above in red
     script.
         mixpanel.track_forms("#createdeckrank", "Created a poll");
         var date = new Date();

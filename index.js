@@ -51,6 +51,14 @@ exports.how = function(req, res, next) {
         google_tracking_code   : App.google_tracking_code});
 };
 
+exports.privacy = function(req, res, next) {
+    res.render('privacy');
+};
+
+exports.tos = function(req, res, next) {
+    res.render('tos');
+};
+
 exports.showall = function(req, res, next) {
     StackRank.
         find().

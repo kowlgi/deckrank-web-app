@@ -65,6 +65,8 @@ app.post('/vote/:id', routes.vote);
 app.get('/v/:id', routes.viewvotes);
 app.get('/how', routes.how);
 app.get('/dashboard', routes.dashboard);
+app.get('/privacy', routes.privacy);
+app.get('/tos', routes.tos);
 if(ops.activate_showall_url) {
     app.get('/showall', routes.showall);
 }

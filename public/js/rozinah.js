@@ -27,7 +27,7 @@ var minusHandler =  function() {
     var elem = $(last).children('.glyph_parent').children(".add_another");
     elem.children('.glyphicon-plus').removeClass('invisible');
     elem.removeClass('disableClick');
-    return false; 
+    return false;
 };
 
 var plusHandler = function() {
@@ -84,9 +84,10 @@ var populateListItems = function() {
 var removeHandler =  function() {
     var parent = $(this).parent();
     parent.detach();
-    if(--itemcount == 0) {
-        $(".alert-danger").removeClass("hidden");
-        $("#submitvote").prop('disabled', true);
+    if(--itemcount == 1) {
+        for(i = 0; i < originalListItems.length; i++) {
+            $("#removerankoption"+i).addClass("hidden");
+        }
     }
     return false;
 };
@@ -99,10 +100,9 @@ var resetRankOptionsHandler = function() {
     var sortableList = $("#sortable");
     for(i = 0; i < originalListItems.length; i++) {
         originalListItems.appendTo(sortableList);
+        $("#removerankoption"+i).removeClass("hidden");
     }
     itemcount = originalListItems.length;
-    $(".alert-danger").addClass("hidden");
-    $("#submitvote").prop('disabled', false);
     return false;
 }
 $(".removeoption").click(removeHandler);
@@ -116,9 +116,47 @@ $('.nav li').click(function(){
     return false;
 });
 
-// cross-browser form validation: for instance, Safari doesn't recognize the
-// required property and we have to enforece that somehow
-jQuery.webshims.polyfill('forms');
+function warnIfEmpty(id) {
+    if($(id).val().trim() == '')
+     {
+         $(id).addClass('warn-required-input');
+        return true;
+     }
+     else {
+         $(id).removeClass('warn-required-input');
+     }
+     return false;
+}
+
+function preventSubmit(evt) {
+    if(evt.preventDefault) {
+        evt.preventDefault();
+    }
+    evt.returnValue = false;
+}
+
+$("#submitpoll").click(function(evt) {
+    var pass = true;
+    if(warnIfEmpty("#title")) pass = false;
+    if(warnIfEmpty("#opt1")) pass = false;
+    if(warnIfEmpty("#opt2")) pass = false;
+
+    if(!pass) {
+        preventSubmit(evt);
+        $(".text-danger").removeClass("hidden");
+    }
+});
+
+$("#submitfeedback").click(function(evt) {
+    var pass = true;
+    if(warnIfEmpty("#email")) pass = false;
+    if(warnIfEmpty("#feedback")) pass = false;
+
+    if(!pass) {
+        preventSubmit(evt);
+        $(".text-danger").removeClass("hidden");
+    }
+});
 
 var d = new Date();
 mixpanel.register_once({'First deckrank use date': d.toDateString()});
