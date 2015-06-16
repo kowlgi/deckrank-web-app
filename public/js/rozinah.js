@@ -116,12 +116,46 @@ $('.nav li').click(function(){
     return false;
 });
 
-// cross-browser form validation: for instance, Safari doesn't recognize the
-// required property and we have to enforece that somehow
-//jQuery.webshims.polyfill('forms');
+function warnIfEmpty(id) {
+    if($(id).val().trim() == '')
+     {
+         $(id).addClass('warn-required-input');
+        return true;
+     }
+     else {
+         $(id).removeClass('warn-required-input');
+     }
+     return false;
+}
 
-$("#createdeckrank").submit(function(event) {
-    event.preventDefault();
+function preventSubmit(evt) {
+    if(evt.preventDefault) {
+        evt.preventDefault();
+    }
+    evt.returnValue = false;
+}
+
+$("#submitpoll").click(function(evt) {
+    var pass = true;
+    if(warnIfEmpty("#title")) pass = false;
+    if(warnIfEmpty("#opt1")) pass = false;
+    if(warnIfEmpty("#opt2")) pass = false;
+
+    if(!pass) {
+        preventSubmit(evt);
+        $(".text-danger").removeClass("hidden");
+    }
+});
+
+$("#submitfeedback").click(function(evt) {
+    var pass = true;
+    if(warnIfEmpty("#email")) pass = false;
+    if(warnIfEmpty("#feedback")) pass = false;
+
+    if(!pass) {
+        preventSubmit(evt);
+        $(".text-danger").removeClass("hidden");
+    }
 });
 
 var d = new Date();

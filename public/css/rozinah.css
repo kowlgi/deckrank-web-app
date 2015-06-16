@@ -20,6 +20,10 @@
     color: blue;
 }
 
+.text-danger {
+    color: #ED0C27;
+}
+
 .howheader {
     color: #ED0C27;
     font-size: 2em;
@@ -125,6 +129,10 @@ body, .legend {
 
 .form-control {
     border-radius: 0px;
+}
+
+.warn-required-input {
+    border: 1px solid #ED0C27;
 }
 
 footer {

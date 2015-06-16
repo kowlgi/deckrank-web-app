@@ -102,8 +102,10 @@ body
                     required="required",
                     maxlength="200", )
                 div.form-group.col-md-7
-                    button(type="submit", value="submit", class="btn btn-default")
+                    button(type="submit", id="submitfeedback", value="submit", class="btn btn-default")
                       |Send Feedback
+                    div(class="text-danger small hidden")
+                       | Please fill out fields highlighted above in red
                     p.thank-you
                         if feedback_done
                             |&nbsp;Thanks for your feedback! We'll get back to you.
