@@ -84,9 +84,10 @@ var populateListItems = function() {
 var removeHandler =  function() {
     var parent = $(this).parent();
     parent.detach();
-    if(--itemcount == 0) {
-        $(".alert-danger").removeClass("hidden");
-        $("#submitvote").prop('disabled', true);
+    if(--itemcount == 1) {
+        for(i = 0; i < originalListItems.length; i++) {
+            $("#removerankoption"+i).addClass("hidden");
+        }
     }
     return false;
 };
@@ -99,10 +100,9 @@ var resetRankOptionsHandler = function() {
     var sortableList = $("#sortable");
     for(i = 0; i < originalListItems.length; i++) {
         originalListItems.appendTo(sortableList);
+        $("#removerankoption"+i).removeClass("hidden");
     }
     itemcount = originalListItems.length;
-    $(".alert-danger").addClass("hidden");
-    $("#submitvote").prop('disabled', false);
     return false;
 }
 $(".removeoption").click(removeHandler);
