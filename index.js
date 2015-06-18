@@ -161,10 +161,11 @@ exports.feedback = function(req, res, next) {
         mg = Mail.mailgun(App.api_key, App.email_domain);
     }
     var subject = "Thanks for your feedback";
+    var bcc = "sunil.srinivasan@gmail.com, hareesh.nagarajan@gmail.com, deckrank@gmail.com";
     var body_html = jade.renderFile('views/email_feedback_template.jade',
         {description: req.body.description.substring(0, MAX_DESCRIPTION_LENGTH)});
     Mail.sendHtmlEmail(mg, req.body.email.substring(0, MAX_INPUT_LENGTH),
-        "sunil.srinivasan@gmail.com, hareesh.nagarajan@gmail.com, deckrank@gmail.com", subject, body_html, body_html);
+        bcc, subject, body_html, body_html);
 };
 
 exports.edit = function(req, res, next) {
@@ -192,8 +193,9 @@ exports.edit = function(req, res, next) {
 
 function allowVote(stackrank, voter_ip) {
     if(!stackrank.unique_voter) return true;
-
+    console.log("voter_ip="+voter_ip);
     for (i = 0; i < stackrank.votes.length; i++) {
+        console.log("existing voter_ip="+stackrank.votes[i].voter_ip);
         if(voter_ip == stackrank.votes[i].voter_ip) return false;
     }
 
