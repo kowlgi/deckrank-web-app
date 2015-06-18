@@ -12,7 +12,9 @@ body
         table.table-bordered
             thead
                 tr
-                    th ID
+                    th Rank ID
+                    th Edit ID
+                    th Results ID
                     th Title
                     th Email
                     th Description
@@ -26,6 +28,10 @@ body
                         td
                             a(href='/r/' + rank.rankid)= rank.rankid
                         td
+                            a(href='/r/' + rank.editid)= rank.editid
+                        td
+                            a(href='/r/' + rank.voteid)= rank.voteid
+                        td
                             = rank.title
                         td
                             = rank.email
@@ -38,5 +44,5 @@ body
                         td
                             = rank.options
                         td
-                            a(href='/v/' + rank.voteid)= rank.votes.length
+                            = rank.votes.length
     include footer.jade
