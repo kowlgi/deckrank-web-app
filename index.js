@@ -177,7 +177,7 @@ exports.edit = function(req, res, next) {
                 options                : stackrank.options,
                 placeholdertitle       : placeholdertitle,
                 placeholderoption      : placeholderoption,
-                email                  : req.query.email,
+                email                  : stackrank.email,
                 unique_voter           : stackrank.unique_voter,
                 mixpanel_tracking_code : App.mixpanel_tracking_code,
                 google_tracking_code   : App.google_tracking_code
