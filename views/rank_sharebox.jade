@@ -1,9 +1,7 @@
+include facebookshare.jade
 div(class="alert")
   strong
-    |Your poll is ready to be shared
-    br
+    |Share this link with others:&nbsp;
     a(id="votelink", href='/r/' + rankid) deckrank.co&#47;r&#47;#{rankid}
-    br
-    |You can also vote on your own poll below
 script.
     mixpanel.track_links("#votelink", "Clicked vote link");

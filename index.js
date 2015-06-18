@@ -16,6 +16,11 @@ var MAX_TITLE_LENGTH = 256;
 var EMAIL_TITLE_LENGTH = 60;
 var MAX_INPUT_LENGTH = 100;
 var MAX_DESCRIPTION_LENGTH = 200;
+var placeholdertitle = "What's your favorite show on TV today? Rank in order or preference.";
+var placeholderoption = ["Game of Thrones", "Silicon Valley", "Veep",
+                          "House of Cards", "True Detective", "Downton Abbey",
+                          "Entourage", "Orange Is The New Black", "Modern Family",
+                          "Mad Men"];
 
 // Some random voter names
 var names = [ "A fan", "Gilfoyle", "The hero", "Erlich Bachman", "The great one",
@@ -36,8 +41,19 @@ String.prototype.truncate = function(n, useWordBoundary) {
 };
 
 exports.index = function(req, res, next) {
-    res.render('index', {mixpanel_tracking_code : App.mixpanel_tracking_code,
-        google_tracking_code   : App.google_tracking_code});
+    var defaultOptions = ["", ""];
+    res.render('edit', {
+        headline               : "Create a Poll and Share",
+        subheadline            : "It's free and no signup required",
+        title                  : "",
+        options                : defaultOptions,
+        placeholdertitle       : placeholdertitle,
+        placeholderoption      : placeholderoption,
+        email                  : false,
+        unique_voter           : false,
+        mixpanel_tracking_code : App.mixpanel_tracking_code,
+        google_tracking_code   : App.google_tracking_code
+    });
 };
 
 exports.extra = function(req, res, next) {
@@ -111,10 +127,11 @@ function getOptionsArray(d) {
 exports.create = function(req, res, next) {
   var email_ = req.body.email.substring(0, MAX_INPUT_LENGTH);
   var stackrank = new StackRank({
-    title       : req.body.title.substring(0, MAX_TITLE_LENGTH),
-    email       : email_,
-    options     : getOptionsArray(req.body).splice(0,10),
-    created_on  : Date.now()
+    title        : req.body.title.substring(0, MAX_TITLE_LENGTH),
+    email        : email_,
+    options      : getOptionsArray(req.body).splice(0,10),
+    unique_voter : req.body['unique_voter'] == "on" ? true : false,
+    created_on   : Date.now()
   }).save(function(err, stackrank) {
         if (err) {
             return next(err);
@@ -150,18 +167,52 @@ exports.feedback = function(req, res, next) {
         "sunil.srinivasan@gmail.com, hareesh.nagarajan@gmail.com, deckrank@gmail.com", subject, body_html, body_html);
 };
 
+exports.edit = function(req, res, next) {
+    StackRank.findOne({editid : req.params.id}, function(err, stackrank) {
+      if(stackrank && stackrank.options) {
+            res.render('edit', {
+                headline               : "Edit your poll",
+                subheadline            : "We'll create a new link for this poll",
+                title                  : stackrank.title,
+                options                : stackrank.options,
+                placeholdertitle       : placeholdertitle,
+                placeholderoption      : placeholderoption,
+                email                  : req.query.email,
+                unique_voter           : stackrank.unique_voter,
+                mixpanel_tracking_code : App.mixpanel_tracking_code,
+                google_tracking_code   : App.google_tracking_code
+            });
+      }
+      else {
+          res.render('404', {url:req.url});
+          return;
+      }
+    });
+}
+
+function allowVote(stackrank, voter_ip) {
+    if(!stackrank.unique_voter) return true;
+
+    for (i = 0; i < stackrank.votes.length; i++) {
+        if(voter_ip == stackrank.votes[i].voter_ip) return false;
+    }
+
+    return true;
+}
+
 exports.rank = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
+
       if(stackrank && stackrank.options) {
             res.render('rank', {
                 title                  : stackrank.title,
-                description            : stackrank.description,
                 options                : stackrank.options,
                 email                  : req.query.email,
                 rankid                 : stackrank.rankid,
                 voteid                 : stackrank.voteid,
                 mixpanel_tracking_code : App.mixpanel_tracking_code,
-                google_tracking_code   : App.google_tracking_code
+                google_tracking_code   : App.google_tracking_code,
+                allow_vote             : allowVote(stackrank, req.connection.remoteAddress)
             });
       }
       else {
@@ -198,10 +249,11 @@ exports.vote = function(req, res, next) {
         }
 
         stackrank.votes.push({
-          voter      : voter_,
-          email      : email_,
-          created_on : Date.now(),
-          rankings   : voterrankings});
+          voter        : voter_,
+          email        : email_,
+          created_on   : Date.now(),
+          voter_ip     : req.connection.remoteAddress,
+          rankings     : voterrankings});
 
         stackrank.save(function(err, stackrankvotes) {
             if (err) {
@@ -266,7 +318,6 @@ exports.viewvotes = function(req, res, next) {
       if(stackrank.votes) {
             res.render('viewvotes', {
                 title                  : stackrank.title,
-                description            : stackrank.description,
                 summary                : overall_rankings,
                 total_votes            : stackrank.votes.length,
                 votes                  : stackrank.votes.reverse(),

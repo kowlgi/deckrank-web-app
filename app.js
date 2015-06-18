@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname +'/public'));
 app.use('/r', express.static(__dirname +'/public'));
 app.use('/v', express.static(__dirname +'/public'));
+app.use('/e', express.static(__dirname +'/public'));
 app.use('/showall', express.static(__dirname +'/public'));
 app.disable('etag');
 
@@ -63,6 +64,7 @@ app.post('/feedback', routes.feedback);
 app.get('/r/:id', routes.rank);
 app.post('/vote/:id', routes.vote);
 app.get('/v/:id', routes.viewvotes);
+app.get('/e/:id', routes.edit);
 app.get('/how', routes.how);
 app.get('/dashboard', routes.dashboard);
 app.get('/privacy', routes.privacy);

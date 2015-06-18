@@ -1,0 +1,93 @@
+doctype html
+head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="description", content="Create a rank-based poll quickly and easily. No sign up required. Mobile friendly.")
+    meta(name="google-site-verification", content="lUS3pvtxrKkti02EpWMScj-oWlJfsUTGhMnCYizhhUQ")
+    title deckrank.co: Create a poll and share
+    link(rel="stylesheet",
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
+body
+    include header.jade
+    div.container-fluid
+        fieldset
+          div.form-group.col-sm-7
+            h3
+                =headline
+                p(class="text-info small")
+                    =subheadline
+          <br>
+          form(role="form", id="createdeckrank", method="post", action="/create")
+              div.form-group.col-sm-7
+                label(for="title") Question
+                textarea(class="form-control", id="title",
+                      name="title",
+                      placeholder=placeholdertitle,
+                      maxlength="256", rows="2") #{title}
+              div.form-group.col-sm-7
+                label(for="options") Options
+                div(class="table-responsive")
+                  table(class="table", id="extra_options")
+                      thead
+                      for val, index in options
+                          tr.trhideclass
+                              td
+                                  input(type="text", class="form-control",
+                                      name="option"+index, id="opt"+index,
+                                      maxlength="100", value=val,
+                                      placeholder=placeholderoption[index])
+                              if index==0
+                                  td
+                              else if index==1 && options.length==2
+                                  td.glyph_parent
+                                      a(href="#", id="add_another"+index, class="add_another")
+                                          span(class="glyphicon glyphicon-plus")
+                                      = "\n"
+                                      a(href="#", id="remove"+index)
+                                          span(class="glyphicon glyphicon-minus invisible")
+                              else if index==1
+                                  td.glyph_parent
+                                      a(href="#", id="add_another"+index, class="add_another")
+                                          span(class="glyphicon glyphicon-plus invisible")
+                                      = "\n"
+                                      a(href="#", id="remove"+index)
+                                          span(class="glyphicon glyphicon-minus invisible")
+                              else if index==options.length-1 && options.length<10
+                                 td.glyph_parent
+                                     a(href="#", id="add_another"+index, class="add_another")
+                                         span(class="glyphicon glyphicon-plus")
+                                     = "\n"
+                                     a(href="#", id="remove"+index)
+                                         span(class="glyphicon glyphicon-minus")
+                              else
+                                 td.glyph_parent
+                                     a(href="#", id="add_another"+index, class="add_another")
+                                         span(class="glyphicon glyphicon-plus invisible")
+                                     = "\n"
+                                     a(href="#", id="remove"+index)
+                                         span(class="glyphicon glyphicon-minus")
+              div.form-group.col-sm-7
+                  label(for="email") Your email
+                  input(type="email", id="email", name="email", value=email,
+                        class="form-control", autocomplete="on", maxlength="100")
+                  p(class="text-info small")
+                    | Optional. We'll send you a link to vote, edit the poll and view results
+              div.form-group.col-sm-7
+                  if unique_voter
+                      input(type="checkbox", name="unique_voter", checked="checked")
+                  else
+                      input(type="checkbox", name="unique_voter")
+                  label
+                      |&nbsp;Allow only one vote per voter?
+              div.form-group.col-sm-7
+                    button(type="submit", id="submitpoll", value="submit", class="btn btn-default")
+                        | Create a Poll
+                    div(class="text-danger small hidden")
+                       | Please fill out fields highlighted above in red
+    script.
+        mixpanel.track_forms("#createdeckrank", "Created a poll");
+        var date = new Date();
+        mixpanel.register_once("First time on create page", date.toString());
+    include footer.jade
