@@ -193,9 +193,8 @@ exports.edit = function(req, res, next) {
 
 function allowVote(stackrank, voter_ip) {
     if(!stackrank.unique_voter) return true;
-    console.log("voter_ip="+voter_ip);
+
     for (i = 0; i < stackrank.votes.length; i++) {
-        console.log("existing voter_ip="+stackrank.votes[i].voter_ip);
         if(voter_ip == stackrank.votes[i].voter_ip) return false;
     }
 
