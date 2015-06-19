@@ -58,8 +58,12 @@ body
             else
                 div.form-group.col-sm-7
                     div(class="alert")
-                        h4
+                        strong
                             |Thanks for voting. You can only vote once!
+                            p
+                                |The results:
+                                br
+                                a(href='/v/' + voteid)  deckrank.co&#47;v&#47;#{voteid}
     script.
         mixpanel.track_forms("#votedeckrank", "Voted on a poll");
         var date = new Date();
