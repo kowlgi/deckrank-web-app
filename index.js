@@ -43,8 +43,8 @@ String.prototype.truncate = function(n, useWordBoundary) {
 exports.index = function(req, res, next) {
     var defaultOptions = ["", ""];
     res.render('edit', {
-        headline               : "Create a poll and share",
-        subheadline            : "It's free and no signup required",
+        headline               : "deckrank makes rank-based polls easy.",
+        subheadline            : "It's free and no signup required.",
         title                  : "",
         options                : defaultOptions,
         placeholdertitle       : placeholdertitle,
