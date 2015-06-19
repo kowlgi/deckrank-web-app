@@ -172,8 +172,8 @@ exports.edit = function(req, res, next) {
     StackRank.findOne({editid : req.params.id}, function(err, stackrank) {
       if(stackrank && stackrank.options) {
             res.render('edit', {
-                headline               : "Edit your poll",
-                subheadline            : "We'll create a new link for this poll",
+                headline               : "Edit your poll.",
+                subheadline            : "We'll create a new link for you to share.",
                 title                  : stackrank.title,
                 options                : stackrank.options,
                 placeholdertitle       : placeholdertitle,
