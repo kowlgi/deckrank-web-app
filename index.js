@@ -216,6 +216,7 @@ exports.rank = function(req, res, next) {
                 google_tracking_code   : App.google_tracking_code,
                 allow_vote             : allowVote(stackrank, req.connection.remoteAddress)
             });
+            return;
       }
       else {
           res.render('404', {url:req.url});
@@ -240,6 +241,20 @@ exports.vote = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
         if (err) {
             res.render('404', {url:req.url});
+            return;
+        }
+
+        if(!allowVote(stackrank, req.connection.remoteAddress)) {
+            res.render('rank', {
+                title                  : stackrank.title,
+                options                : stackrank.options,
+                email                  : req.query.email,
+                rankid                 : stackrank.rankid,
+                voteid                 : stackrank.voteid,
+                mixpanel_tracking_code : App.mixpanel_tracking_code,
+                google_tracking_code   : App.google_tracking_code,
+                allow_vote             : false
+            });
             return;
         }
 

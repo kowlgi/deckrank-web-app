@@ -25,6 +25,7 @@ app.use(express.static(__dirname +'/public'));
 app.use('/r', express.static(__dirname +'/public'));
 app.use('/v', express.static(__dirname +'/public'));
 app.use('/e', express.static(__dirname +'/public'));
+app.use('/vote', express.static(__dirname +'/public'));
 app.use('/showall', express.static(__dirname +'/public'));
 app.disable('etag');
 
