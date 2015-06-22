@@ -223,3 +223,7 @@ th {
 .borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
     border: none;
 }
+
+.timestamp {
+    font-size: 0.75em;
+}
