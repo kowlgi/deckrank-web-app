@@ -3,7 +3,7 @@
  *
  * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
  */
-var minusHandler =  function() {
+function minusHandler() {
     var row_index = this.parentNode.parentNode.rowIndex;
     var num_rows = $('#extra_options').find('input').length;
 
@@ -30,7 +30,7 @@ var minusHandler =  function() {
     return false;
 };
 
-var plusHandler = function() {
+function plusHandler() {
     $(this).children('.glyphicon-plus').addClass('invisible');
     $(this).addClass('disableClick');
 
@@ -38,7 +38,7 @@ var plusHandler = function() {
 
     // count the number of input fields prefixed with a new paragraph inside
     // tag 'extra_options'
-    var i = ++COUNT;
+    var i = COUNT++;
 
     // LIMIT TO 10 rule: Impose a limit of 10 on the number of options as a
     // poll will get out of hand beyond that.
@@ -70,51 +70,35 @@ var plusHandler = function() {
     return false;
 }
 
-$("#add_another2").click(plusHandler);
-var COUNT = 2;
-
-
-var originalListItems = [];
-var itemcount = 0;
-var populateListItems = function() {
-    originalListItems = $("#sortable").children();
-    itemcount = originalListItems.length;
+function populateListItems() {
+    ORIGINAL_LIST_ITEMS = $("#sortable").children();
+    ITEM_COUNT = ORIGINAL_LIST_ITEMS.length;
 }
 
-var removeHandler =  function() {
+function removeHandler() {
     var parent = $(this).parent();
     parent.detach();
-    if(--itemcount == 1) {
-        for(i = 0; i < originalListItems.length; i++) {
+    if(--ITEM_COUNT == 1) {
+        for(i = 0; i < ORIGINAL_LIST_ITEMS.length; i++) {
             $("#removerankoption"+i).addClass("hidden");
         }
     }
     return false;
 };
 
-var resetRankOptionsHandler = function() {
-    for(i = 0; i < originalListItems.length; i++) {
-        originalListItems.detach();
+function resetRankOptionsHandler() {
+    for(i = 0; i < ORIGINAL_LIST_ITEMS.length; i++) {
+        ORIGINAL_LIST_ITEMS.detach();
     }
 
     var sortableList = $("#sortable");
-    for(i = 0; i < originalListItems.length; i++) {
-        originalListItems.appendTo(sortableList);
+    for(i = 0; i < ORIGINAL_LIST_ITEMS.length; i++) {
+        ORIGINAL_LIST_ITEMS.appendTo(sortableList);
         $("#removerankoption"+i).removeClass("hidden");
     }
-    itemcount = originalListItems.length;
+    ITEM_COUNT = ORIGINAL_LIST_ITEMS.length;
     return false;
 }
-$(".removeoption").click(removeHandler);
-$("#resetRankOptions").click(resetRankOptionsHandler);
-$(document).ready(populateListItems);
-
-// to highlight menu item you've clicked on the navigation bar
-$('.nav li').click(function(){
-    $('.nav li').removeClass('active');
-    $(this).addClass('active');
-    return false;
-});
 
 function warnIfEmpty(id) {
     if($(id).val().trim() == '')
@@ -135,19 +119,19 @@ function preventSubmit(evt) {
     evt.returnValue = false;
 }
 
-$("#submitpoll").click(function(evt) {
+function submitPollHandler(evt) {
     var pass = true;
     if(warnIfEmpty("#title")) pass = false;
+    if(warnIfEmpty("#opt0")) pass = false;
     if(warnIfEmpty("#opt1")) pass = false;
-    if(warnIfEmpty("#opt2")) pass = false;
 
     if(!pass) {
         preventSubmit(evt);
         $(".text-danger").removeClass("hidden");
     }
-});
+}
 
-$("#submitfeedback").click(function(evt) {
+function submitFeedbackHandler(evt) {
     var pass = true;
     if(warnIfEmpty("#email")) pass = false;
     if(warnIfEmpty("#feedback")) pass = false;
@@ -156,12 +140,43 @@ $("#submitfeedback").click(function(evt) {
         preventSubmit(evt);
         $(".text-danger").removeClass("hidden");
     }
+}
+
+var COUNT = 0;
+var ORIGINAL_LIST_ITEMS = [];
+var ITEM_COUNT = 0;
+$(document).ready( function() {
+    /* for header navigation bar */
+    // to highlight menu item you've clicked on the navigation bar
+    $('.nav li').click(function(){
+        $('.nav li').removeClass('active');
+        $(this).addClass('active');
+        return false;
+    });
+
+    /* create and edit page */
+    COUNT = $('#extra_options').find('input').length;
+    for (i = 0; i < COUNT; i++)
+    {
+        $("#add_another"+i).click(plusHandler);
+        $("#remove"+i).click(minusHandler);
+    }
+    //to warn if user didn't enter title or minimum of two options
+    $("#submitpoll").click(submitPollHandler);
+
+    /* contact page */
+    $("#submitfeedback").click(submitFeedbackHandler);
+
+    /* mixpanel analytics */
+    var d = new Date();
+    mixpanel.register_once({'First deckrank use date': d.toDateString()});
+    mixpanel.register_once({'First deckrank page visited': window.location.href});
+
+    /* rank page */
+    populateListItems();
+    $(".removeoption").click(removeHandler);
+    $("#resetRankOptions").click(resetRankOptionsHandler);
+    // set sortable elements in r/:id to default state
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
 });
-
-var d = new Date();
-mixpanel.register_once({'First deckrank use date': d.toDateString()});
-mixpanel.register_once({'First deckrank page visited': window.location.href});
-
-// set sortable elements in r/:id to default state
-$( "#sortable" ).sortable();
-$( "#sortable" ).disableSelection();

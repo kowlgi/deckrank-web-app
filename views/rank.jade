@@ -3,7 +3,7 @@ head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    title Vote: #{title}
+    title Vote: #{title} - deckrank
     link(rel="stylesheet",
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css",
@@ -21,39 +21,49 @@ body
           if email
             div.form-group.col-sm-7
               include rank_sharebox.jade
-          form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
-            div.form-group.col-sm-7
-              label(for="sortable")
-              |Rank options by reordering them and delete options you don't care about.&nbsp;
-              a(id="resetRankOptions", class="btn-default") Reset
-              |&nbsp;to start over
-              br
-              br
-              ul(id="sortable")
-                  each option, index in options
-                    li.ui-state-default.inner-addon.right-addon
-                        a(href="#", class="removeoption")
-                            span(id="removerankoption#{index}", class="glyphicon glyphicon-remove-circle")
-                        span
-                            = option
-                        input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
-            div.form-group.col-sm-7
-                label(for="voter") Your name
-                input(type="text", class="form-control", id="voter",
-                    name="voter", placeholder="Enter your name",
-                    maxlength="100")
-                - var voter_mini_label = "Optional. So others know who you are";
-                p(class="text-info small") #{voter_mini_label}
-            if !email
+          if allow_vote
+              form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
                 div.form-group.col-sm-7
-                  label(for="email") Your email
-                  input(type="email", id="email", name="email",
-                        class="form-control", autocomplete="on", maxlength="100")
-                  p(class="text-info small")
-                    | Optional. We'll send you a link to the results. No spam
-            div.form-group.col-sm-7
-                button(type="submit", value="submit", id="submitvote", class="btn btn-default")
-                    | Submit Your Vote
+                  label(for="sortable")
+                  |Rank options by reordering them and delete options you don't care about.&nbsp;
+                  a(id="resetRankOptions", class="btn-default") Reset
+                  |&nbsp;to start over
+                  br
+                  br
+                  ul(id="sortable")
+                      each option, index in options
+                        li.ui-state-default.inner-addon.right-addon
+                            a(href="#", class="removeoption")
+                                span(id="removerankoption#{index}", class="glyphicon glyphicon-remove-circle")
+                            span
+                                = option
+                            input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
+                div.form-group.col-sm-7
+                    label(for="voter") Your name
+                    input(type="text", class="form-control", id="voter",
+                        name="voter", placeholder="Enter your name",
+                        maxlength="100")
+                    - var voter_mini_label = "Optional. So others know who you are";
+                    p(class="text-info small") #{voter_mini_label}
+                if !email
+                    div.form-group.col-sm-7
+                      label(for="email") Your email
+                      input(type="email", id="email", name="email",
+                            class="form-control", autocomplete="on", maxlength="100")
+                      p(class="text-info small")
+                        | Optional. We'll send you a link to the results. No spam
+                div.form-group.col-sm-7
+                    button(type="submit", value="submit", id="submitvote", class="btn btn-default")
+                        | Submit Your Vote
+            else
+                div.form-group.col-sm-7
+                    div(class="alert")
+                        strong
+                            |Thanks for voting. You can only vote once!
+                            p
+                                |You can view the results at:
+                                br
+                                a(href='/v/' + voteid)  deckrank.co&#47;v&#47;#{voteid}
     script.
         mixpanel.track_forms("#votedeckrank", "Voted on a poll");
         var date = new Date();

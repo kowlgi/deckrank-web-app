@@ -1,9 +1,7 @@
 div(class="alert")
   strong
-    |Your poll is ready to be shared
+    |Share this link for others to vote:&nbsp;
     br
     a(id="votelink", href='/r/' + rankid) deckrank.co&#47;r&#47;#{rankid}
-    br
-    |You can also vote on your own poll below
 script.
     mixpanel.track_links("#votelink", "Clicked vote link");

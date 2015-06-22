@@ -16,13 +16,15 @@ exports.init = function(stackrank_db_name) {
         poll_type      : String,
         rankid         : String,
         voteid         : String,
+        editid         : String,
         email          : String,
-        description    : String,
+        unique_voter   : Boolean,
         votes: [{
             voter      : String,
             email      : String,
             created_on : Date,
-            rankings   : [String]
+            rankings   : [String],
+            voter_ip   : String
         }],
     });
 
@@ -32,6 +34,7 @@ exports.init = function(stackrank_db_name) {
         // https://github.com/dylang/shortid/issues/36
         if (!this.rankid) this.rankid = Shortid.generate();
         if (!this.voteid) this.voteid = Shortid.generate();
+        if (!this.editid) this.editid = Shortid.generate();
 
         next();
     });
