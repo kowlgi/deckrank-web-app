@@ -3,18 +3,17 @@ head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    title Dashboard - deckrank
+    title Generic - deckrank
     link(rel="stylesheet",
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css",
+        href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
 body
     include header.jade
     div.container-fluid
-        fieldset
-          div.form-group.col-sm-7(class="dashboard")
-            |Total polls&nbsp;
-            = stackranks.length
-          div.form-group.col-sm-7(class="dashboard")
-            |Total votes&nbsp;
-            = vote_count
+        h1
+            =headline
+        h3
+            =title
     include footer.jade

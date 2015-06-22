@@ -13,7 +13,7 @@ exports.init = function(stackrank_db_name) {
         title          : String,
         options        : [String],
         created_on     : Date,
-        poll_type      : String,
+        poll_type      : [String],
         rankid         : String,
         voteid         : String,
         editid         : String,

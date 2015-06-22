@@ -274,7 +274,7 @@ exports.vote = function(req, res, next) {
           voter_ip     : req.connection.remoteAddress,
           rankings     : voterrankings});
 
-        stackrank.save(function(err, stackrankvotes) {
+        stackrank.save(function(err, stackrank) {
             if (err) {
                 return next(err);
             }
@@ -353,3 +353,65 @@ exports.viewvotes = function(req, res, next) {
       }
   });
 };
+
+exports.pin = function(req, res, next) {
+    StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
+        if (err) {
+          res.render('404', {url:req.url});
+          return;
+        }
+
+        var index = stackrank.poll_type.indexOf("pinned");
+        if (index == -1) {
+            stackrank.poll_type.push("pinned");
+            stackrank.save(function(err, stackrank){
+                if (err) {
+                    return next(err);
+                }
+
+                res.render('generic', {headline: "This poll is now pinned to explore.", title:stackrank.title});
+            });
+        }
+        else {
+            res.render('generic', {headline: "This poll was previously pinned to explore, no point in pinning again.", title:stackrank.title});
+        }
+    });
+};
+
+exports.unpin = function(req, res, next) {
+    StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
+        if (err) {
+          res.render('404', {url:req.url});
+          return;
+        }
+
+        var index = stackrank.poll_type.indexOf("pinned");
+        if (index > -1) {
+            stackrank.poll_type.splice(index, 1);
+            stackrank.save(function(err, stackrank){
+                if (err) {
+                    return next(err);
+                }
+                res.render('generic', {headline: "This poll is now unpinned from explore.", title:stackrank.title});
+            });
+        }
+        else {
+            res.render('generic', {headline: "This poll is not pinned to explore, why bother unpinning.", title:stackrank.title});
+        }
+    });
+};
+
+exports.explore = function(req, res, next) {
+    StackRank.find({poll_type:"pinned"}, function(err, stackrank) {
+        if (err) {
+            return next(err);
+        }
+
+        if(stackrank.length) {
+            res.render('explore', {headline: "Featured polls", stackrank: stackrank});
+        }
+        else {
+            res.render('generic', {headline: "There's nothing to explore yet"});
+        }
+    });
+}

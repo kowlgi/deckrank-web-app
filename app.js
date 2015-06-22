@@ -27,6 +27,9 @@ app.use('/v', express.static(__dirname +'/public'));
 app.use('/e', express.static(__dirname +'/public'));
 app.use('/vote', express.static(__dirname +'/public'));
 app.use('/showall', express.static(__dirname +'/public'));
+app.use('/pin', express.static(__dirname +'/public'));
+app.use('/unpin', express.static(__dirname +'/public'));
+app.use('/explore', express.static(__dirname +'/public'));
 app.disable('etag');
 app.locals.moment = require('moment');
 
@@ -71,6 +74,9 @@ app.get('/how', routes.how);
 app.get('/dashboard', routes.dashboard);
 app.get('/privacy', routes.privacy);
 app.get('/tos', routes.tos);
+app.get('/pin/:id', routes.pin);
+app.get('/unpin/:id', routes.unpin);
+app.get('/explore', routes.explore);
 if(ops.activate_showall_url) {
     app.get('/showall', routes.showall);
 }
