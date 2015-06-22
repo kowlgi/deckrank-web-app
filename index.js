@@ -16,7 +16,7 @@ var MAX_TITLE_LENGTH = 256;
 var EMAIL_TITLE_LENGTH = 60;
 var MAX_INPUT_LENGTH = 100;
 var MAX_DESCRIPTION_LENGTH = 200;
-var placeholdertitle = "What's your favorite show on TV today? Rank in order or preference.";
+var placeholdertitle = "What's your favorite show on TV today? Rank in order of preference.";
 var placeholderoption = ["Game of Thrones", "Silicon Valley", "Veep",
                           "House of Cards", "True Detective", "Downton Abbey",
                           "Entourage", "Orange Is The New Black", "Modern Family",
@@ -43,6 +43,7 @@ String.prototype.truncate = function(n, useWordBoundary) {
 exports.index = function(req, res, next) {
     var defaultOptions = ["", ""];
     res.render('edit', {
+        pagetitle              : "Create A Poll - deckrank",
         headline               : "deckrank makes rank-based polls easy.",
         subheadline            : "It's free and no signup required.",
         title                  : "",
@@ -172,6 +173,7 @@ exports.edit = function(req, res, next) {
     StackRank.findOne({editid : req.params.id}, function(err, stackrank) {
       if(stackrank && stackrank.options) {
             res.render('edit', {
+                pagetitle              : "Edit Your Poll - deckrank",
                 headline               : "Edit your poll.",
                 subheadline            : "We'll create a new link for you to share.",
                 title                  : stackrank.title,

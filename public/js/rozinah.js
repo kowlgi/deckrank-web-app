@@ -122,8 +122,8 @@ function preventSubmit(evt) {
 function submitPollHandler(evt) {
     var pass = true;
     if(warnIfEmpty("#title")) pass = false;
+    if(warnIfEmpty("#opt0")) pass = false;
     if(warnIfEmpty("#opt1")) pass = false;
-    if(warnIfEmpty("#opt2")) pass = false;
 
     if(!pass) {
         preventSubmit(evt);
