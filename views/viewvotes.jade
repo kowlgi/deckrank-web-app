@@ -10,10 +10,10 @@ body
       div.form-group
         h2
             = title
-        p
-            em.text-muted.small
-                |created&nbsp;
-                = moment(created_on).fromNow()
+            span.timestamp
+                em.text-muted.small
+                    |&nbsp;created&nbsp;
+                    = moment(created_on).fromNow()
         - var announcement = (total_votes == 1)?" vote is in":" votes are in"
         h2
             p(class="text-primary")
