@@ -9,12 +9,15 @@ body
     div.container-fluid
       div.form-group
         h2
-          = title
-          p(class="text-muted small")
-            = description
-          - var announcement = (total_votes == 1)?" vote is in":" votes are in"
-          p(class="text-primary")
-            = total_votes + announcement
+            = title
+        p
+            em.text-muted.small
+                |created&nbsp;
+                = moment(created_on).fromNow()
+        - var announcement = (total_votes == 1)?" vote is in":" votes are in"
+        h2
+            p(class="text-primary")
+                = total_votes + announcement
         h3
           // TODO(hnag): Center align the elements ...
           div(class="table-responsive")
@@ -42,6 +45,10 @@ body
                         tr.trhideclass
                           td
                             = vote.voter
+                            br
+                            em.text-muted.small
+                                |voted&nbsp;
+                                = moment(vote.created_on).fromNow()
                           td
                             ol
                               each val in vote.rankings

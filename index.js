@@ -209,6 +209,7 @@ exports.rank = function(req, res, next) {
       if(stackrank && stackrank.options) {
             res.render('rank', {
                 title                  : stackrank.title,
+                created_on             : stackrank.created_on,
                 options                : stackrank.options,
                 email                  : req.query.email,
                 rankid                 : stackrank.rankid,
@@ -336,6 +337,7 @@ exports.viewvotes = function(req, res, next) {
       if(stackrank.votes) {
             res.render('viewvotes', {
                 title                  : stackrank.title,
+                created_on             : stackrank.created_on,
                 summary                : overall_rankings,
                 total_votes            : stackrank.votes.length,
                 votes                  : stackrank.votes.reverse(),

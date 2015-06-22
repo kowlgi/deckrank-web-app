@@ -28,6 +28,7 @@ app.use('/e', express.static(__dirname +'/public'));
 app.use('/vote', express.static(__dirname +'/public'));
 app.use('/showall', express.static(__dirname +'/public'));
 app.disable('etag');
+app.locals.moment = require('moment');
 
 var stdio = require('stdio');
 var ops = stdio.getopt({

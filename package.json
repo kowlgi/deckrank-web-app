@@ -9,6 +9,7 @@
     "jade": "1.9.1",
     "mailcomposer": "0.2.12",
     "mailgun-js": "0.6.9",
+    "moment": "^2.10.3",
     "mongojs": "0.18.1",
     "mongoose": "^4.0.2",
     "serve-favicon": "2.2.0",

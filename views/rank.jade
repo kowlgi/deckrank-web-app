@@ -16,8 +16,10 @@ body
           div.form-group.col-sm-7
             h2
               = title
-              p(class="text-muted small")
-                = description
+            p
+                em.text-muted.small
+                    |created&nbsp;
+                    = moment(created_on).fromNow()
           if email
             div.form-group.col-sm-7
               include rank_sharebox.jade
