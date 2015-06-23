@@ -184,7 +184,7 @@ exports.rank = function(req, res, next) {
 
       if(stackrank && stackrank.options) {
             if(!allowVote(stackrank, req.connection.remoteAddress)) {
-                // And redirect the user to results page..
+                // Redirect the user to results page..
                 res.redirect('/v/' + stackrank.voteid + '?dupvote=1');
                 return;
             }
@@ -228,16 +228,8 @@ exports.vote = function(req, res, next) {
         }
 
         if(!allowVote(stackrank, req.connection.remoteAddress)) {
-            res.render('rank', {
-                title                  : stackrank.title,
-                options                : stackrank.options,
-                email                  : req.query.email,
-                rankid                 : stackrank.rankid,
-                voteid                 : stackrank.voteid,
-                mixpanel_tracking_code : App.mixpanel_tracking_code,
-                google_tracking_code   : App.google_tracking_code,
-                allow_vote             : false
-            });
+            // Redirect the user to results page..
+            res.redirect('/v/' + stackrank.voteid + '?dupvote=1');
             return;
         }
 
