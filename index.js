@@ -44,8 +44,8 @@ exports.index = function(req, res, next) {
     var defaultOptions = ["", ""];
     res.render('edit', {
         pagetitle              : "Create A Poll - deckrank",
-        headline               : "deckrank makes rank-based polls easy.",
-        subheadline            : "It's free and no signup required.",
+        headline               : "deckrank makes rank-based polls easy",
+        subheadline            : "It's free and no signup required",
         title                  : "",
         options                : defaultOptions,
         placeholdertitle       : placeholdertitle,
@@ -150,8 +150,8 @@ exports.edit = function(req, res, next) {
       if(stackrank && stackrank.options) {
             res.render('edit', {
                 pagetitle              : "Edit Your Poll - deckrank",
-                headline               : "Edit your poll.",
-                subheadline            : "We'll create a new link for you to share.",
+                headline               : "Edit your poll",
+                subheadline            : "We'll create a new link for you to share",
                 title                  : stackrank.title,
                 options                : stackrank.options,
                 placeholdertitle       : placeholdertitle,
