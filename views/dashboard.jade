@@ -8,7 +8,7 @@ head
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
 body
-    include header.jade
+    include common/header.jade
     div.container-fluid
         fieldset
           div.form-group.col-sm-7(class="dashboard")
@@ -17,4 +17,4 @@ body
           div.form-group.col-sm-7(class="dashboard")
             |Total votes&nbsp;
             = vote_count
-    include footer.jade
+    include common/footer.jade

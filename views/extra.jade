@@ -8,7 +8,7 @@ head
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
 body
-    include header.jade
+    include common/header.jade
     div.container-fluid
       div.form-group(id="faq")
           h3(class="extra_sections")
@@ -24,66 +24,55 @@ body
           h4 Why deckrank?
           p(class="answer")
             |Let's say you want to have lunch with a rather large group of friends.
-            |You could start an email or create a message on a social network and trigger a chain of updates.
+            |You could send an email or create a message on a social network and trigger a chain of updates.
             |That's a perfectly reasonable option. But if you'd like to be
             |different and save everyone some time then you could
             |consider using deckrank.
             |Here's how. First create a poll with restaurant options. Next share the
-            |link to the poll with your friends using text, facebook or
+            |link to the poll with your friends using email, text, facebook or
             |any social networking product that you use. Get them to vote on the poll. View the results
             |page as the votes stream in. Once all votes are in
             |make a reservation at the most popular restaurant. Enjoy your meal!
           h4 What makes deckrank different?
           p(class="answer")
             |deckrank is a platform for rank-based polls. You rank a list of options
-            |in order of preference instead of choosing a single option in a list of options.
-            |Give us a spin and you'll know what we mean.
+            |in order of preference instead of choosing a single option from a
+            |list of options. Give us a spin and you'll know what we mean.
           h4 Do you need to sign up to either vote or create a new poll?
           p(class="answer")
             |No.
-          h4 How to prevent voters from submitting multiple votes?
+          h4 Why do you need my email address while creating a poll?
           p(class="answer")
-            |When you create a poll check the option
-            |corresponding to 'Allow only one vote per voter,' and deckrank
-            |will prevent voters from submitting a second vote. This option is
-            |especially useful when you've shared your poll on a forum.
-          h4(id="scoring") How are the overall results determined?
+             include common/creatoremailfaq.jade
+          h4 Why do you need my email address while voting on a poll?
           p(class="answer")
-            |For every submitted vote, we give each option a score based on its rank:
-            |all removed options get 0, the option with the highest rank gets a score
-            |equal to the total number of options in the poll, the next lower rank gets
-            |one less than the highest score and so on. We add up the score for each option
-            |across votes to determine the overall ranking.
-            |Now, the overall ranking alone doesn't reveal the spread i.e. how far
-            |apart or close are the scores for the different options, so that's why we
-            |show percentages as well. The percentage value next to an option
-            |is the normalized score for that option. The ranking and the
-            |percentage together will show you what the voters' preferences are in aggregate.
-          h4 Do you have to vote to view the results?
-          p(class="answer")
-            |No. People can see the results only if you share the link to the results with them.
-            |Every poll has a unique vote link and a results link.
-          h4 Can voters see the results before they cast their vote?
-          p(class="answer")
-            |No. The link to the results are only made available once a vote has been cast.
-          h4 Why do you need my email address?
-          p(class="answer")
-            |We want you to have a great product experience. Creating a
-            |poll on your phone and losing the link to it
-            |isn't fun.  We only ask for your email address so we can send you
-            |the link to the poll and the results. Remember we are a "no sign up" service and that we'll never
-            |spam you or sell your information to anyone.
+             include common/voteremailfaq.jade
           h4 I'm only here to vote. Is my email address shared with the person who created the poll?
           p(class="answer")
             |No. Your email address is not shared with anyone.
           h4 Can I modify a poll I've created?
           p(class="answer")
-            |No. All polls are final. Go ahead and create a new poll instead.
+            |Yes, but you can only modify a copy of the poll. When you enter your email address while
+            |creating a poll, we'll send you
+            |a link to edit a copy of the poll. We don't support
+            |direct editing of a poll as it'll invalidate submitted votes.
+          h4(id="scoring") How are the overall results determined?
+          p(class="answer")
+            include common/scoringfaq.jade
+          h4 Can voters see the results before they cast their vote?
+          p(class="answer")
+            |No. The link to the results is only made available to the voter after
+            |they've cast their vote.
+          h4 How to prevent voters from submitting multiple votes?
+          p(class="answer")
+            include common/preventduplicatefaq.jade
           h4 Do you have any example polls?
           p(class="answer")
-            |Check out&nbsp
+            |Check out our&nbsp
+            a(href="/featured") Featured Polls
+            |&nbsp;page and follow&nbsp;
             a(href="https://www.twitter.com/deckrank") @deckrank
-            |&nbsp;for some examples.
+            |&nbsp;on Twitter.
       div.form-group(id="about")
         h3(class="extra_sections")
             b About
@@ -117,4 +106,4 @@ body
                             |&nbsp;Thanks for your feedback! We'll get back to you.
     script.
         mixpanel.track_forms("#contactform", "Submitted feedback");
-    include footer.jade
+    include common/footer.jade

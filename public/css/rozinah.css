@@ -4,14 +4,10 @@
  * Copyright 2015–2015, Sunil Kowlgi, Hareesh Nagarajan
  */
 
-@import url("http://fonts.googleapis.com/css?family=Abel|Nunito|Lato:700");
+@import url("http://fonts.googleapis.com/css?family=Nunito");
 
 #sortable { padding-left: 0px; list-style-type: none; margin: auto; width: 80%; float: center; }
 #sortable li {margin:1%; padding: 0.4em; font-size: 1.4em; text-align: center }
-
-.headline {
-    font-family: 'Lato', sans-serif;
-}
 
 .how {
    border:2px solid #ED0C27;
@@ -31,10 +27,6 @@
 .howheader {
     color: #ED0C27;
     font-size: 2em;
-}
-
-.howtitle {
-    color: #5F5555;
 }
 
 .table>tbody>tr>td {
@@ -141,7 +133,7 @@ body, .legend {
 
 footer {
     text-align: center;
-    font-family: 'Abel', sans-serif;
+    font-family: 'Nunito', sans-serif;
     margin-top: 3em;
 }
 
@@ -222,8 +214,4 @@ th {
 
 .borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
     border: none;
-}
-
-.timestamp {
-    font-size: 0.75em;
 }

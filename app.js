@@ -76,7 +76,7 @@ app.get('/privacy', routes.privacy);
 app.get('/tos', routes.tos);
 app.get('/pin/:id', routes.pin);
 app.get('/unpin/:id', routes.unpin);
-app.get('/explore', routes.explore);
+app.get('/featured', routes.featuredpolls);
 if(ops.activate_showall_url) {
     app.get('/showall', routes.showall);
 }

@@ -76,34 +76,6 @@ exports.tos = function(req, res, next) {
     res.render('tos');
 };
 
-exports.showall = function(req, res, next) {
-    StackRank.
-        find().
-        exec(function(err, stackranks) {
-            res.render('showall', {
-                title                  : 'All stackranks in the db',
-                stackranks             : stackranks,
-                mixpanel_tracking_code : App.mixpanel_tracking_code,
-                google_tracking_code   : App.google_tracking_code
-            });
-        });
-};
-
-exports.dashboard = function(req, res, next) {
-  var num_votes = 0;
-  StackRank.find().exec(
-    function(err, stackrank) {
-      for (var i=0; i < stackrank.length; ++i) {
-        num_votes += stackrank[i].votes.length;
-      }
-
-      res.render('dashboard', {
-                  stackranks: stackrank,
-                  vote_count: num_votes
-      });
-  });
-};
-
 function isEmpty(str) {
     return (!str || 0 === str.length);
 }
@@ -149,8 +121,12 @@ exports.create = function(req, res, next) {
             mg = Mail.mailgun(App.api_key, App.email_domain);
         }
         var subject = "You created a new poll: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
-        var body_html = jade.renderFile('views/email_template.jade', stackrank);
+        var body_html = jade.renderFile('views/email/email_template_edit_viewresults.jade', stackrank);
         Mail.sendHtmlEmail(mg, stackrank.email, "", subject, body_html, body_html);
+
+        var subject_vote = "Vote on this poll: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
+        var body_html_vote = jade.renderFile('views/email/email_template_vote.jade', stackrank);
+        Mail.sendHtmlEmail(mg, stackrank.email, "", subject_vote, body_html_vote, body_html_vote);
     });
 };
 
@@ -163,7 +139,7 @@ exports.feedback = function(req, res, next) {
     }
     var subject = "Thanks for your feedback";
     var bcc = "sunil.srinivasan@gmail.com, hareesh.nagarajan@gmail.com, deckrank@gmail.com";
-    var body_html = jade.renderFile('views/email_feedback_template.jade',
+    var body_html = jade.renderFile('views/email/email_feedback_template.jade',
         {description: req.body.description.substring(0, MAX_DESCRIPTION_LENGTH)});
     Mail.sendHtmlEmail(mg, req.body.email.substring(0, MAX_INPUT_LENGTH),
         bcc, subject, body_html, body_html);
@@ -293,7 +269,7 @@ exports.vote = function(req, res, next) {
             // header
             if (req.body['email']) {
                 var subject = "Thanks for voting on: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
-                var body_html = jade.renderFile('views/email_template_voter.jade', stackrank);
+                var body_html = jade.renderFile('views/email/email_template_voter.jade', stackrank);
                 Mail.sendHtmlEmail(mg,
                     req.body['email'].substring(0, MAX_INPUT_LENGTH),
                     "", subject, body_html, body_html);
@@ -354,6 +330,39 @@ exports.viewvotes = function(req, res, next) {
   });
 };
 
+exports.featuredpolls = function(req, res, next) {
+    StackRank.find({poll_type:"pinned"}, function(err, stackrank) {
+        if (err) {
+            return next(err);
+        }
+
+        if(stackrank.length) {
+            res.render('featuredpolls', {headline: "Featured polls", stackrank: stackrank});
+        }
+        else {
+            res.render('generic', {headline: "There's nothing to explore yet"});
+        }
+    });
+}
+
+/* PRIVATE PAGE HANDLERS...sssh */
+
+exports.dashboard = function(req, res, next) {
+  var num_votes = 0;
+  StackRank.find().exec(
+    function(err, stackrank) {
+      for (var i=0; i < stackrank.length; ++i) {
+        num_votes += stackrank[i].votes.length;
+      }
+
+      res.render('dashboard', {
+                  stackranks: stackrank,
+                  vote_count: num_votes
+      });
+  });
+};
+
+
 exports.pin = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
         if (err) {
@@ -401,17 +410,15 @@ exports.unpin = function(req, res, next) {
     });
 };
 
-exports.explore = function(req, res, next) {
-    StackRank.find({poll_type:"pinned"}, function(err, stackrank) {
-        if (err) {
-            return next(err);
-        }
-
-        if(stackrank.length) {
-            res.render('explore', {headline: "Featured polls", stackrank: stackrank});
-        }
-        else {
-            res.render('generic', {headline: "There's nothing to explore yet"});
-        }
-    });
-}
+exports.showall = function(req, res, next) {
+    StackRank.
+        find().
+        exec(function(err, stackranks) {
+            res.render('showall', {
+                title                  : 'All stackranks in the db',
+                stackranks             : stackranks,
+                mixpanel_tracking_code : App.mixpanel_tracking_code,
+                google_tracking_code   : App.google_tracking_code
+            });
+        });
+};

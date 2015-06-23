@@ -5,7 +5,7 @@ head
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
 body
-    include header.jade
+    include common/header.jade
     div.container-fluid
         h1
             = title
@@ -45,4 +45,4 @@ body
                             = rank.options
                         td
                             = rank.votes.length
-    include footer.jade
+    include common/footer.jade

@@ -1,0 +1,38 @@
+#header
+include mixpanel.jade
+include googleanalytics.jade
+script(src="build/docCookies.min.js")
+script(src="build/setup.min.js")
+nav(class="navbar navbar-default")
+    div.container-fluid
+        div.navbar-header
+            button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a.navbar-brand(id="homebutton", href="/")
+                img(alt="Deckrank brand", src="images/deckrank.svg", width="30", height="42")
+                span deckrank
+        div(class="collapse navbar-collapse", id="bs-example-navbar-collapse-1")
+            ul(class="nav navbar-nav", id="headernav")
+                li
+                    a(id="createlink", href="/") Create A Poll
+                li
+                    a(id="featuredpollslink", href="/featured") Featured Polls
+                li
+                    a(id="howlink", href="/how") How It Works
+                li
+                    a(id="faqlink", href="/extra#faq") FAQ
+                li
+                    a(id="aboutlink",href="/extra#about") About
+                li
+                    a(id="contactlink",href="/extra#contact") Contact
+script.
+    mixpanel.track_links("#createlink", "Clicked Create");
+    mixpanel.track_links("#featuredpollslink", "Clicked Explore");
+    mixpanel.track_links("#howlink", "Clicked How");
+    mixpanel.track_links("#faqlink", "Clicked FAQ");
+    mixpanel.track_links("#aboutlink", "Clicked About");
+    mixpanel.track_links("#contactlink", "Clicked Contact");
+    mixpanel.track_links("#homebutton", "Clicked home button");

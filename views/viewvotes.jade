@@ -5,15 +5,15 @@ head
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
 body
-    include header.jade
+    include common/header.jade
     div.container-fluid
       div.form-group
         h2
             = title
-            span.timestamp
-                em.text-muted.small
-                    |&nbsp;created&nbsp;
-                    = moment(created_on).fromNow()
+        p
+            em.text-muted.small
+                |&nbsp;created&nbsp;
+                = moment(created_on).fromNow()
         - var announcement = (total_votes == 1)?" vote is in":" votes are in"
         h2
             p(class="text-primary")
@@ -52,4 +52,4 @@ body
                             ol
                               each val in vote.rankings
                                 li= val
-    include footer.jade
+    include common/footer.jade

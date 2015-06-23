@@ -10,16 +10,16 @@ head
         href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
 body
-    include header.jade
+    include common/header.jade
     div.container-fluid
         fieldset
           div.form-group.col-sm-7
             h2
               = title
-                span.timestamp
-                    em.text-muted.small
-                        |&nbsp;created&nbsp;
-                        = moment(created_on).fromNow()
+            p
+                em.text-muted.small
+                    |&nbsp;created&nbsp;
+                    = moment(created_on).fromNow()
           if email
             div.form-group.col-sm-7
               include rank_sharebox.jade
@@ -46,14 +46,28 @@ body
                         name="voter", placeholder="Enter your name",
                         maxlength="100")
                     - var voter_mini_label = "Optional. So others know who you are";
-                    p(class="text-info small") #{voter_mini_label}
+                    p(class="small") #{voter_mini_label}
                 if !email
                     div.form-group.col-sm-7
                       label(for="email") Your email
                       input(type="email", id="email", name="email",
                             class="form-control", autocomplete="on", maxlength="100")
-                      p(class="text-info small")
-                        | Optional. We'll send you a link to the results. No spam
+                      p(class="small")
+                        | Optional. We'll send you a link to view results.&nbsp;
+                        a(data-toggle="modal", data-target=".emailModal") Learn more
+                        div(class="modal fade emailModal", tabindex="-1",
+                            role="dialog", id="emailModal",
+                            aria-label="Why email?")
+                            div.modal-dialog.modal-lg
+                               div.modal-content
+                                   div.modal-header
+                                       button(type="button", class="close",
+                                           data-dismiss="modal", aria-label="Close")
+                                           span(aria-hidden="true") &times;
+                                       h4.modal-title
+                                           |Why do you need my email address and what's in the email?
+                                   div.modal-body
+                                       include common/voteremailfaq.jade
                 div.form-group.col-sm-7
                     button(type="submit", value="submit", id="submitvote", class="btn btn-default")
                         | Submit Your Vote
@@ -61,7 +75,8 @@ body
                 div.form-group.col-sm-7
                     div(class="alert")
                         strong
-                            |Thanks for voting. You can only vote once!
+                            |Sorry you can't vote a second time because the poll creator has enabled the option
+                            |to prevent duplicate votes. Learn more
                             p
                                 |You can view the results at:
                                 br
@@ -70,4 +85,4 @@ body
         mixpanel.track_forms("#votedeckrank", "Voted on a poll");
         var date = new Date();
         mixpanel.register_once("First time on vote page", date.toDateString());
-    include footer.jade
+    include common/footer.jade

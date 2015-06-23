@@ -10,9 +10,9 @@ head
         href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
 body
-    include header.jade
+    include common/header.jade
     div.container-fluid
-        h1 Privacy Policy
+        h2 Privacy Policy
         br
         p(class="answer")
             |It is deckrank’s policy to
@@ -121,9 +121,10 @@ body
             |acceptance of such change.
         br
         p(class="answer")
-            i This privacy policy is adapted from &nbsp;
-            a(href="http://automattic.com/privacy") Automattic.com
-            |,&nbsp;made available under a&nbsp;
-            a(href="http://creativecommons.org/licenses/by-sa/4.0/") Creative Commons Sharealike
-            &nbsp;license.
-    include footer.jade
+            i
+                |This privacy policy is adapted from &nbsp;
+                a(href="http://automattic.com/privacy") Automattic.com
+                |,&nbsp;made available under a&nbsp;
+                a(href="http://creativecommons.org/licenses/by-sa/4.0/") Creative Commons Sharealike
+                |&nbsp;license.
+    include common/footer.jade

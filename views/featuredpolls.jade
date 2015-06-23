@@ -1,0 +1,30 @@
+doctype html
+head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title Featured Polls - deckrank
+    link(rel="stylesheet",
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css",
+        href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css")
+    link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
+body
+    include common/header.jade
+    div.container-fluid
+        h2
+            =headline
+        h3
+          // TODO(hnag): Center align the elements ...
+          div(class="table-responsive")
+            table(class="table")
+              tbody
+                each val, index in stackrank
+                  tr(class="success")
+                    td
+                      =val.title
+                      p.text-muted.small
+                          a(href="/r/" + val.rankid) Vote
+                          |&nbsp;|&nbsp;
+                          a(href="/v/" + val.voteid) View Results
+    include common/footer.jade
