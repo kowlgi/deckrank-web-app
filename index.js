@@ -340,7 +340,7 @@ exports.featuredpolls = function(req, res, next) {
             res.render('featuredpolls', {headline: "Featured polls", stackrank: stackrank});
         }
         else {
-            res.render('generic', {headline: "There's nothing to explore yet"});
+            res.render('generic', {headline: "There're no featured polls yet."});
         }
     });
 }
@@ -377,11 +377,11 @@ exports.pin = function(req, res, next) {
                     return next(err);
                 }
 
-                res.render('generic', {headline: "This poll is now pinned to explore.", title:stackrank.title});
+                res.render('generic', {headline: "This poll is now pinned to Featured Polls.", title:stackrank.title});
             });
         }
         else {
-            res.render('generic', {headline: "This poll was previously pinned to explore, no point in pinning again.", title:stackrank.title});
+            res.render('generic', {headline: "This poll was previously pinned to Featured Polls, no point in pinning again.", title:stackrank.title});
         }
     });
 };
@@ -401,11 +401,11 @@ exports.unpin = function(req, res, next) {
                 if (err) {
                     return next(err);
                 }
-                res.render('generic', {headline: "This poll is now unpinned from explore.", title:stackrank.title});
+                res.render('generic', {headline: "This poll is now unpinned from Featured Polls.", title:stackrank.title});
             });
         }
         else {
-            res.render('generic', {headline: "This poll is not pinned to explore, why bother unpinning.", title:stackrank.title});
+            res.render('generic', {headline: "This poll is not pinned to Featured Polls, why bother unpinning.", title:stackrank.title});
         }
     });
 };
