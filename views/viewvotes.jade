@@ -7,31 +7,36 @@ head
 body
     include common/header.jade
     div.container-fluid
-      div.form-group
-        h2
-            = title
-        p
-            em.text-muted.small
-                |&nbsp;created&nbsp;
-                = moment(created_on).fromNow()
-        - var announcement = (total_votes == 1)?" vote is in":" votes are in"
-        h2
-            p(class="text-primary")
-                = total_votes + announcement
-        h3
-          // TODO(hnag): Center align the elements ...
-          div(class="table-responsive")
-            table(class="table borderless")
-              thead
-                tr
-                  th
-                    | The rankings are:
-              tbody
-                each val, index in summary
-                  tr(class="success")
-                    td
-                      - var rank = index + 1
-                      = rank + '. ' + val.option + ' (' + val.score + '%)'
+        if dupvote
+          div(class="alert")
+              strong
+                  |You cannot submit a duplicate vote because the poll creator has enabled the option
+                  |to prevent duplicate votes.
+        div.form-group
+            h2
+                = title
+            p
+                em.text-muted.small
+                    |&nbsp;created&nbsp;
+                    = moment(created_on).fromNow()
+            - var announcement = (total_votes == 1)?" vote is in":" votes are in"
+            h2
+                p(class="text-primary")
+                    = total_votes + announcement
+            h3
+              // TODO(hnag): Center align the elements ...
+              div(class="table-responsive")
+                table(class="table borderless")
+                  thead
+                    tr
+                      th
+                        | The rankings are:
+                  tbody
+                    each val, index in summary
+                      tr(class="success")
+                        td
+                          - var rank = index + 1
+                          = rank + '. ' + val.option + ' (' + val.score + '%)'
         include viewvotes_sharebox.jade
         div.form-group
           div(class="table-responsive")

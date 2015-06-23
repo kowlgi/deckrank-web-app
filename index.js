@@ -183,6 +183,12 @@ exports.rank = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
 
       if(stackrank && stackrank.options) {
+            if(!allowVote(stackrank, req.connection.remoteAddress)) {
+                // And redirect the user to results page..
+                res.redirect('/v/' + stackrank.voteid + '?dupvote=1');
+                return;
+            }
+
             res.render('rank', {
                 title                  : stackrank.title,
                 created_on             : stackrank.created_on,
@@ -191,8 +197,7 @@ exports.rank = function(req, res, next) {
                 rankid                 : stackrank.rankid,
                 voteid                 : stackrank.voteid,
                 mixpanel_tracking_code : App.mixpanel_tracking_code,
-                google_tracking_code   : App.google_tracking_code,
-                allow_vote             : allowVote(stackrank, req.connection.remoteAddress)
+                google_tracking_code   : App.google_tracking_code
             });
             return;
       }
@@ -320,7 +325,8 @@ exports.viewvotes = function(req, res, next) {
                 rankid                 : stackrank.rankid,
                 voteid                 : stackrank.voteid,
                 mixpanel_tracking_code : App.mixpanel_tracking_code,
-                google_tracking_code   : App.google_tracking_code
+                google_tracking_code   : App.google_tracking_code,
+                dupvote                : req.query.dupvote
             });
       }
       else {

@@ -23,64 +23,53 @@ body
           if email
             div.form-group.col-sm-7
               include rank_sharebox.jade
-          if allow_vote
-              form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
+          form(role="form", id="votedeckrank", method="post", action="/vote/" + rankid)
+            div.form-group.col-sm-7
+              label(for="sortable")
+              |Rank options by reordering them and delete options you don't care about.&nbsp;
+              a(id="resetRankOptions", class="btn-default") Reset
+              |&nbsp;to start over
+              br
+              br
+              ul(id="sortable")
+                  each option, index in options
+                    li.ui-state-default.inner-addon.right-addon
+                        a(href="#", class="removeoption")
+                            span(id="removerankoption#{index}", class="glyphicon glyphicon-remove-circle")
+                        span
+                            = option
+                        input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
+            div.form-group.col-sm-7
+                label(for="voter") Your name
+                input(type="text", class="form-control", id="voter",
+                    name="voter", placeholder="Enter your name",
+                    maxlength="100")
+                - var voter_mini_label = "Optional. So others know who you are";
+                p(class="small") #{voter_mini_label}
+            if !email
                 div.form-group.col-sm-7
-                  label(for="sortable")
-                  |Rank options by reordering them and delete options you don't care about.&nbsp;
-                  a(id="resetRankOptions", class="btn-default") Reset
-                  |&nbsp;to start over
-                  br
-                  br
-                  ul(id="sortable")
-                      each option, index in options
-                        li.ui-state-default.inner-addon.right-addon
-                            a(href="#", class="removeoption")
-                                span(id="removerankoption#{index}", class="glyphicon glyphicon-remove-circle")
-                            span
-                                = option
-                            input(id="#{option}", name="option#{index}", value="#{option}", type="hidden")
-                div.form-group.col-sm-7
-                    label(for="voter") Your name
-                    input(type="text", class="form-control", id="voter",
-                        name="voter", placeholder="Enter your name",
-                        maxlength="100")
-                    - var voter_mini_label = "Optional. So others know who you are";
-                    p(class="small") #{voter_mini_label}
-                if !email
-                    div.form-group.col-sm-7
-                      label(for="email") Your email
-                      input(type="email", id="email", name="email",
-                            class="form-control", autocomplete="on", maxlength="100")
-                      p(class="small")
-                        | Optional. We'll send you a link to view results.&nbsp;
-                        a(class="clickable", data-toggle="modal", data-target=".emailModal") Learn more
-                        div(class="modal fade emailModal", tabindex="-1",
-                            role="dialog", id="emailModal",
-                            aria-label="Why email?")
-                            div.modal-dialog.modal-lg
-                               div.modal-content
-                                   div.modal-header
-                                       button(type="button", class="close",
-                                           data-dismiss="modal", aria-label="Close")
-                                           span(aria-hidden="true") &times;
-                                       h4.modal-title
-                                           |Why do you need my email address and what's in the email?
-                                   div.modal-body
-                                       include common/voteremailfaq.jade
-                div.form-group.col-sm-7
-                    button(type="submit", value="submit", id="submitvote", class="btn btn-default")
-                        | Submit Your Vote
-            else
-                div.form-group.col-sm-7
-                    div(class="alert")
-                        strong
-                            |Sorry you can't vote a second time because the poll creator has enabled the option
-                            |to prevent duplicate votes. Learn more
-                            p
-                                |You can view the results at:
-                                br
-                                a(href='/v/' + voteid)  deckrank.co&#47;v&#47;#{voteid}
+                  label(for="email") Your email
+                  input(type="email", id="email", name="email",
+                        class="form-control", autocomplete="on", maxlength="100")
+                  p(class="small")
+                    | Optional. We'll send you a link to view results.&nbsp;
+                    a(class="clickable", data-toggle="modal", data-target=".emailModal") Learn more
+                    div(class="modal fade emailModal", tabindex="-1",
+                        role="dialog", id="emailModal",
+                        aria-label="Why email?")
+                        div.modal-dialog.modal-lg
+                           div.modal-content
+                               div.modal-header
+                                   button(type="button", class="close",
+                                       data-dismiss="modal", aria-label="Close")
+                                       span(aria-hidden="true") &times;
+                                   h4.modal-title
+                                       |Why do you need my email address and what's in the email?
+                               div.modal-body
+                                   include common/voteremailfaq.jade
+            div.form-group.col-sm-7
+                button(type="submit", value="submit", id="submitvote", class="btn btn-default")
+                    | Submit Your Vote
     script.
         mixpanel.track_forms("#votedeckrank", "Voted on a poll");
         var date = new Date();
