@@ -74,7 +74,7 @@ body
                         class="form-control", autocomplete="on", maxlength="100")
                   p.small
                     | Optional. We'll send you email with links to vote, edit the poll and view results.&nbsp;
-                    a(data-toggle="modal", data-target=".twoemailsModal") Learn more
+                    a(class="clickable", data-toggle="modal", data-target=".twoemailsModal") Learn more
                     div(class="modal fade twoemailsModal", tabindex="-1",
                         role="dialog", id="twoemailsModal",
                         aria-label="Why two emails?")
@@ -95,7 +95,7 @@ body
                       input(type="checkbox", name="unique_voter")
                   label
                       |&nbsp;Prevent duplicate votes?&nbsp;
-                  a(data-toggle="modal", data-target=".uniqueVoterModal") Learn more
+                  a(class="clickable", data-toggle="modal", data-target=".uniqueVoterModal") Learn more
                   div(class="modal fade uniqueVoterModal", tabindex="-1",
                       role="dialog", id="uniqueVoterModal",
                       aria-label="Prevent duplicate vote")

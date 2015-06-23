@@ -215,3 +215,9 @@ th {
 .borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
     border: none;
 }
+
+/* bugfix:
+http://stackoverflow.com/questions/25354536/bootstrap-modal-does-not-work-on-ios-devices*/
+.clickable {
+    cursor: pointer;
+}
