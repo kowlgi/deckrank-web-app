@@ -345,8 +345,7 @@ exports.featuredpolls = function(req, res, next) {
     });
 }
 
-/* PRIVATE PAGE HANDLERS...sssh */
-
+/* PRIVATE URL for overall deckrank stats*/
 exports.dashboard = function(req, res, next) {
   var num_votes = 0;
   StackRank.find().exec(
@@ -362,7 +361,7 @@ exports.dashboard = function(req, res, next) {
   });
 };
 
-
+/* PRIVATE URL to pin polls to Featured Polls page */
 exports.pin = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
         if (err) {
@@ -387,6 +386,7 @@ exports.pin = function(req, res, next) {
     });
 };
 
+/* PRIVATE URL to unpin polls from Featured Polls page */
 exports.unpin = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
         if (err) {
@@ -410,6 +410,7 @@ exports.unpin = function(req, res, next) {
     });
 };
 
+/* PRIVATE PAGE to show all polls. */
 exports.showall = function(req, res, next) {
     StackRank.
         find().
