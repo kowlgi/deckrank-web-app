@@ -222,16 +222,19 @@ http://stackoverflow.com/questions/25354536/bootstrap-modal-does-not-work-on-ios
     cursor: pointer;
 }
 
-.grabbable {
+#sortable li {
     cursor: move;
     cursor: grab;
     cursor: -webkit-grab;
     cursor: -moz-grab;
 }
 
-.grabbable:active {
+#sortable li:active{
     cursor: move;
     cursor: grabbing;
     cursor: -webkit-grabbing;
     cursor: -moz-grabbing;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    3px 3px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         3px 3px 5px 0px rgba(50, 50, 50, 0.75);
 }

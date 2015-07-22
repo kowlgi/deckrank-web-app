@@ -176,7 +176,10 @@ $(document).ready( function() {
     populateListItems();
     $(".removeoption").click(removeHandler);
     $("#resetRankOptions").click(resetRankOptionsHandler);
+
     // set sortable elements in r/:id to default state
     $( "#sortable" ).sortable();
     $( "#sortable" ).disableSelection();
+
+
 });

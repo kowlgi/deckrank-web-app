@@ -27,13 +27,13 @@ body
             div.form-group.col-sm-7
               label(for="sortable")
               |Rank options by reordering them and delete options you don't care about.&nbsp;
-              a(id="resetRankOptions", class="btn-default") Reset
+              a(href="#!", id="resetRankOptions") Reset
               |&nbsp;to start over
               br
               br
               ul(id="sortable")
                   each option, index in options
-                    li.ui-state-default.inner-addon.right-addon.grabbable
+                    li.ui-state-default.inner-addon.right-addon
                         a(href="#", class="removeoption")
                             span(id="removerankoption#{index}", class="glyphicon glyphicon-remove-circle")
                         span
