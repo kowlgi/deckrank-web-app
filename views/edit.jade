@@ -27,7 +27,7 @@ body
                       placeholder=placeholdertitle,
                       maxlength="256", rows="2") #{title}
               div.form-group.col-sm-7
-                label(for="options") Options
+                label(for="options") Poll Options
                 div(class="table-responsive")
                   table(class="table borderless ", id="extra_options")
                       thead
@@ -90,10 +90,10 @@ body
                                    include common/creatoremailfaq.jade
               div.form-group.col-sm-7
                   if unique_voter
-                      input(type="checkbox", name="unique_voter", checked="checked")
+                      input(type="checkbox", name="unique_voter", checked="checked", id="unique_voter")
                   else
-                      input(type="checkbox", name="unique_voter")
-                  label
+                      input(type="checkbox", name="unique_voter", id="unique_voter")
+                  label(for="unique_voter")
                       |&nbsp;Prevent duplicate votes?&nbsp;
                   a(class="clickable", data-toggle="modal", data-target=".uniqueVoterModal") Learn more
                   div(class="modal fade uniqueVoterModal", tabindex="-1",

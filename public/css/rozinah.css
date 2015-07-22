@@ -221,3 +221,17 @@ http://stackoverflow.com/questions/25354536/bootstrap-modal-does-not-work-on-ios
 .clickable {
     cursor: pointer;
 }
+
+.grabbable {
+    cursor: move;
+    cursor: grab;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+.grabbable:active {
+    cursor: move;
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+}
