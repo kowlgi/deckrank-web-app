@@ -6,6 +6,7 @@
 
 var mongoose = require( 'mongoose' );
 var StackRank = mongoose.model('StackRank');
+var Request = require('request');
 
 // TODO(hnag): app.js includes index.js and index.js includes app. Fix that.
 var App = require('./app');
@@ -98,35 +99,57 @@ function getOptionsArray(d) {
 };
 
 exports.create = function(req, res, next) {
-  var email_ = req.body.email.substring(0, MAX_INPUT_LENGTH);
-  var stackrank = new StackRank({
-    title        : req.body.title.substring(0, MAX_TITLE_LENGTH),
-    email        : email_,
-    options      : getOptionsArray(req.body).splice(0,10),
-    unique_voter : req.body['unique_voter'] == "on" ? true : false,
-    created_on   : Date.now()
-  }).save(function(err, stackrank) {
-        if (err) {
-            return next(err);
-        }
+    Request.post(
+        'https://www.google.com/recaptcha/api/siteverify',
+        {
+            form: {
+                secret: App.recaptcha_key,
+                response: req.body['g-recaptcha-response'],
+                remoteip: req.connection.remoteAddress
+            }
+        },
+        function (error, response, body) {
+            var parsedBody = JSON.parse(body);
+            if (error || response.statusCode != 200) {
+                res.redirect('failed_captcha');
+                return;
+            } else if (parsedBody.success){
+                var email_ = req.body.email.substring(0, MAX_INPUT_LENGTH);
+                var stackrank = new StackRank({
+                  title        : req.body.title.substring(0, MAX_TITLE_LENGTH),
+                  email        : email_,
+                  options      : getOptionsArray(req.body).splice(0,10),
+                  unique_voter : req.body['unique_voter'] == "on" ? true : false,
+                  created_on   : Date.now()
+                }).save(function(err, stackrank) {
+                      if (err) {
+                          return next(err);
+                      }
 
-        // And redirect the user to home...
-        res.redirect('/r/' + stackrank.rankid + '?email=1');
-        if (isEmpty(email_)) {
-          return;
-        }
+                      // And redirect the user to home...
+                      res.redirect('/r/' + stackrank.rankid + '?email=1');
+                      if (isEmpty(email_)) {
+                        return;
+                      }
 
-        // Create the mail object if it doesn't exist
-        if (!mg) {
-            mg = Mail.mailgun(App.api_key, App.email_domain);
-        }
-        var subject = "You created a new poll: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
-        var body_html = jade.renderFile('views/email/email_template_edit_viewresults.jade', stackrank);
-        Mail.sendHtmlEmail(mg, stackrank.email, "", subject, body_html, body_html);
+                      // Create the mail object if it doesn't exist
+                      if (!mg) {
+                          mg = Mail.mailgun(App.api_key, App.email_domain);
+                      }
+                      var subject = "You created a new poll: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
+                      var body_html = jade.renderFile('views/email/email_template_edit_viewresults.jade', stackrank);
+                      Mail.sendHtmlEmail(mg, stackrank.email, "", subject, body_html, body_html);
 
-        var subject_vote = "Vote on this poll: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
-        var body_html_vote = jade.renderFile('views/email/email_template_vote.jade', stackrank);
-        Mail.sendHtmlEmail(mg, stackrank.email, "", subject_vote, body_html_vote, body_html_vote);
+                      var subject_vote = "Vote on this poll: " + stackrank.title.truncate(EMAIL_TITLE_LENGTH);
+                      var body_html_vote = jade.renderFile('views/email/email_template_vote.jade', stackrank);
+                      Mail.sendHtmlEmail(mg, stackrank.email, "", subject_vote, body_html_vote, body_html_vote);
+                  });
+                  return;
+            }
+            else {
+                res.render('failed_captcha');
+                return;
+            }
     });
 };
 

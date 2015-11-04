@@ -48,7 +48,9 @@ var ops = stdio.getopt({
     'google_tracking_code':
         {key: 'g', args: 1, description: 'The tracking code for google analytics. Invalid code = no google analytics tracking'},
     'port':
-        {key: 'p', args: 1, description: 'Port to run the app on'}
+        {key: 'p', args: 1, description: 'Port to run the app on'},
+    'recaptcha_key':
+        {key: 'r', args: 1, description: 'Key needed for recaptcha authentication'}
 });
 
 var db_name = "";
@@ -97,3 +99,4 @@ exports.api_key = ops.mailgun_api;
 exports.email_domain = ops.email_domain;
 exports.mixpanel_tracking_code = ops.mixpanel_tracking_code;
 exports.google_tracking_code = ops.google_tracking_code;
+exports.recaptcha_key = ops.recaptcha_key;

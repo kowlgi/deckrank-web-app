@@ -10,6 +10,7 @@ head
     link(rel="stylesheet",
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     link(rel="stylesheet", type="text/css", href="build/rozinah.min.css")
+    script(src="https://www.google.com/recaptcha/api.js")
 body
     include common/header.jade
     div.container-fluid
@@ -109,7 +110,8 @@ body
                                      |Prevent duplicate votes
                              div.modal-body
                                  include common/preventduplicatemodal.jade
-
+              div.form-group.col-sm-7
+                  div.g-recaptcha(data-sitekey="6LdNvwcTAAAAAPK9WHZafLOwl1vbLsWvpy8sGAUq")
               div.form-group.col-sm-7
                     button(type="submit", id="submitpoll", value="submit", class="btn btn-default")
                         | Create a Poll
