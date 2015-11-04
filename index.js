@@ -118,7 +118,7 @@ exports.create = function(req, res, next) {
         function (error, response, body) {
             var parsedBody = JSON.parse(body);
             if (error || response.statusCode != 200) {
-                res.redirect('failed_captcha');
+                res.render('failed_captcha');
                 return;
             } else if (parsedBody.success){
                 var email_ = req.body.email.substring(0, MAX_INPUT_LENGTH);
