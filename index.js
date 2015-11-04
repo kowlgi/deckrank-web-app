@@ -17,6 +17,13 @@ var MAX_TITLE_LENGTH = 256;
 var EMAIL_TITLE_LENGTH = 60;
 var MAX_INPUT_LENGTH = 100;
 var MAX_DESCRIPTION_LENGTH = 200;
+
+/* checks and errors to throttle votes from same ip */
+var MAX_VOTES_PER_IP = 7;
+var SUCCESS_VOTE_IS_ALLOWED = 100;
+var ERR_ONLY_UNIQUE_VOTES_ALLOWED = 101;
+var ERR_GREATER_THAN_MAX_ALLOWED_VOTES_FROM_SAME_IP = 102;
+
 var placeholdertitle = "What's your favorite show on TV today? Rank in order of preference.";
 var placeholderoption = ["Game of Thrones", "Silicon Valley", "Veep",
                           "House of Cards", "True Detective", "Downton Abbey",
@@ -120,6 +127,7 @@ exports.create = function(req, res, next) {
                   email        : email_,
                   options      : getOptionsArray(req.body).splice(0,10),
                   unique_voter : req.body['unique_voter'] == "on" ? true : false,
+                  creator_ip   : req.connection.remoteAddress,
                   created_on   : Date.now()
                 }).save(function(err, stackrank) {
                       if (err) {
@@ -193,22 +201,33 @@ exports.edit = function(req, res, next) {
 }
 
 function allowVote(stackrank, voter_ip) {
-    if(!stackrank.unique_voter) return true;
-
+    var count = 0;
     for (i = 0; i < stackrank.votes.length; i++) {
-        if(voter_ip == stackrank.votes[i].voter_ip) return false;
+        if(voter_ip == stackrank.votes[i].voter_ip) {
+            count++;
+        }
     }
 
-    return true;
+    if(count >= 1 && stackrank.unique_voter) {
+        return ERR_ONLY_UNIQUE_VOTES_ALLOWED;
+    } else if (count >= MAX_VOTES_PER_IP) {
+        return ERR_GREATER_THAN_MAX_ALLOWED_VOTES_FROM_SAME_IP;
+    }
+
+    return SUCCESS_VOTE_IS_ALLOWED;
 }
 
 exports.rank = function(req, res, next) {
     StackRank.findOne({rankid : req.params.id}, function(err, stackrank) {
-
       if(stackrank && stackrank.options) {
-            if(!allowVote(stackrank, req.connection.remoteAddress)) {
+            var allowVoteResult = allowVote(stackrank, req.connection.remoteAddress);
+            if( allowVoteResult == ERR_ONLY_UNIQUE_VOTES_ALLOWED) {
                 // Redirect the user to results page..
                 res.redirect('/v/' + stackrank.voteid + '?dupvote=1');
+                return;
+            } else if (allowVoteResult == ERR_GREATER_THAN_MAX_ALLOWED_VOTES_FROM_SAME_IP) {
+                // Redirect the user to the results page..
+                res.redirect('/v/' + stackrank.voteid + '?votesmaxed=1');
                 return;
             }
 
@@ -250,9 +269,14 @@ exports.vote = function(req, res, next) {
             return;
         }
 
-        if(!allowVote(stackrank, req.connection.remoteAddress)) {
+        var allowVoteResult = allowVote(stackrank, req.connection.remoteAddress);
+        if( allowVoteResult == ERR_ONLY_UNIQUE_VOTES_ALLOWED) {
             // Redirect the user to results page..
             res.redirect('/v/' + stackrank.voteid + '?dupvote=1');
+            return;
+        } else if (allowVoteResult == ERR_GREATER_THAN_MAX_ALLOWED_VOTES_FROM_SAME_IP) {
+            // Redirect the user to the results page..
+            res.redirect('/v/' + stackrank.voteid + '?votesmaxed=1');
             return;
         }
 
@@ -341,7 +365,8 @@ exports.viewvotes = function(req, res, next) {
                 voteid                 : stackrank.voteid,
                 mixpanel_tracking_code : App.mixpanel_tracking_code,
                 google_tracking_code   : App.google_tracking_code,
-                dupvote                : req.query.dupvote
+                dupvote                : req.query.dupvote,
+                votesmaxed             : req.query.votesmaxed
             });
       }
       else {

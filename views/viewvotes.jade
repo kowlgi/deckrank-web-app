@@ -8,10 +8,15 @@ body
     include common/header.jade
     div.container-fluid
         if dupvote
-          div(class="alert")
+          div.alert
               strong
                   |You cannot submit a duplicate vote because the poll creator has enabled the option
                   |to prevent duplicate votes.
+        if votesmaxed
+          div.alert
+              strong
+                  |Sorry, you can't vote again on this poll. You've exceeded
+                  |the limit on the number of votes for this poll.
         div.form-group
             h2
                 = title

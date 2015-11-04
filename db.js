@@ -19,6 +19,7 @@ exports.init = function(stackrank_db_name) {
         editid         : String,
         email          : String,
         unique_voter   : Boolean,
+        creator_ip     : String,
         votes: [{
             voter      : String,
             email      : String,
