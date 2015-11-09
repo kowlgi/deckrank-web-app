@@ -8,7 +8,8 @@ var http = require('http'),
     path = require('path'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
-    jade = require('jade');
+    jade = require('jade'),
+    config = require('./config');
 var app = express();
 
 // setup express and the environment
@@ -33,33 +34,8 @@ app.use('/explore', express.static(__dirname +'/public'));
 app.disable('etag');
 app.locals.moment = require('moment');
 
-var stdio = require('stdio');
-var ops = stdio.getopt({
-    'db':
-        {key: 'd', args: 1, description: 'The deckrank db name', mandatory: true},
-    'mailgun_api':
-        {key: 'm', args: 1, description: 'The mailgun API key. Invalid API = no email notifications'},
-    'activate_showall_url':
-        {key: 's', args: 0, description: 'Make the showall url active. DO NOT USE THIS IN PRODUCTION'},
-    'email_domain':
-        {key: 'e', args: 1, description: 'The deckrank email domain. Invalid domain = no email notifications'},
-    'mixpanel_tracking_code':
-        {key: 't', args: 1, description: 'The tracking code for mixpanel. Invalid code = no mixpanel tracking'},
-    'google_tracking_code':
-        {key: 'g', args: 1, description: 'The tracking code for google analytics. Invalid code = no google analytics tracking'},
-    'port':
-        {key: 'p', args: 1, description: 'Port to run the app on'},
-    'recaptcha_key':
-        {key: 'r', args: 1, description: 'Key needed for recaptcha authentication'}
-});
-
-var db_name = "";
-if (ops.db) {
-    db_name = ops.db;
-}
-
 // database setup
-require( './db' ).init(db_name);
+require( './db' ).init(config.db);
 var routes  = require( './index' );
 var mail = require('./mail');
 
@@ -79,7 +55,7 @@ app.get('/tos', routes.tos);
 app.get('/pin/:id', routes.pin);
 app.get('/unpin/:id', routes.unpin);
 app.get('/featured', routes.featuredpolls);
-if(ops.activate_showall_url) {
+if(config.activate_showall_url) {
     app.get('/showall', routes.showall);
 }
 app.use(function(req, res) {
@@ -87,16 +63,14 @@ app.use(function(req, res) {
     res.redirect('/');
 });
 
-if (ops.port) {
-    app.set('port', ops.port);
-}
+app.set('port', config.port);
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express listening on port ' + app.get('port'));
 });
 
-exports.api_key = ops.mailgun_api;
-exports.email_domain = ops.email_domain;
-exports.mixpanel_tracking_code = ops.mixpanel_tracking_code;
-exports.google_tracking_code = ops.google_tracking_code;
-exports.recaptcha_key = ops.recaptcha_key;
+exports.api_key = config.mailgun_api;
+exports.email_domain = config.email_domain;
+exports.mixpanel_tracking_code = config.mixpanel_tracking_code;
+exports.google_tracking_code = config.google_tracking_code;
+exports.recaptcha_key = config.recaptcha_key;
