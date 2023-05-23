@@ -4,7 +4,7 @@
 Deckrank, hosted at https://deckrank.co was a web app that people could use to set up ranking polls.
 
 ## Usage
-Users could set up a poll asking a question like, "which restaurant do you prefer for dinner?" and list 4 options. Responders could open the poll URL and rank the 4 options. The highest ranked options would then we displayed on the poll.
+Users could set up a poll asking a question like, "which restaurant do you prefer for dinner?" and list 4 options. Responders could open the poll URL and rank the 4 options. The highest ranked options would be displayed on the poll.
 
 ## User base
 It hosted about 250 polls. Around 960 people either created a poll or voted.
