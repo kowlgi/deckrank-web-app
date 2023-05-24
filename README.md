@@ -16,7 +16,3 @@ It hosted about 250 polls. Around 960 people either created a poll or voted.
 ## Challenges
 * Very hard to market it as it was not differentiated. Found it a steep challenge getting the word out that it exists. Posted on show HN, response was ok.
 * It didn’t require sign up —  “no pressure ux”. This resulted in non-committed users.
-
-## App visuals
-* A mock-up of the app front page
-![A mock of the app front page](https://bitbucket.org/repo/g98rGk/images/2276868843-mock1.png)
